@@ -28,6 +28,8 @@ class TagController extends Controller
                 return $data->name;
             })->addColumn('status', function ($data) {
                 return $data->status;
+            })->addColumn('uses', function ($data) {
+                return $data->teams->count();
             })->filterColumn('name', function ($query, $keyword) {
                 return $query->whereRaw("name like ?", ["%{$keyword}%"]);
             })->filterColumn('status', function ($query, $keyword) {
@@ -35,7 +37,7 @@ class TagController extends Controller
             })->make(true);
 
         return $builder;
-        
+
     }
 
     /**
@@ -119,20 +121,7 @@ class TagController extends Controller
     public function destroy(string $id)
     {
         $tag = Tag::find($id);
-        if ($tag) {
-            $tag->delete();
-            return response()->json(
-                [
-                    'status' => 1,
-                ]
-            );
-        } else {
-            return response()->json(
-                [
-                    'status' => 0,
-                ]
-            );
-        }
+        $tag->delete();
     }
 
     public function changeStatus($id)

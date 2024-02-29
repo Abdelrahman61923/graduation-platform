@@ -12,7 +12,7 @@
                 </div>
                 <div class="col-6">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html"> <i data-feather="home"></i></a>
+                        <li class="breadcrumb-item"><a href="{{route('supervisors.dashboard')}}"> <i data-feather="home"></i></a>
                         </li>
                         <li class="breadcrumb-item">Dashboard</li>
                     </ol>
@@ -41,7 +41,7 @@
                             </div>
                         </div>
                         <div class="cartoon"><img class="img-fluid"
-                                src="../assets/images/dashboard/cartoon.png" alt=""></div>
+                                src="{{asset('assets/images/dashboard/cartoon.png')}}" alt=""></div>
                     </div>
                 </div>
             </div>

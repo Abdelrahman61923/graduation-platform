@@ -28,8 +28,8 @@ class AdminController extends Controller
         $total_teams = Team::count();
         $number_of_members_in_teams = Member::where('status', Member::STATUS_ACCEPTED)->count();
         $number_of_members_in_teams_precantage = 0;
-        if ($number_of_members_in_teams_precantage > 0) {
-            $total_student_precantage = ($number_of_members_in_teams * $total_users) / 100;
+        if ($number_of_members_in_teams > 0) {
+            $number_of_members_in_teams_precantage = ($number_of_members_in_teams * $total_students) / 100;
         }
         return view('admins.home', compact('total_supervisor', 'total_students',
                                             'total_supervisor_precantage', 'total_student_precantage',
@@ -41,7 +41,7 @@ class AdminController extends Controller
         $setting = Setting::first();
         if (!$setting) {
             $setting = new Setting();
-        } 
+        }
         return view('admins.settings.index', compact('setting'));
     }
 

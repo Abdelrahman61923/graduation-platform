@@ -35,7 +35,7 @@
 <!-- login js-->
 <!-- Plugin used-->
 <script src="{{ asset('assets/js/datatable/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('assets/js/datatable/datatables/datatable.custom.js') }}"></script>
+{{-- <script src="{{ asset('assets/js/datatable/datatables/datatable.custom.js') }}"></script> --}}
 
 
 @include('sweetalert::alert')

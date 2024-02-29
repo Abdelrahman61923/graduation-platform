@@ -100,6 +100,7 @@ Route::middleware(['auth'])->group(function () {
                     Route::get('my-teams', 'getMyTeams')->name('my-teams');
                     Route::get('teams', 'getTeams')->name('teams');
                     Route::get('team-members/{team_id}', 'getTeamMembers')->name('team-members');
+                    Route::post('delete/{id}', 'delete')->name('delete');
                 });
 
                 Route::prefix('admins')->name('admins.')->group(function () {
@@ -124,23 +125,29 @@ Route::middleware(['auth'])->group(function () {
             });
 
             Route::prefix('admin')->group(function () {
-                Route::prefix('departments')->name('departments.')->group(function () {
-                    Route::get('get', [DepartmentController::class, 'getDepartments'])->name('get');
-                    Route::post('delete/{id}', [DepartmentController::class, 'destroy'])->name('delete');
-                    Route::post('change-status/{id}', [DepartmentController::class, 'changeStatus'])->name('change-status');
+                Route::controller(DepartmentController::class)->group(function(){
+                    Route::prefix('departments')->name('departments.')->group(function () {
+                        Route::get('get', 'getDepartments')->name('get');
+                        Route::post('delete/{id}', 'destroy')->name('delete');
+                        Route::post('change-status/{id}', 'changeStatus')->name('change-status');
+                    });
                 });
                 Route::resource('departments', DepartmentController::class);
 
-                Route::prefix('tags')->name('tags.')->group(function () {
-                    Route::get('get', [TagController::class, 'getTags'])->name('get');
-                    Route::post('delete/{id}', [TagController::class, 'destroy'])->name('delete');
-                    Route::post('change-status/{id}', [TagController::class, 'changeStatus'])->name('change-status');
+                Route::controller(TagController::class)->group(function(){
+                    Route::prefix('tags')->name('tags.')->group(function () {
+                        Route::get('get', 'getTags')->name('get');
+                        Route::post('delete/{id}', [TagController::class, 'destroy'])->name('delete');
+                        Route::post('change-status/{id}', 'changeStatus')->name('change-status');
+                    });
                 });
                 Route::resource('tags', TagController::class);
 
-                Route::prefix('users')->name('users.')->group(function () {
-                    Route::get('get', [UserController::class, 'getUsers'])->name('get');
-                    Route::post('delete/{id}', [UserController::class, 'destroy'])->name('delete');
+                Route::controller(UserController::class)->group(function(){
+                    Route::prefix('users')->name('users.')->group(function () {
+                        Route::get('get', 'getUsers')->name('get');
+                        Route::post('delete/{id}', 'destroy')->name('delete');
+                    });
                 });
                 Route::resource('users', UserController::class);
             });

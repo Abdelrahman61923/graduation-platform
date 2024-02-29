@@ -3,31 +3,7 @@
 @section('title')
     My Team
 @endsection
-@section('styles')
-    <style>
-        .d-none {
-            display: none;
-        }
 
-        .select2-container {
-            z-index: 100000;
-        }
-
-        .invalid-feedback-custom {
-            width: 100%;
-            margin-top: 0.25rem;
-            font-size: .875em;
-            color: #dc3545;
-        }
-
-        .border-style {
-            border-top: 3px solid #8091a3 !important;
-            border-bottom: 2px solid #8091a3;
-            border-right: 2px solid #8091a3;
-            border-left: 2px solid #697685;
-        }
-    </style>
-@endsection
 @section('content')
     <div class="page-body">
         <!-- Modal -->
@@ -80,7 +56,7 @@
                                     <div class="mb-3">
                                         <label for="">Students</label>
                                         <select class="js-example-basic-multiple-limit-custom form-control col-sm-12"
-                                            name="member_ids[]" id="member_ids" multiple>
+                                            name="member_ids[]" id="member_ids"  multiple>
                                             @foreach ($users as $user)
                                                 <option value="{{ $user->id }}">
                                                     {{ $user->student_id . ' - ' . $user->full_name . ' - ' . $user->email }}
@@ -363,7 +339,7 @@
                                     @if ($authUser->team)
                                         <div class="profile-title">
                                             <div class="media">
-                                                <img style="border-radius: 4px;width: 33px !important;"
+                                                <img style="border-radius: 4px; width: 33px !important;"
                                                     src="{{ $authUser->team->leader->photo ? url('assets/upload/student_images/' . $authUser->team->leader->photo) : 'https://eu.ui-avatars.com/api/?name=' . $authUser->team->leader->full_name }}"
                                                     alt="">
                                                 <div class="media-body">
@@ -406,18 +382,14 @@
                                                 data-title="Are you sure you want to delete team number ({{ $authUser->team->id }}) ?"
                                                 data-message="You can not undo this step!" name="delete"
                                                 id="{{ $authUser->team->id }}"
-                                                class="delete-confirm btn btn-danger">Delete</a>
+                                                class="delete-confirm btn btn-danger m-r-10">Delete</a>
                                         @endif
-                                        <button type="button" class="btn btn-primary" id="show-edit-form">
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#EditTeamModal" id="show-edit-form">
                                             Edit Team
                                         </button>
                                     </div>
                                 @endif
-                                <div class="card-options"><a class="card-options-collapse" href="#"
-                                        data-bs-toggle="card-collapse" data-bs-original-title="" title=""><i
-                                            class="fe fe-chevron-up"></i></a><a class="card-options-remove"
-                                        href="#" data-bs-toggle="card-remove" data-bs-original-title=""
-                                        title=""><i class="fe fe-x"></i></a></div>
+
                             </div>
                             <div class="card-body" style="padding: 20px !important;">
                                 @if ($authUser->team)
@@ -425,7 +397,7 @@
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Name: <span
-                                                        id="edited_project_title">{{ $authUser->team->project_title }}</span></label>
+                                                        >{{ $authUser->team->project_title }}</span></label>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -488,6 +460,7 @@
                                 </div>
                                 @if (
                                     $authUser->team &&
+                                    $authUser->team->leader_id == $authUser->id &&
                                         !$authUser->team->supervisor &&
                                         $settings &&
                                         $authUser->team->members()->count() < $settings->max_team_member)
@@ -498,19 +471,16 @@
                                         </button>
                                     </div>
                                 @endif
-                                <div class="card-options"><a class="card-options-collapse" href="#"
-                                        data-bs-toggle="card-collapse" data-bs-original-title="" title=""><i
-                                            class="fe fe-chevron-up"></i></a><a class="card-options-remove"
-                                        href="#" data-bs-toggle="card-remove" data-bs-original-title=""
-                                        title=""><i class="fe fe-x"></i></a></div>
+
                             </div>
                             <div class="table-responsive add-project">
                                 <table class="table card-table table-vcenter text-nowrap">
                                     <thead>
                                         <tr>
                                             <th>Name</th>
-                                            <th>Student Id</th>
-                                            <th>UserName</th>
+                                            <th>University Id</th>
+                                            <th>Phone</th>
+                                            <th>Department</th>
                                             <th>Email</th>
                                             <th>Status</th>
                                             <th colspan="2" style="text-align: center;">Actions</th>
@@ -520,11 +490,10 @@
                                         <tbody>
                                             @foreach ($authUser->team->members as $member)
                                                 <tr>
-                                                    <td><a class="text-inherit" href="#" data-bs-original-title=""
-                                                            title=""> {{ $member->user->full_name }} </a></td>
+                                                    <td> {{ $member->user->full_name }} </td>
                                                     <td>{{ $member->user->student_id }}</td>
-                                                    <td><span class="status-icon bg-success"></span>
-                                                        {{ $member->user->username }}</td>
+                                                    <td>{{ $member->user->phone }}</td>
+                                                    <td>{{ $member->user->department->name }}</td>
                                                     <td>{{ $member->user->email }}</td>
                                                     <td>{{ $member->status }}</td>
 

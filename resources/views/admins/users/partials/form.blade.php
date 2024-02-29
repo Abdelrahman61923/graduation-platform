@@ -1,102 +1,106 @@
 @section('styles')
-<style>
+    <style>
 
-</style>
+    </style>
 @endsection
 <div class="row">
     <div class="col-md-6">
         <label for="title">First Name<span class="redstar">*</span></label>
-        <input value="{{ old('first_name', $user->first_name) }}" class="form-control" type="text" name="first_name" placeholder="Please Enter First Name">
-        @if ($errors->has('first_name'))
+        <input value="{{ old('first_name', $user->first_name) }}"
+            class="form-control @error('first_name') is-invalid @enderror" type="text" name="first_name"
+            placeholder="Please Enter First Name">
+        @error('first_name')
             <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors->first('first_name') }}</strong>
+                <strong>{{ $message }}</strong>
             </span>
-        @endif
+        @enderror
     </div>
     <div class="col-md-6">
         <label for="title">Last Name<span class="redstar">*</span></label>
-        <input value="{{ old('last_name', $user->last_name) }}" class="form-control" type="text" name="last_name" placeholder="Please Enter Last Name">
-        @if ($errors->has('last_name'))
+        <input value="{{ old('last_name', $user->last_name) }}"
+            class="form-control @error('last_name') is-invalid @enderror" type="text" name="last_name"
+            placeholder="Please Enter Last Name">
+        @error('last_name')
             <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors->first('last_name') }}</strong>
+                <strong>{{ $message }}</strong>
             </span>
-        @endif
+        @enderror
     </div>
     <div class="col-md-6">
         <label for="title">Email<span class="redstar">*</span></label>
-        <input value="{{ old('email', $user->email) }}" class="form-control" type="email" name="email" placeholder="Please Enter Email">
-        @if ($errors->has('email'))
+        <input value="{{ old('email', $user->email) }}" class="form-control @error('email') is-invalid @enderror"
+            type="email" name="email" placeholder="Please Enter Email">
+        @error('email')
             <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors->first('email') }}</strong>
+                <strong>{{ $message }}</strong>
             </span>
-        @endif
+        @enderror
     </div>
     <div class="col-md-6">
         <label for="title">Phone<span class="redstar">*</span></label>
-        <input value="{{ old('phone', $user->phone) }}" class="form-control" type="text" name="phone" placeholder="Please Enter Phone">
-        @if ($errors->has('phone'))
+        <input value="{{ old('phone', $user->phone) }}" class="form-control @error('phone') is-invalid @enderror"
+            type="text" name="phone" placeholder="Please Enter Phone">
+        @error('phone')
             <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors->first('phone') }}</strong>
+                <strong>{{ $message }}</strong>
             </span>
-        @endif
+        @enderror
     </div>
-    <div class="@if (!$user->id || ($user && $user->role == \App\Models\User::ROLE_ADMIN)) col-md-12 @else col-md-6 @endif" >
+    <div class="@if (!$user->id || ($user && $user->role == \App\Models\User::ROLE_ADMIN)) col-md-12 @else col-md-6 @endif">
         <label for="title">Address</label>
-        <input value="{{ old('address', $user->address) }}" class="form-control" type="text" name="address" placeholder="Please Enter Address">
-        @if ($errors->has('address'))
+        <input value="{{ old('address', $user->address) }}" class="form-control @error('address') is-invalid @enderror"
+            type="text" name="address" placeholder="Please Enter Address">
+        @error('address')
             <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors->first('address') }}</strong>
+                <strong>{{ $message }}</strong>
             </span>
-        @endif
+        @enderror
     </div>
-    @if (!$user->id)
+    @if (!$user->id || $user->role == \App\Models\User::ROLE_ADMIN || $user->role == \App\Models\User::ROLE_SUPERVISOR)
         <div class="col-md-6">
             <label for="title">Role<span class="redstar">*</span></label>
-            <select class="js-example-placeholder-single form-select form-control @error('role') is-invalid @enderror" name="role" id="role">
+            <select class="js-example-placeholder-single form-select form-control @error('role') is-invalid @enderror"
+                name="role" id="role">
                 <option selected disabled></option>
                 @foreach ($roles as $role)
-                    <option value="{{ $role['id'] }}" {{ old('role', $user->role) == $role['id'] ? 'selected' : '' }}>
+                    <option value="{{ $role['id'] }}"
+                        {{ old('role', $user->role) == $role['id'] ? 'selected' : '' }}>
                         {{ $role['name'] }}
                     </option>
                 @endforeach
             </select>
-            @if ($errors->has('role'))
+            @error('role')
                 <span class="invalid-feedback" role="alert">
-                    <strong>{{ $errors->first('role') }}</strong>
+                    <strong>{{ $message }}</strong>
                 </span>
-            @endif
+            @enderror
         </div>
     @endif
-    @if (!$user || $user && $user->role != \App\Models\User::ROLE_ADMIN)
+    @if (!$user || ($user && $user->role != \App\Models\User::ROLE_ADMIN))
         <div class="col-md-6" id="department_div">
             <label for="title">Department<span class="redstar">*</span></label>
-            <select class="js-example-placeholder-single form-select form-control @error('department_id') is-invalid @enderror" name="department_id" id="department">
+            <select
+                class="js-example-placeholder-single form-select form-control @error('department_id') is-invalid @enderror"
+                name="department_id" id="department">
                 <option selected disabled></option>
                 @foreach ($departments as $department)
-                    <option value="{{ $department->id }}" {{ old('department_id', $user->department_id) == $department->id ? 'selected' : '' }}>
+                    <option value="{{ $department->id }}"
+                        {{ old('department_id', $user->department_id) == $department->id ? 'selected' : '' }}>
                         {{ $department->name }}
                     </option>
                 @endforeach
             </select>
-            @if ($errors->has('department_id'))
+            @error('department_id')
                 <span class="invalid-feedback" role="alert">
-                    <strong>{{ $errors->first('department_id') }}</strong>
+                    <strong>{{ $message }}</strong>
                 </span>
-            @endif
+            @enderror
         </div>
     @endif
 </div>
 
 @section('scripts')
     <script>
-    $('#department').on("change", function(e) {
-        let val = $(this).val();
-        let type = '{{\App\Models\User::ROLE_ADMIN}}';
-        if (val == type) {
-            $('#department_div').addClass('d-none');
-        } else {
-            $('#department_div').removeClass('d-none');
-        }
-    });
+
     </script>
 @endsection

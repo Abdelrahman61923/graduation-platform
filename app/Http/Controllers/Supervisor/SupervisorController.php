@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Supervisor;
 
+use App\Models\Team;
 use App\Models\User;
+use App\Models\Member;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Team;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\Facades\DataTables;
-use Illuminate\Support\Str;
 
 class SupervisorController extends Controller
 {
@@ -49,7 +50,7 @@ class SupervisorController extends Controller
             })->make(true);
 
         return $builder;
-        
+
     }
 
     function str_limit($value, $limit = 100, $end = '...')
@@ -111,5 +112,13 @@ class SupervisorController extends Controller
         $team->update(['status' => Team::STATUS_NOT_APPROVED, 'supervisor_id' => null]);
         Alert::success('successfully', 'Team Rejected Successfuly');
         return redirect()->route('supervisors.teams');
+    }
+
+    public function delete($id)
+    {
+        $member = Member::where('id', $id)->firstOrFail();
+        $member->delete();
+        Alert::success('successfully', 'Member Deleted Successfuly');
+        return back();
     }
 }

@@ -38,7 +38,7 @@ class WelcomeOnBoardNotification extends Notification
         return (new MailMessage)
             ->greeting('Dear '.$notifiable->name)
             ->line('Welcome on board!')
-            ->lineIf($notifiable->email, 'Your username is '.$notifiable->email)
+            ->lineIf($notifiable->email, 'Your email is '.$notifiable->email)
             ->line('Your temp password is '.$this->tempPass)
             ->action('Login', $this->loginUrl())
             ->line('Thank you for using our application!');

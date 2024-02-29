@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Resources\ConstantsResource;
-use App\Models\Department;
 use App\Models\User;
-use App\Notifications\WelcomeOnBoardNotification;
+use App\Models\Department;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
 use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\Facades\DataTables;
-use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Notification;
+use App\Notifications\WelcomeOnBoardNotification;
 
 class UserController extends Controller
 {
@@ -47,6 +46,8 @@ class UserController extends Controller
                 return $data->department?->name??'--';
             })->addColumn('phone', function ($data) {
                 return $data->phone;
+            })->addColumn('in_group', function($data){
+                return $data->member? 'Yes' : 'No';
             })->filterColumn('full_name', function ($query, $keyword) {
                 return $query->whereRaw("concat(users.first_name,' ' , users.last_name) like ?", ["%{$keyword}%"]);
             })->filterColumn('email', function ($query, $keyword) {
@@ -59,6 +60,12 @@ class UserController extends Controller
                 return $query->whereRaw("student_id like ?", ["%{$keyword}%"]);
             })->filterColumn('role', function ($query, $keyword) {
                 return $query->whereRaw("role like ?", ["%{$keyword}%"]);
+
+            })->filterColumn('in_group', function ($query, $keyword) {
+                $query->whereHas('member', function ($q) use ($keyword){
+                    return $q->whereRaw("(CASE WHEN members.member_id = 1 THEN 'yes' ELSE 'no' END) like ?", ["%{$keyword}%"]);
+                });
+
             })->filterColumn('department', function ($query, $keyword) {
                 $query->whereHas('department', function ($q) use ($keyword) {
                     return $q->whereRaw("departments.name like ?", ["%{$keyword}%"]);
@@ -103,6 +110,7 @@ class UserController extends Controller
         $password = $this->generateRandomString();
 
         $input['password'] = $password;
+        // $input['is_change_password'] = 1;
 
         $user = User::create($input);
 
@@ -157,7 +165,7 @@ class UserController extends Controller
             'address' => ['sometimes', 'nullable', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($request->route('user'))],
             // 'role' => ['required', 'string', Rule::in(User::roles())],
-            'department_id' => [Rule::requiredIf($request->get('role') != User::ROLE_ADMIN), 'numeric'],
+            // 'department_id' => [Rule::requiredIf($request->get('role') != User::ROLE_ADMIN), 'numeric'],
         ]);
 
         $user = User::where('id', $id)->firstOrFail();
@@ -176,20 +184,7 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         $user = User::find($id);
-        if ($user) {
-            $user->delete();
-            return response()->json(
-                [
-                    'status' => 1,
-                ]
-            );
-        } else {
-            return response()->json(
-                [
-                    'status' => 0,
-                ]
-            );
-        }
+        $user->delete();
     }
 
     public function generateRandomString($length = 8)

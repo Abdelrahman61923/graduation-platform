@@ -35,7 +35,7 @@ class DepartmentController extends Controller
             })->make(true);
 
         return $builder;
-        
+
     }
 
     /**
@@ -119,20 +119,21 @@ class DepartmentController extends Controller
     public function destroy(string $id)
     {
         $department = Department::find($id);
-        if ($department) {
-            $department->delete();
-            return response()->json(
-                [
-                    'status' => 1,
-                ]
-            );
-        } else {
-            return response()->json(
-                [
-                    'status' => 0,
-                ]
-            );
-        }
+        $department->delete();
+        // if ($department) {
+        //     $department->delete();
+        //     return response()->json(
+        //         [
+        //             'status' => 1,
+        //         ]
+        //     );
+        // } else {
+        //     return response()->json(
+        //         [
+        //             'status' => 0,
+        //         ]
+        //     );
+        // }
     }
 
     public function changeStatus($id)
