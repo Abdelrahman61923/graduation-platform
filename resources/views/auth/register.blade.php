@@ -24,7 +24,7 @@
             <div>
                 <i class="fa-solid fa-user icon"></i>
                 <input id="first_name" type="text" class="form-control @error('first_name') is-invalid @enderror"
-                    placeholder="First Name" name="first_name" value="{{ old('first_name') }}" required
+                    placeholder="First Name" name="first_name" value="{{ old('first_name') }}"
                     autocomplete="First Name" autofocus>
                 @error('first_name')
                     <span class="invalid-feedback text-danger" role="alert">
@@ -35,7 +35,7 @@
             <div>
                 <i class="fa-solid fa-user icon"></i>
                 <input id="last_name" type="text" class="form-control @error('last_name') is-invalid @enderror"
-                    placeholder="Last Name" name="last_name" value="{{ old('last_name') }}" required
+                    placeholder="Last Name" name="last_name" value="{{ old('last_name') }}"
                     autocomplete="Last Name" autofocus>
                 @error('last_name')
                     <span class="invalid-feedback text-danger" role="alert">
@@ -46,7 +46,7 @@
             <div>
                 <i class="fa-solid fa-envelope icon"></i>
                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                    placeholder="Email" name="email" value="{{ old('email') }}" required autocomplete="email">
+                    placeholder="Email" name="email" value="{{ old('email') }}" autocomplete="email">
                 @error('email')
                     <span class="invalid-feedback text-danger" role="alert">
                         <strong>{{ $message }}</strong>
@@ -56,7 +56,7 @@
             <div>
                 <i class="fa-solid fa-lock icon"></i>
                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
-                    placeholder="Password" name="password" required autocomplete="new-password">
+                    placeholder="Password" name="password" autocomplete="new-password">
                 @error('password')
                     <span class="invalid-feedback text-danger" role="alert">
                         <strong>{{ $message }}</strong>
@@ -66,12 +66,12 @@
             <div>
                 <i class="fa-solid fa-lock icon"></i>
                 <input id="password_confirmation" placeholder="Confirm Password" type="password"
-                    name="password_confirmation" required autocomplete="new-password">
+                    name="password_confirmation" autocomplete="new-password">
             </div>
             <div>
                 <i class="fa-solid fa-phone icon"></i>
                 <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror"
-                    placeholder="Phone" name="phone" value="{{ old('phone') }}" required autocomplete="Phone" autofocus>
+                    placeholder="Phone" name="phone" value="{{ old('phone') }}" autocomplete="Phone" autofocus>
                 @error('phone')
                     <span class="invalid-feedback text-danger" role="alert">
                         <strong>{{ $message }}</strong>

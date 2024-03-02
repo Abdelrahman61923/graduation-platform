@@ -55,8 +55,9 @@
                                     <th>Leader</th>
                                     <th>Project Title</th>
                                     <th>Project Description</th>
+                                    <th>Supervisor</th>
                                     <th>Status</th>
-                                    <th>Action</th>
+                                    <th style="width: 100px !important">Action</th>
                                 </tr>
                             </thead>
                         </table>
@@ -87,7 +88,9 @@
                 {
                     data: 'project_description'
                 },
-
+                {
+                    data: 'supervisor'
+                },
                 {
                     data: 'status',
                 },
@@ -110,17 +113,7 @@
                     }
                 },
                 {
-                    responsivePriority: 1,
-                    targets: 2,
-
-                },
-                {
-                    responsivePriority: 2,
-                    targets: 1,
-
-                },
-                {
-                    targets: 6,
+                    targets: 7,
                     title: "Actions",
                     orderable: false,
                     render: function(data, type, full, meta) {

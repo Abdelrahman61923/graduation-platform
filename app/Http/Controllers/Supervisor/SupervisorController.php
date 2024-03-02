@@ -39,12 +39,27 @@ class SupervisorController extends Controller
                 return $data->project_title;
             })->addColumn('project_description', function ($data) {
                 return ($this->str_limit(strip_tags($data->project_description), $limit = 30, $end = '...'));
+            })->addColumn('supervisor', function ($data) {
+                return $data->supervisor->full_name??'--';
             })->addColumn('status', function ($data) {
                 return $data->status;
             })->addColumn('leader', function ($data) {
                 return $data->leader->full_name;
-            })->filterColumn('leader', function ($query, $keyword) {
+            })
+            ->filterColumn('team_number', function ($query, $keyword) {
+                return $query->whereRaw("team_number like ?", ["%{$keyword}%"]);
+            })->filterColumn('project_title', function ($query, $keyword) {
+                return $query->whereRaw("project_title like ?", ["%{$keyword}%"]);
+            })->filterColumn('status', function ($query, $keyword) {
+                return $query->whereRaw("status like ?", ["%{$keyword}%"]);
+            })
+            ->filterColumn('leader', function ($query, $keyword) {
                 $query->whereHas('leader', function ($q) use ($keyword) {
+                    return $q->whereRaw("concat(users.first_name,' ' , users.last_name) like ?", ["%{$keyword}%"]);
+                });
+            })
+            ->filterColumn('supervisor', function ($query, $keyword) {
+                $query->whereHas('supervisor', function ($q) use ($keyword) {
                     return $q->whereRaw("concat(users.first_name,' ' , users.last_name) like ?", ["%{$keyword}%"]);
                 });
             })->make(true);
@@ -65,14 +80,16 @@ class SupervisorController extends Controller
         $builder = DataTables::of($members)
             ->addColumn('full_name', function ($data) {
                 return $data->user->full_name;
-            })->addColumn('username', function ($data) {
-                return $data->user->username;
+            })->addColumn('phone', function ($data) {
+                return $data->user->phone;
             })->addColumn('student_id', function ($data) {
                 return $data->user->student_id;
             })->addColumn('email', function ($data) {
                 return $data->user->email;
             })->addColumn('photo', function ($data) {
                 return $data->user->photo;
+            })->addColumn('department', function ($data) {
+                return $data->user->department->name??'--';
             })
             ->filterColumn('full_name', function ($query, $keyword) {
                 $query->whereHas('user', function ($q) use ($keyword) {
@@ -84,9 +101,11 @@ class SupervisorController extends Controller
                     return $q->whereRaw("users.student_id like ?", ["%{$keyword}%"]);
                 });
             })
-            ->filterColumn('username', function ($query, $keyword) {
+            ->filterColumn('department', function ($query, $keyword) {
                 $query->whereHas('user', function ($q) use ($keyword) {
-                    return $q->whereRaw("users.username like ?", ["%{$keyword}%"]);
+                    $q->whereHas('department', function ($qu) use ($keyword) {
+                        $qu->where('name', 'like', "%{$keyword}%");
+                    });
                 });
             })
             ->filterColumn('email', function ($query, $keyword) {
@@ -114,11 +133,4 @@ class SupervisorController extends Controller
         return redirect()->route('supervisors.teams');
     }
 
-    public function delete($id)
-    {
-        $member = Member::where('id', $id)->firstOrFail();
-        $member->delete();
-        Alert::success('successfully', 'Member Deleted Successfuly');
-        return back();
-    }
 }

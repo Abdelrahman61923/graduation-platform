@@ -40,7 +40,9 @@ class InvitationTeamNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
+                    ->greeting('Dear '.$notifiable->name)
+                    ->line('Welcome on board!')
+                    ->lineIf($notifiable->email, 'Your email is '.$notifiable->email)
                     ->action('Team', $this->teamUrl())
                     ->line('Thank you for using our application!');
     }
@@ -57,7 +59,7 @@ class InvitationTeamNotification extends Notification
             $user_create->full_name);
         return [
             'name' => $user_create->full_name,
-            'photo' => $notifiable->photo??'https://eu.ui-avatars.com/api/?name="'.$notifiable->full_name.'"',
+            'photo' => $user_create->photo??'https://eu.ui-avatars.com/api/?name="'.$user_create->full_name.'"',
             'body' => $body,
         ];
     }

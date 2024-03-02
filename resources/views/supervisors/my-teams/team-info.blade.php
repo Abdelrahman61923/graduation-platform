@@ -52,12 +52,12 @@
                         </div>
                         <div class="modal-footer">
                             <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
-                            @if ($team->status != \App\Models\Team::STATUS_APPROVED)
-                                <a href="javascript:void(0)" data-url="{{ route('teams.supervisor.delete', $team->id) }}"
-                                    data-title="Are you sure you want to delete supervisor ({{ $team->supervisor->full_name }}) ?"
-                                    data-message="You can not undo this step!" name="delete" id="{{ $team->id }}"
-                                    class="delete-confirm btn btn-danger">Delete Supervisor</a>
-                            @endif
+                            {{-- @if ($team->status != \App\Models\Team::STATUS_APPROVED || auth()->user()->role == \App\Models\User::ROLE_ADMIN) --}}
+                            <a href="javascript:void(0)" data-url="{{ route('teams.supervisor.delete', $team->id) }}"
+                                data-title="Are you sure you want to delete supervisor ({{ $team->supervisor->full_name }}) ?"
+                                data-message="You can not undo this step!" name="delete" id="{{ $team->id }}"
+                                class="delete-confirm btn btn-danger">Delete Supervisor</a>
+                            {{-- @endif --}}
                         </div>
                     </div>
                 </div>
@@ -110,7 +110,7 @@
         <div class="modal fade" id="AddAnotherMembers" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
-                <form method="post" action="{{ route('members.store', $team->id) }}">
+                <form method="post" action="{{ route('store.member', $team->id) }}">
                     @csrf
                     <div class="modal-content">
                         <div class="modal-header">
@@ -175,100 +175,141 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-12">
-            <div class="card">
-                <div class="card-body" style="padding: 20px !important;">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label">Name: <span
-                                        id="edited_project_title">{{ $team->project_title }}</span></label>
+        <div class="container-fluid">
+            <div class="edit-profile">
+                <div class="row">
+                    <div class="col-xl-4">
+                        <div class="card">
+                            <div class="card-header" style="padding: 10px !important;">
+                                <h5 class="card-title mb-0">Leader Information</h5>
+                            </div>
+                            <div class="card-body" style="padding: 20px !important;">
+                                <div class="row mb-2">
+                                    <div class="profile-title">
+                                        <div class="media">
+                                            <img style="border-radius: 4px; width: 33px !important;"
+                                                src="{{ $team->leader->photo ? url('assets/upload/student_images/' . $team->leader->photo) : 'https://eu.ui-avatars.com/api/?name=' . $team->leader->full_name }}"
+                                                alt="">
+                                            <div class="media-body">
+                                                <h5 class="mb-1">{{ $team->leader->full_name }}</h5>
+                                                <p>{{ $team->leader->student_id }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label">Status: <span>{{ $team->status }}</span></label>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="mb-3">
-                                <label class="form-label"><span>{{ $team->project_description }}</span></label>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="mb-3">
-                                <label class="form-label">Supervisor:
-                                    @if ($team->supervisor)
-                                        <span>
-                                            @if (auth()->user()->role == \App\Models\User::ROLE_SUPERVISOR)
-                                                <a href="javascript:void(0)">{{ $team->supervisor->full_name }}</a>
-                                            @else
-                                                <a href="javascript:void(0)" data-bs-toggle="modal"
-                                                    data-bs-target="#SupervisorData">{{ $team->supervisor->full_name }}</a>
-                                            @endif
-                                        </span>
-                                    @else
-                                        <span>Not assigned yet!</span>
-                                    @endif
-                                </label>
-                            </div>
-                        </div>
-                        @if (auth()->user()->role == \App\Models\User::ROLE_ADMIN && $team->is_all_members_accepted && !$team->supervisor)
-                            <div class="d-flex justify-content-end">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#SendToSupervisor">
-                                    Send To Supervisor
-                                </button>
-                            </div>
-                        @endif
-                        @if ($team->supervisor && $settings && $team->members()->count() < $settings->max_team_member)
-                            <div class="d-flex justify-content-end" style="margin-top: -30px;">
-                                <button type="button" class="btn btn-primary m-b-5" data-bs-toggle="modal"
-                                    data-bs-target="#AddAnotherMembers">
-                                    Add Another Member
-                                </button>
-                            </div>
-                        @endif
                     </div>
-                    @if (auth()->user()->role == \App\Models\User::ROLE_SUPERVISOR)
-                        @if ($team->status != \App\Models\Team::STATUS_APPROVED)
-                            <div class="d-flex justify-content-end">
-                                <a class="btn btn-success btn-sm approve-team"
-                                    data-url="{{ route('supervisors.approve', $team->id) }}" href="javascript:void(0)">
-                                    Approve</a>
-                                &nbsp;
-                                <a class="btn btn-danger btn-sm reject-team"
-                                    data-url="{{ route('supervisors.reject', $team->id) }}" href="javascript:void(0)">
-                                    Reject</a>
+                    <div class="col-sm-8">
+                        <div class="card">
+                            <div class="card-body" style="padding: 20px !important;">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Name: <span
+                                                    id="edited_project_title">{{ $team->project_title }}</span></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Status: <span>{{ $team->status }}</span></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label
+                                                class="form-label"><span>{{ $team->project_description }}</span></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Supervisor:
+                                                @if ($team->supervisor)
+                                                    <span>
+                                                        @if (auth()->user()->role == \App\Models\User::ROLE_SUPERVISOR)
+                                                            <a
+                                                                href="javascript:void(0)">{{ $team->supervisor->full_name }}</a>
+                                                        @else
+                                                            <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                                data-bs-target="#SupervisorData">{{ $team->supervisor->full_name }}</a>
+                                                        @endif
+                                                    </span>
+                                                @else
+                                                    <span>Not assigned yet!</span>
+                                                @endif
+                                            </label>
+                                        </div>
+                                    </div>
+                                    @if (auth()->user()->role == \App\Models\User::ROLE_ADMIN && !$team->supervisor)
+                                        <div class="d-flex justify-content-end">
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#SendToSupervisor">
+                                                Send To Supervisor
+                                            </button>
+                                        </div>
+                                    @endif
+                                    @if (
+                                        (auth()->user()->role == \App\Models\User::ROLE_ADMIN &&
+                                            $settings &&
+                                            $team->members()->count() < $settings->max_team_member) ||
+                                            ($team->status == 'approved' && $settings && $team->members()->count() < $settings->max_team_member))
+                                        <div class="d-flex justify-content-end" style="margin-top: -30px;">
+                                            <button type="button" class="btn btn-primary m-b-5" data-bs-toggle="modal"
+                                                data-bs-target="#AddAnotherMembers">
+                                                Add Another Member
+                                            </button>
+                                        </div>
+                                    @endif
+                                </div>
+                                @if (auth()->user()->role == \App\Models\User::ROLE_SUPERVISOR)
+                                    @if ($team->status != \App\Models\Team::STATUS_APPROVED)
+                                        <div class="d-flex justify-content-end">
+                                            <a class="btn btn-success btn-sm approve-team"
+                                                data-url="{{ route('supervisors.approve', $team->id) }}"
+                                                href="javascript:void(0)">
+                                                Approve</a>
+                                            &nbsp;
+                                            <a class="btn btn-danger btn-sm reject-team"
+                                                data-url="{{ route('supervisors.reject', $team->id) }}"
+                                                href="javascript:void(0)">
+                                                Reject</a>
+                                        </div>
+                                    @else
+                                        <div class="d-flex justify-content-end">
+                                            <a class="btn btn-danger btn-sm reject-team"
+                                                data-url="{{ route('supervisors.reject', $team->id) }}"
+                                                href="javascript:void(0)">
+                                                Remove Me</a>
+                                        </div>
+                                    @endif
+                                @endif
                             </div>
-                        @else
-                            <div class="d-flex justify-content-end">
-                                <a class="btn btn-danger btn-sm reject-team"
-                                    data-url="{{ route('supervisors.reject', $team->id) }}" href="javascript:void(0)">
-                                    Remove Me</a>
-                            </div>
-                        @endif
-                    @endif
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-sm-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="display dataTable" id="MembersTable">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Photo</th>
-                                    <th>Name</th>
-                                    <th>Username</th>
-                                    <th>Student Number</th>
-                                    <th>Email</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                        </table>
+
+        <div class="container-fluid">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="display dataTable" id="MembersTable">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Photo</th>
+                                        <th>Name</th>
+                                        <th>University ID</th>
+                                        <th>phone</th>
+                                        <th>Department</th>
+                                        <th>Email</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -295,10 +336,13 @@
                     data: 'full_name'
                 },
                 {
-                    data: 'username'
+                    data: 'student_id'
                 },
                 {
-                    data: 'student_id'
+                    data: 'phone'
+                },
+                {
+                    data: 'department'
                 },
                 {
                     data: 'email'
@@ -342,11 +386,11 @@
                     }
                 },
                 {
-                    targets: 6,
+                    targets: 7,
                     title: "Actions",
                     orderable: false,
                     render: function(data, type, full, meta) {
-                        let url = "{{ route('supervisors.delete', 'id') }}";
+                        let url = "{{ route('delete.member', 'id') }}";
                         url = url.replace('id', full.id);
                         return (
 

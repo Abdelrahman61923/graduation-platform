@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Notification;
@@ -47,7 +48,15 @@ class UserController extends Controller
             })->addColumn('phone', function ($data) {
                 return $data->phone;
             })->addColumn('in_group', function($data){
-                return $data->member? 'Yes' : 'No';
+                if ($data->role == \App\Models\User::ROLE_ADMIN) {
+                    return '--';
+                } elseif($data->role == \App\Models\User::ROLE_SUPERVISOR){
+                    return $data->supervisorTeams->count();
+                }
+                else {
+                    return $data->member? 'Yes' : 'No';
+                }
+
             })->filterColumn('full_name', function ($query, $keyword) {
                 return $query->whereRaw("concat(users.first_name,' ' , users.last_name) like ?", ["%{$keyword}%"]);
             })->filterColumn('email', function ($query, $keyword) {
@@ -63,7 +72,7 @@ class UserController extends Controller
 
             })->filterColumn('in_group', function ($query, $keyword) {
                 $query->whereHas('member', function ($q) use ($keyword){
-                    return $q->whereRaw("(CASE WHEN members.member_id = 1 THEN 'yes' ELSE 'no' END) like ?", ["%{$keyword}%"]);
+                    return $q->whereRaw("members.member_id like ?", ["%{$keyword}%"]);
                 });
 
             })->filterColumn('department', function ($query, $keyword) {

@@ -79,6 +79,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::prefix('teams')->name('teams.')->group(function () {
                     Route::post('supervisor/store/{id}', 'addSupervisorTeam')->name('supervisor.store');
                     Route::post('supervisor/delete/{id}', 'deleteSupervisor')->name('supervisor.delete');
+                    Route::post('delete/{id}', 'delete')->name('delete');
                 });
             });
         });
@@ -100,12 +101,17 @@ Route::middleware(['auth'])->group(function () {
                     Route::get('my-teams', 'getMyTeams')->name('my-teams');
                     Route::get('teams', 'getTeams')->name('teams');
                     Route::get('team-members/{team_id}', 'getTeamMembers')->name('team-members');
-                    Route::post('delete/{id}', 'delete')->name('delete');
+
                 });
 
                 Route::prefix('admins')->name('admins.')->group(function () {
                     Route::get('teams', 'getMyTeams')->name('teams');
                 });
+            });
+
+            Route::controller(MemberController::class)->group(function(){
+                    Route::post('deletemember/{id}', 'delete')->name('delete.member');
+                    Route::post('storemember/{id}', 'store')->name('store.member');
             });
 
             Route::controller(TeamController::class)->group(function(){

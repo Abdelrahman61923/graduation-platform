@@ -56,7 +56,7 @@ class MemberController extends Controller
 
             Notification::send($userToNotify, new InvitationTeamNotification($user_create));
 
-            //recode this how to send 1000 mail in laravel
+            // recode this how to send 1000 mail in laravel
             // $members = User::whereIn($request->member_ids);
             // foreach ($members as $member) {
             //     Notification::send($member, new InvitationTeamNotification($user->name));

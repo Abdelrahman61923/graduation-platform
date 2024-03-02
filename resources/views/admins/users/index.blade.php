@@ -21,7 +21,7 @@
         </div>
         {{-- <div class="container-fluid">
             <div class="row second-chart-list third-news-update">
-                <div class="col-sm-6 col-xl-3 col-lg-6">
+                <div class="col-sm-6 col-xl-4 col-lg-6">
                     <div class="card o-hidden static-top-widget-card">
                         <div class="card-body">
                             <div class="media static-top-widget">
@@ -52,7 +52,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-xl-3 col-lg-6">
+                <div class="col-sm-6 col-xl-4 col-lg-6">
                     <div class="card o-hidden static-top-widget-card">
                         <div class="card-body">
                             <div class="media static-top-widget">
@@ -83,7 +83,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-xl-3 col-lg-6">
+                <div class="col-sm-6 col-xl-4 col-lg-6">
                     <div class="card o-hidden static-top-widget-card">
                         <div class="card-body">
                             <div class="media static-top-widget">
@@ -138,7 +138,7 @@
                                     <th>Full Name</th>
                                     <th>Email</th>
                                     <th>Role</th>
-                                    <th>In Group</th>
+                                    <th>Groups</th>
                                     <th>Student Id</th>
                                     <th>Department</th>
                                     <th>phone</th>

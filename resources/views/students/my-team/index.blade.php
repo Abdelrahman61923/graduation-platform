@@ -493,7 +493,7 @@
                                                     <td> {{ $member->user->full_name }} </td>
                                                     <td>{{ $member->user->student_id }}</td>
                                                     <td>{{ $member->user->phone }}</td>
-                                                    <td>{{ $member->user->department->name }}</td>
+                                                    <td>{{ $member->user->department->name??'--' }}</td>
                                                     <td>{{ $member->user->email }}</td>
                                                     <td>{{ $member->status }}</td>
 
