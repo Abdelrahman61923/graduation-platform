@@ -248,11 +248,9 @@
                                             </button>
                                         </div>
                                     @endif
-                                    @if (
-                                        (auth()->user()->role == \App\Models\User::ROLE_ADMIN &&
+                                    @if (auth()->user()->role == \App\Models\User::ROLE_ADMIN &&
                                             $settings &&
-                                            $team->members()->count() < $settings->max_team_member) ||
-                                            ($team->status == 'approved' && $settings && $team->members()->count() < $settings->max_team_member))
+                                            $team->members()->count() < $settings->max_team_member)
                                         <div class="d-flex justify-content-end" style="margin-top: -30px;">
                                             <button type="button" class="btn btn-primary m-b-5" data-bs-toggle="modal"
                                                 data-bs-target="#AddAnotherMembers">
@@ -305,7 +303,9 @@
                                         <th>phone</th>
                                         <th>Department</th>
                                         <th>Email</th>
-                                        <th>Action</th>
+                                        @if (auth()->user()->role == \App\Models\User::ROLE_ADMIN)
+                                            <th>Action</th>
+                                        @endif
                                     </tr>
                                 </thead>
                             </table>
@@ -347,11 +347,13 @@
                 {
                     data: 'email'
                 },
-                {
-                    data: '',
-                    orderable: false,
-                    searchable: false
-                },
+                @if (auth()->user()->role == \App\Models\User::ROLE_ADMIN)
+                    {
+                        data: '',
+                        orderable: false,
+                        searchable: false
+                    },
+                @endif
             ];
             let Buttons = [
 
@@ -385,23 +387,24 @@
                         }
                     }
                 },
-                {
-                    targets: 7,
-                    title: "Actions",
-                    orderable: false,
-                    render: function(data, type, full, meta) {
-                        let url = "{{ route('delete.member', 'id') }}";
-                        url = url.replace('id', full.id);
-                        return (
+                @if (auth()->user()->role == \App\Models\User::ROLE_ADMIN)
+                    {
+                        targets: 7,
+                        title: "Actions",
+                        orderable: false,
+                        render: function(data, type, full, meta) {
+                            let url = "{{ route('delete.member', 'id') }}";
+                            url = url.replace('id', full.id);
 
-                            '<a class="btn btn-danger btn-sm delete-confirm" table="DepartmentTable" row="' +
-                            meta.row + '" data-url="' + url + '" >' +
-
-                            "Delete" +
-                            '</a>'
-                        );
+                            return (
+                                '<a class="btn btn-danger btn-sm delete-confirm" table="DepartmentTable" row="' +
+                                meta.row + '" data-url="' + url + '" >' +
+                                "Delete" +
+                                '</a>'
+                            );
+                        }
                     }
-                }
+                @endif
             ];
 
             let responsive = {

@@ -143,12 +143,13 @@ class TeamController extends Controller
         }
         $settings = Setting::first();
         $users = User::users()->doesntHave('member')->get();
+        $members = Member::get();
 
         $supervisors = User::supervisors()->doesntHave('supervisorTeams')->orwhereHas('supervisorTeams', function($q){
             $q->where('status', Team::STATUS_APPROVED);
             $q->orWhere('status', Team::STATUS_NOT_APPROVED);
         }, '<', $settings?->max_group_teacher)->supervisors()->get();
 
-        return view('supervisors.my-teams.team-info', compact('team', 'supervisors', 'settings', 'users'));
+        return view('supervisors.my-teams.team-info', compact('team', 'supervisors', 'settings', 'users', 'members'));
     }
 }

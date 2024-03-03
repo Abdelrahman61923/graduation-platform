@@ -47,10 +47,34 @@ class PasswordController extends Controller
             $user->save();
 
             Alert::success('successfully', 'Password Updated successfully');
-            return redirect()->route('students.dashboard');
+            if ($user->role == \App\Models\User::ROLE_USER) {
+                return redirect()->route('students.dashboard');
+            } elseif ($user->role == \App\Models\User::ROLE_SUPERVISOR) {
+                return redirect()->route('supervisors.dashboard');
+            } else {
+                return redirect()->route('admins.dashboard');
+            }
+
         } else {
             Alert::error('Oops', 'old password doesnt matched');
             return back();
         }
+    }
+    public function skip(Request $request)
+    {
+        $user = User::find(Auth::id());
+
+        $user->is_change_password = 1;
+        $user->save();
+
+        Alert::success('successfully', 'Login successfully');
+        if ($user->role == \App\Models\User::ROLE_USER) {
+            return redirect()->route('students.dashboard');
+        } elseif ($user->role == \App\Models\User::ROLE_SUPERVISOR) {
+            return redirect()->route('supervisors.dashboard');
+        } else {
+            return redirect()->route('admins.dashboard');
+        }
+
     }
 }

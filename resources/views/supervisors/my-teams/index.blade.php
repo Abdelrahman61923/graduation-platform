@@ -55,7 +55,9 @@
                                     <th>Leader</th>
                                     <th>Project Title</th>
                                     <th>Project Description</th>
-                                    <th>Supervisor</th>
+                                    @if (auth()->user()->role == \App\Models\User::ROLE_ADMIN)
+                                        <th>Supervisor</th>
+                                    @endif
                                     <th>Status</th>
                                     <th style="width: 100px !important">Action</th>
                                 </tr>
@@ -88,9 +90,11 @@
                 {
                     data: 'project_description'
                 },
+                @if (auth()->user()->role == \App\Models\User::ROLE_ADMIN)
                 {
                     data: 'supervisor'
                 },
+                @endif
                 {
                     data: 'status',
                 },
@@ -113,7 +117,11 @@
                     }
                 },
                 {
-                    targets: 7,
+                    @if (auth()->user()->role == \App\Models\User::ROLE_SUPERVISOR)
+                        targets: 6,
+                    @else
+                        targets: 7,
+                    @endif
                     title: "Actions",
                     orderable: false,
                     render: function(data, type, full, meta) {

@@ -11,18 +11,17 @@
 <script src="{{ asset('assets/js/config.js') }}"></script>
 <!-- Plugins JS start-->
 <script src="{{ asset('assets/js/sidebar-menu.js') }}"></script>
-<script src="{{ asset('assets/js/chart/chartist/chartist.js') }}"></script>
-<script src="{{ asset('assets/js/chart/chartist/chartist-plugin-tooltip.js') }}"></script>
-<script src="{{ asset('assets/js/chart/knob/knob.min.js') }}"></script>
-<script src="{{ asset('assets/js/chart/knob/knob-chart.js') }}"></script>
-<script src="{{ asset('assets/js/chart/apex-chart/apex-chart.js') }}"></script>
-<script src="{{ asset('assets/js/chart/apex-chart/stock-prices.js') }}"></script>
-{{-- <script src="{{ asset('../assets/js/notify/bootstrap-notify.min.js') }}"></script> --}}
 <script src="{{ asset('assets/js/dashboard/default.js') }}"></script>
-<script src="{{ asset('assets/js/notify/index.js') }}"></script>
 <script src="{{ asset('assets/js/datepicker/date-picker/datepicker.js') }}"></script>
 <script src="{{ asset('assets/js/datepicker/date-picker/datepicker.en.js') }}"></script>
 <script src="{{ asset('assets/js/datepicker/date-picker/datepicker.custom.js') }}"></script>
+<script src="{{ asset('assets/js/datatable/datatables/jquery.dataTables.min.js') }}"></script>
+{{-- <script src="{{ asset('assets/js/datatable/datatables/datatable.custom.js') }}"></script> --}}
+<script src="{{ asset('assets/js/select2/select2.full.min.js') }}"></script>
+<script src="{{ asset('assets/js/select2/select2-custom.js') }}"></script>
+{{-- <script src="{{ asset('../assets/js/notify/bootstrap-notify.min.js') }}"></script> --}}
+{{-- <script src="{{ asset('assets/js/notify/index.js') }}"></script> --}}
+
 <script src="{{ asset('assets/js/typeahead/handlebars.js') }}"></script>
 <script src="{{ asset('assets/js/typeahead/typeahead.bundle.js') }}"></script>
 <script src="{{ asset('assets/js/typeahead/typeahead.custom.js') }}"></script>
@@ -31,11 +30,9 @@
 <!-- Plugins JS Ends-->
 <!-- Theme js-->
 <script src="{{ asset('assets/js/script.js') }}"></script>
-{{-- <script src="{{ asset('assets/js/theme-customizer/customizer.js') }}"></script> --}}
+<script src="{{ asset('assets/js/theme-customizer/customizer.js') }}"></script>
 <!-- login js-->
 <!-- Plugin used-->
-<script src="{{ asset('assets/js/datatable/datatables/jquery.dataTables.min.js') }}"></script>
-{{-- <script src="{{ asset('assets/js/datatable/datatables/datatable.custom.js') }}"></script> --}}
 
 
 @include('sweetalert::alert')
@@ -44,8 +41,6 @@
 @yield('scripts')
 
 
-<script src="{{ asset('assets/js/select2/select2.full.min.js') }}"></script>
-<script src="{{ asset('assets/js/select2/select2-custom.js') }}"></script>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 

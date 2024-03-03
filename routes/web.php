@@ -33,6 +33,7 @@ Route::middleware(['auth'])->group(function () {
         Route::prefix('passwords')->name('passwords.')->group(function () {
             Route::get('change-password', 'changePassword')->name('change-password');
             Route::post('password/update', 'updatePassword')->name('update');
+            Route::post('password/skip', 'skip')->name('skip');
         });
     });
     Route::middleware('is-password-changed')->group(function () {
