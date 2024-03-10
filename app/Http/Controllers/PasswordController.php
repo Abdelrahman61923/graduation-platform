@@ -47,9 +47,9 @@ class PasswordController extends Controller
             $user->save();
 
             Alert::success('successfully', 'Password Updated successfully');
-            if ($user->role == \App\Models\User::ROLE_USER) {
+            if ($user->role == User::ROLE_USER) {
                 return redirect()->route('students.dashboard');
-            } elseif ($user->role == \App\Models\User::ROLE_SUPERVISOR) {
+            } elseif ($user->role == User::ROLE_SUPERVISOR) {
                 return redirect()->route('supervisors.dashboard');
             } else {
                 return redirect()->route('admins.dashboard');
@@ -68,9 +68,9 @@ class PasswordController extends Controller
         $user->save();
 
         Alert::success('successfully', 'Login successfully');
-        if ($user->role == \App\Models\User::ROLE_USER) {
+        if ($user->role == User::ROLE_USER) {
             return redirect()->route('students.dashboard');
-        } elseif ($user->role == \App\Models\User::ROLE_SUPERVISOR) {
+        } elseif ($user->role == User::ROLE_SUPERVISOR) {
             return redirect()->route('supervisors.dashboard');
         } else {
             return redirect()->route('admins.dashboard');

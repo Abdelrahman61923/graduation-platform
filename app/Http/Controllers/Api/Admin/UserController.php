@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Api\Admin;
 
 use App\Models\User;
 use App\Models\Department;
@@ -8,8 +8,6 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
-use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\WelcomeOnBoardNotification;
@@ -24,7 +22,11 @@ class UserController extends Controller
         $admins = User::admins()->count();
         $supervisors = User::supervisors()->count();
         $students = User::users()->count();
-        return view('admins.users.index', compact('admins', 'supervisors', 'students'));
+        return response()->json([
+            'admins' => $admins,
+            'supervisors' => $supervisors,
+            'students' => $students,
+        ], 200);
     }
 
     public function getUsers()
@@ -84,19 +86,18 @@ class UserController extends Controller
         return $builder;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        $user = new User();
         $departments = Department::active()->get();
         $roles = [
             ['id' => User::ROLE_ADMIN, 'name' => Str::title(str_replace('-', ' ', str_replace('_', ' ', User::ROLE_ADMIN)))],
             ['id' => User::ROLE_SUPERVISOR, 'name' => Str::title(str_replace('-', ' ', str_replace('_', ' ', User::ROLE_SUPERVISOR)))],
             ['id' => User::ROLE_USER, 'name' => Str::title(str_replace('-', ' ', str_replace('_', ' ', User::ROLE_USER)))],
         ];
-        return view('admins.users.create', compact('user', 'departments', 'roles'));
+        return response()->json([
+            'department' => $departments,
+            'roles' => $roles,
+        ], 200);
     }
 
     /**
@@ -134,8 +135,10 @@ class UserController extends Controller
 
         Notification::send($user, new WelcomeOnBoardNotification($password));
 
-        Alert::success('Successfully', 'User Created Successfully');
-        return redirect()->route('users.index');
+        return response()->json([
+            'message' => 'User Created Successfully',
+            'user' => $user,
+        ], 201);
     }
 
     /**
@@ -144,22 +147,19 @@ class UserController extends Controller
     public function show(string $id)
     {
         $user = User::where('id', $id)->firstOrFail();
-        return view('admins.users.edit', compact('user'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        $user = User::where('id', $id)->firstOrFail();
         $departments = Department::active()->get();
-        $roles = [
-            ['id' => User::ROLE_ADMIN, 'name' => Str::title(str_replace('-', ' ', str_replace('_', ' ', User::ROLE_ADMIN)))],
-            ['id' => User::ROLE_SUPERVISOR, 'name' => Str::title(str_replace('-', ' ', str_replace('_', ' ', User::ROLE_SUPERVISOR)))],
-            ['id' => User::ROLE_USER, 'name' => Str::title(str_replace('-', ' ', str_replace('_', ' ', User::ROLE_USER)))],
-        ];
-        return view('admins.users.edit', compact('user', 'departments', 'roles'));
+        if ($user->role != User::ROLE_USER) {
+            $roles = [
+                ['id' => User::ROLE_ADMIN, 'name' => Str::title(str_replace('-', ' ', str_replace('_', ' ', User::ROLE_ADMIN)))],
+                ['id' => User::ROLE_SUPERVISOR, 'name' => Str::title(str_replace('-', ' ', str_replace('_', ' ', User::ROLE_SUPERVISOR)))],
+                ['id' => User::ROLE_USER, 'name' => Str::title(str_replace('-', ' ', str_replace('_', ' ', User::ROLE_USER)))],
+            ];
+        }
+        return response()->json([
+            'user' => $user,
+            'departments' => $departments,
+            'roles' => $user->role != User::ROLE_USER ? $roles : null
+        ]);
     }
 
     /**
@@ -168,13 +168,13 @@ class UserController extends Controller
     public function update(Request $request, string $id)
     {
         $this->validate($request, [
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'phone' => ['required', 'string', 'max:13'],
+            'first_name' => ['sometimes','required', 'string', 'max:255'],
+            'last_name' => ['sometimes','required', 'string', 'max:255'],
+            'phone' => ['sometimes','required', 'string', 'max:13'],
             'address' => ['sometimes', 'nullable', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($request->route('user'))],
-            // 'role' => ['required', 'string', Rule::in(User::roles())],
-            // 'department_id' => [Rule::requiredIf($request->get('role') != User::ROLE_ADMIN), 'numeric'],
+            'email' => ['sometimes','required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($request->route('user'))],
+            // 'role' => ['sometimes','required', 'string', Rule::in(User::roles())],
+            // 'department_id' => ['sometimes',Rule::requiredIf($request->get('role') != User::ROLE_ADMIN), 'numeric'],
         ]);
 
         $user = User::where('id', $id)->firstOrFail();
@@ -183,8 +183,10 @@ class UserController extends Controller
 
         $user->update($input);
 
-        Alert::success('Successfully', 'User Updated Successfully');
-        return redirect()->route('users.index');
+        return response()->json([
+            'message' => 'User Updated Successfully',
+            'user' => $user,
+        ], 200);
     }
 
     /**
@@ -194,6 +196,9 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $user->delete();
+        return response()->json([
+            'message' => 'User Delete Successfully',
+        ], 200);
     }
 
     public function generateRandomString($length = 8)

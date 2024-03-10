@@ -27,6 +27,10 @@
                                 href="{{ route('students.my-team') }}"><i data-feather="users"></i><span>
                                     My Team</span></a>
                         </li>
+                        <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
+                                href="{{ route('students.instructions') }}"><i data-feather="users"></i><span>
+                                    Instructions</span></a>
+                        </li>
                     </ul>
                 </div>
                 <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>
@@ -110,6 +114,10 @@
                         <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
                             href="{{ route('admins.settings') }}"><i data-feather="settings"></i><span>
                                 Settings</span></a>
+                        </li>
+                        <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
+                            href="{{ route('admins.instructions') }}"><i data-feather="settings"></i><span>
+                                Instructions</span></a>
                         </li>
 
                     </ul>

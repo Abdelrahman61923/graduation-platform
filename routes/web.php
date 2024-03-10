@@ -1,18 +1,19 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\DepartmentController;
-use App\Http\Controllers\Admin\TagController;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\PasswordController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Student\MemberController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Student\StudentController;
-use App\Http\Controllers\Student\TeamController;
-use App\Http\Controllers\Supervisor\SupervisorController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PasswordController;
+use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Student\TeamController;
+use App\Http\Controllers\Student\MemberController;
+use App\Http\Controllers\Student\StudentController;
+use App\Http\Controllers\Admin\DepartmentController;
+use App\Http\Controllers\Admin\InstructionController;
+use App\Http\Controllers\Supervisor\SupervisorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,6 +84,16 @@ Route::middleware(['auth'])->group(function () {
                     Route::post('delete/{id}', 'delete')->name('delete');
                 });
             });
+
+            Route::controller(InstructionController::class)->group(function(){
+                Route::prefix('students')->name('students.')->group(function () {
+                    Route::get('instructions', 'index')->name('instructions');
+                });
+
+                Route::prefix('admins')->name('admins.')->group(function () {
+                    Route::get('instructions', 'index')->name('instructions');
+                });
+            });
         });
 
         Route::middleware(['role:'.User::ROLE_SUPERVISOR])->group(function () {
@@ -102,7 +113,6 @@ Route::middleware(['auth'])->group(function () {
                     Route::get('my-teams', 'getMyTeams')->name('my-teams');
                     Route::get('teams', 'getTeams')->name('teams');
                     Route::get('team-members/{team_id}', 'getTeamMembers')->name('team-members');
-
                 });
 
                 Route::prefix('admins')->name('admins.')->group(function () {
@@ -144,7 +154,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::controller(TagController::class)->group(function(){
                     Route::prefix('tags')->name('tags.')->group(function () {
                         Route::get('get', 'getTags')->name('get');
-                        Route::post('delete/{id}', [TagController::class, 'destroy'])->name('delete');
+                        Route::post('delete/{id}', 'destroy')->name('delete');
                         Route::post('change-status/{id}', 'changeStatus')->name('change-status');
                     });
                 });
