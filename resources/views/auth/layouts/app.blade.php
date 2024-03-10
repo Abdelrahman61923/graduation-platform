@@ -39,5 +39,6 @@
         <script src="{{ asset('assets/js/jquery-3.5.1.min.js') }}"></script>
         <script src="{{ asset('assets/js/select2/select2.full.min.js') }}"></script>
         <script src="{{ asset('assets/js/select2/select2-custom.js') }}"></script>
+        <script src="{{ asset('assets/js/Auth/master.js') }}"></script>
     </body>
 </html>
