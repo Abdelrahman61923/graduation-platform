@@ -22,9 +22,16 @@ class TagController extends Controller
         ], 200);
     }
 
-    public function getTags()
+    public function getTags(Request $request)
     {
         $tags = Tag::select('*');
+
+        if ($request->has('name')) {
+            $tags->where('name', 'like', '%' . $request->input('name') . '%');
+        }
+        if ($request->has('status')) {
+            $tags->where('status', 'like', '%' . $request->input('status') . '%');
+        }
         $builder = DataTables::of($tags)
             ->addColumn('name', function ($data) {
                 return $data->name;
@@ -32,10 +39,6 @@ class TagController extends Controller
                 return $data->status;
             })->addColumn('uses', function ($data) {
                 return $data->teams->count();
-            })->filterColumn('name', function ($query, $keyword) {
-                return $query->whereRaw("name like ?", ["%{$keyword}%"]);
-            })->filterColumn('status', function ($query, $keyword) {
-                return $query->whereRaw("status like ?", ["%{$keyword}%"]);
             })->make(true);
 
         return $builder;
@@ -125,14 +128,16 @@ class TagController extends Controller
             $tag->save();
 
             return response()->json([
-                'message' => 'Status changed to Active'
+                'message' => 'Status changed to Active',
+                'tags' => $tag,
             ], 200);
         } else {
             $tag->status = Tag::STATUS_INACTIVE;
             $tag->save();
 
             return response()->json([
-                'message' => 'Status changed to Deactive'
+                'message' => 'Status changed to Deactive',
+                'tags' => $tag,
             ], 200);
         }
     }

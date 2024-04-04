@@ -14,7 +14,8 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    public function login(Request $request)
+
+    protected function login(Request $request)
     {
         $request->validate([
             'email' => 'required|email|max:255',
@@ -28,20 +29,46 @@ class AuthController extends Controller
             $device_name = $request->input('device_name', $request->userAgent());
             $token = $user->createToken($device_name);
 
-            return response()->json([
-                'code' => 100,
-                'token' => $token->plainTextToken,
-                'user' => $user,
-                'message' => 'Logged in successfully',
-                'redirect_to' => $user->role == User::ROLE_ADMIN ? route('admins.dashboard') : ($user->role == User::ROLE_USER ? route('students.dashboard') : route('supervisors.dashboard'))
-            ], 201);
+            if ($user->role != User::ROLE_ADMIN) {
+                // do your magic here
+                if ($user->is_change_password) {
+                    if ($user->role == User::ROLE_USER) {
+                        return response()->json([
+                            'message' => 'Logged In successfully',
+                            'token' => $token->plainTextToken,
+                            'redirect' => route("students.dashboard"),
+                            'user' => $user,
+                        ], 201);
+                    } else {
+                        return response()->json([
+                            'message' => 'Logged In successfully',
+                            'token' => $token->plainTextToken,
+                            'redirect' => route("supervisors.dashboard"),
+                            'user' => $user,
+                        ], 201);
+                    }
+                } else {
+                    return response()->json([
+                        'message' => 'Password change required',
+                        'redirect' => route("passwords.change-password")
+                    ]);
+                }
+            } else if ($user->role == User::ROLE_ADMIN) {
+                return response()->json([
+                    'message' => 'Logged In successfully',
+                    'token' => $token->plainTextToken,
+                    'redirect' => route("admins.dashboard"),
+                    'user' => $user,
+                ], 201);
+            }
         }
-
-        return response()->json([
-            'code' => 0,
-            'message' => 'Invalid credentials',
-            'redirect_to' => route('login')
-        ], 401);
+        else {
+            Auth::logout();
+            return response()->json([
+                'message' => 'Invalid credentials',
+                'redirect' => route('login')
+            ], 401);
+        }
     }
 
     public function showRegistrationForm()
@@ -82,8 +109,13 @@ class AuthController extends Controller
             'username' => $username,
         ]);
 
+        $user = User::where('email', $request->email)->first();
+        $device_name = $request->input('device_name', $request->userAgent());
+        $token = $user->createToken($device_name);
+
         return response()->json([
             'message' => 'User registered successfully',
+            'token' => $token->plainTextToken,
             'user' => $user,
             'redirect_to' => route('students.dashboard'),
         ], 201);

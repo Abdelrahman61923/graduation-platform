@@ -12,6 +12,16 @@ use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
 {
+    public function home () {
+        $user = auth('sanctum')->user();
+        $notificationCount = Auth::User()->unreadNotifications()->count();
+        $notification = Auth::User()->Notifications;
+        return response()->json([
+            'user' => $user,
+            'notificationCount' => $notificationCount,
+            'notification' => $notification,
+        ]);
+    }
     public function getMyTeam()
     {
         $id = Auth::user()->id;

@@ -13,6 +13,7 @@ class AdminController extends Controller
 {
     public function home()
     {
+        $user = auth('sanctum')->user();
         $total_users = User::count();
         $total_supervisor = User::supervisors()->count();
         $total_students = User::users()->count();
@@ -38,6 +39,7 @@ class AdminController extends Controller
             'total_teams' => $total_teams,
             'number_of_members_in_teams' => $number_of_members_in_teams,
             'number_of_members_in_teams_precantage' => $number_of_members_in_teams_precantage,
+            'user' => $user,
         ], 200);
     }
 
@@ -60,10 +62,11 @@ class AdminController extends Controller
             'max_group_teacher' => 'required|numeric',
         ]);
 
-        Setting::updateOrCreate(['id' => $request->id], $request->all());
+        $setting = Setting::updateOrCreate(['id' => $request->id], $request->all());
 
         return response()->json([
             'message' => 'Settings Updated Successfully',
+            'setting' => $setting,
         ], 200);
     }
 }

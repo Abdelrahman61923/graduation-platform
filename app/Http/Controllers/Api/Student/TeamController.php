@@ -70,7 +70,7 @@ class TeamController extends Controller
 
         return response()->json([
             'message' => 'Team Created Succeffuly',
-        ], 200);
+        ], 201);
     }
 
     public function update(Request $request, $id)
@@ -88,7 +88,7 @@ class TeamController extends Controller
         return response()->json([
             'message' => 'Team Updated Successfuly',
             'team' => $team,
-        ], 201);
+        ], 200);
     }
 
     public function addSupervisorTeam(Request $request, $id)
@@ -129,7 +129,34 @@ class TeamController extends Controller
         $team = Team::where('id', $id)->firstOrFail();
         $team->update(['supervisor_id' => null]);
         return response()->json([
-            'message' => 'Supervisor Deleted Successfuly'
+            'message' => 'Supervisor Deleted Successfuly',
+            'team' => $team,
         ], 200);
+    }
+
+    public function show($id)
+    {
+        $team = Team::where('id', $id)->firstOrFail();
+        if (auth()->user()->role != User::ROLE_USER) {
+            if ($team->supervisor_id != auth()->id() && auth()->user()->role == User::ROLE_SUPERVISOR) {
+                return abort(404);
+            }
+        }
+        $settings = Setting::first();
+        $users = User::users()->doesntHave('member')->get();
+        $members = Member::get();
+
+        $supervisors = User::supervisors()->doesntHave('supervisorTeams')->orwhereHas('supervisorTeams', function($q){
+            $q->where('status', Team::STATUS_APPROVED);
+            $q->orWhere('status', Team::STATUS_NOT_APPROVED);
+        }, '<', $settings?->max_group_teacher)->supervisors()->get();
+
+        return response()->json([
+            'team' => $team,
+            'supervisors' => $supervisors,
+            'settings' => $settings,
+            'users' => $users,
+            'members' => $members,
+        ]);
     }
 }

@@ -22,19 +22,24 @@ class DepartmentController extends Controller
         ], 200);
     }
 
-    public function getDepartments()
+    public function getDepartments(Request $request)
     {
         $departments = Department::select('*');
+
+        if ($request->has('name')) {
+            $departments->where('name', 'like', '%' . $request->input('name') . '%');
+        }
+        if ($request->has('status')) {
+            $departments->where('status', 'like', '%' . $request->input('status') . '%');
+        }
+
         $builder = DataTables::of($departments)
             ->addColumn('name', function ($data) {
                 return $data->name;
             })->addColumn('status', function ($data) {
                 return $data->status;
-            })->filterColumn('name', function ($query, $keyword) {
-                return $query->whereRaw("name like ?", ["%{$keyword}%"]);
-            })->filterColumn('status', function ($query, $keyword) {
-                return $query->whereRaw("status like ?", ["%{$keyword}%"]);
             })->make(true);
+
         return $builder;
     }
 
@@ -120,13 +125,15 @@ class DepartmentController extends Controller
             $department->save();
 
             return response()->json([
-                'message' => 'Status changed to Active'
+                'message' => 'Status changed to Active',
+                'department' => $department,
             ], 200);
         } else {
             $department->status = Department::STATUS_INACTIVE;
             $department->save();
             return response()->json([
-                'message' => 'Status changed to Deactive'
+                'message' => 'Status changed to Deactive',
+                'department' => $department,
             ], 200);
         }
     }

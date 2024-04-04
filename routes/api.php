@@ -37,14 +37,19 @@ Route::middleware(['guest:sanctum'])->group(function () {
     });
 });
 
-
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::delete('auth/logout/{token?}', [AuthController::class, 'destroy']);
+    Route::controller(AuthController::class)->group(function() {
+        Route::delete('auth/logout/{token?}', 'destroy');
+    });
 
     Route::middleware('is-password-changed')->group(function () {
-
         Route::controller(ProfileController::class)->group(function(){
             Route::post('profile/update', 'updateProfile')->name('update');
+        });
+
+        Route::controller(StudentController::class)->group(function(){
+            Route::get('students/dashboard', 'home');
+            Route::get('supervisors/dashboard', 'home');
         });
 
         Route::middleware(['role:'.User::ROLE_USER])->group(function () {
@@ -87,6 +92,27 @@ Route::middleware(['auth:sanctum'])->group(function () {
                     Route::post('approve/{id}', 'approveTeam');
                     Route::post('reject/{id}', 'rejectTeam');
                 });
+            });
+        });
+
+        Route::middleware(['not-role:'.User::ROLE_USER])->group(function () {
+            Route::controller(SupervisorController::class)->group(function(){
+                Route::prefix('supervisors')->group(function () {
+                    Route::get('teams', 'getTeams');
+                    Route::get('team-members/{team_id}', 'getTeamMembers');
+                });
+            });
+
+            Route::controller(MemberController::class)->group(function(){
+                Route::prefix('admins')->group(function () {
+                    Route::post('storemember/{id}', 'store');
+                    Route::delete('deletemember/{id}', 'delete');
+                });
+            });
+
+            Route::controller(TeamController::class)->group(function(){
+                Route::get('supervisors/teams/show/{id}', 'show');
+                Route::get('admins/teams/show/{id}', 'show');
             });
         });
 

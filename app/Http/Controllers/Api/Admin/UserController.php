@@ -29,9 +29,43 @@ class UserController extends Controller
         ], 200);
     }
 
-    public function getUsers()
+    public function getUsers(Request $request)
     {
         $users = User::select('*');
+        if ($request->has('full_name')) {
+            $fullName = $request->input('full_name');
+            $users->where(function ($query) use ($fullName) {
+                $query->where('first_name', 'like', '%' . $fullName . '%')
+                    ->orWhere('last_name', 'like', '%' . $fullName . '%');
+            });
+        }
+        if ($request->has('email')) {
+            $email = $request->input('email');
+            $users->where('email', 'like', '%' . $email . '%');
+        }
+        if ($request->has('role')) {
+            $role = $request->input('role');
+            $users->where('role', 'like', '%' . $role . '%');
+        }
+        if ($request->has('username')) {
+            $username = $request->input('username');
+            $users->where('username', 'like', '%' . $username . '%');
+        }
+        if ($request->has('student_id')) {
+            $student_id = $request->input('student_id');
+            $users->where('student_id', 'like', '%' . $student_id . '%');
+        }
+        if ($request->has('department')) {
+            $departmentName = $request->input('department');
+            $users->whereHas('department', function ($query) use ($departmentName) {
+                $query->where('name', 'like', '%' . $departmentName . '%');
+            });
+        }
+        if ($request->has('phone')) {
+            $phone = $request->input('phone');
+            $users->where('phone', 'like', '%' . $phone . '%');
+        }
+
         $builder = DataTables::of($users)
             ->addColumn('photo', function ($data) {
                 return $data->photo;
@@ -42,47 +76,22 @@ class UserController extends Controller
             })->addColumn('role', function ($data) {
                 return $data->role;
             })->addColumn('username', function ($data) {
-                return $data->username??'--';
+                return $data->username ?? '--';
             })->addColumn('student_id', function ($data) {
-                return $data->student_id??'--';
+                return $data->student_id ?? '--';
             })->addColumn('department', function ($data) {
                 return $data->department?->name??'--';
             })->addColumn('phone', function ($data) {
                 return $data->phone;
-            })->addColumn('in_group', function($data){
+            })->addColumn('in_group', function ($data) {
                 if ($data->role == User::ROLE_ADMIN) {
                     return '--';
-                } elseif($data->role == User::ROLE_SUPERVISOR){
+                } elseif ($data->role == User::ROLE_SUPERVISOR) {
                     return $data->supervisorTeams->count();
+                } else {
+                    return $data->member ? 'Yes' : 'No';
                 }
-                else {
-                    return $data->member? 'Yes' : 'No';
-                }
-
-            })->filterColumn('full_name', function ($query, $keyword) {
-                return $query->whereRaw("concat(users.first_name,' ' , users.last_name) like ?", ["%{$keyword}%"]);
-            })->filterColumn('email', function ($query, $keyword) {
-                return $query->whereRaw("email like ?", ["%{$keyword}%"]);
-            })->filterColumn('phone', function ($query, $keyword) {
-                return $query->whereRaw("phone like ?", ["%{$keyword}%"]);
-            })->filterColumn('username', function ($query, $keyword) {
-                return $query->whereRaw("username like ?", ["%{$keyword}%"]);
-            })->filterColumn('student_id', function ($query, $keyword) {
-                return $query->whereRaw("student_id like ?", ["%{$keyword}%"]);
-            })->filterColumn('role', function ($query, $keyword) {
-                return $query->whereRaw("role like ?", ["%{$keyword}%"]);
-
-            })->filterColumn('in_group', function ($query, $keyword) {
-                $query->whereHas('member', function ($q) use ($keyword){
-                    return $q->whereRaw("members.member_id like ?", ["%{$keyword}%"]);
-                });
-
-            })->filterColumn('department', function ($query, $keyword) {
-                $query->whereHas('department', function ($q) use ($keyword) {
-                    return $q->whereRaw("departments.name like ?", ["%{$keyword}%"]);
-                });
             })->make(true);
-
         return $builder;
     }
 
@@ -120,7 +129,7 @@ class UserController extends Controller
         $password = $this->generateRandomString();
 
         $input['password'] = $password;
-        // $input['is_change_password'] = 1;
+        $input['is_change_password'] = 1;
 
         $user = User::create($input);
 

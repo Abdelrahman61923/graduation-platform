@@ -27,7 +27,7 @@ class User extends Authenticatable
 
     const ROLE_ADMIN = 'admin';
     const ROLE_SUPERVISOR = 'supervisor';
-    const ROLE_USER = 'user';
+    const ROLE_USER = 'student';
 
     /**
      * List all available roles.
