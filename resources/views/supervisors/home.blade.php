@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    Dashboard
+    {{ __('Dashboard') }}
 @endsection
 @section('content')
 <div class="page-body">
@@ -8,13 +8,13 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-6">
-                    <h3>Dashboard</h3>
+                    <h3>{{ __('Dashboard') }}</h3>
                 </div>
                 <div class="col-6">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('supervisors.dashboard')}}"> <i data-feather="home"></i></a>
                         </li>
-                        <li class="breadcrumb-item">Dashboard</li>
+                        <li class="breadcrumb-item">{{ __('Dashboard') }}</li>
                     </ol>
                 </div>
             </div>
@@ -29,9 +29,9 @@
                         <div class="media">
                             <div class="media-body">
                                 <div class="greeting-user">
-                                    <h4 class="f-w-600 font-primary" id="greeting">Good Morning</h4>
-                                    <p>Here whats happing in your account today</p>
-                                    <div class="whatsnew-btn"><a class="btn btn-primary">Whats New !</a>
+                                    <h4 class="f-w-600 font-primary" id="greeting">{{ __('Good Morning') }}</h4>
+                                    <p>{{ __('Here whats happing in your account today') }}</p>
+                                    <div class="whatsnew-btn"><a class="btn btn-primary">{{ __('Whats New !') }}</a>
                                     </div>
                                 </div>
                             </div>

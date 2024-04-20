@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    Dashboard
+    {{ __('Dashboard') }}
 @endsection
 @section('content')
     <div class="page-body">
@@ -8,13 +8,13 @@
             <div class="page-title">
                 <div class="row">
                     <div class="col-6">
-                        <h3>Dashboard</h3>
+                        <h3>{{ __('Dashboard') }}</h3>
                     </div>
                     <div class="col-6">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{route('admins.dashboard')}}"> <i data-feather="home"></i></a>
                             </li>
-                            <li class="breadcrumb-item">Dashboard</li>
+                            <li class="breadcrumb-item">{{ __('Dashboard') }}</li>
                         </ol>
                     </div>
                 </div>
@@ -28,8 +28,8 @@
                         <div class="card-body">
                             <div class="media">
                                 <div class="media-body">
-                                    <p class="f-w-500 font-roboto">Total Supervisor<span
-                                            class="badge pill-badge-primary ms-3">Count</span></p>
+                                    <p class="f-w-500 font-roboto">{{ __('Total Supervisor') }}<span
+                                            class="badge pill-badge-primary ms-3">{{ __('Count') }}</span></p>
                                     <div class="progress-box">
                                         <h4 class="f-w-500 mb-0 f-20"><span class="counter">{{ $total_supervisor }}</span>
                                         </h4>
@@ -52,8 +52,8 @@
                         <div class="card-body">
                             <div class="media">
                                 <div class="media-body">
-                                    <p class="f-w-500 font-roboto">Total Students<span
-                                            class="badge pill-badge-primary ms-3">Count</span></p>
+                                    <p class="f-w-500 font-roboto">{{ __('Total Students') }}<span
+                                            class="badge pill-badge-primary ms-3">{{ __('Count') }}</span></p>
                                     <div class="progress-box">
                                         <h4 class="f-w-500 mb-0 f-20"><span class="counter">{{ $total_students }}</span>
                                         </h4>
@@ -76,8 +76,8 @@
                         <div class="card-body">
                             <div class="media">
                                 <div class="media-body">
-                                    <p class="f-w-500 font-roboto">Total Teams<span
-                                            class="badge pill-badge-primary ms-3">Count</span></p>
+                                    <p class="f-w-500 font-roboto">{{ __('Total Teams') }}<span
+                                            class="badge pill-badge-primary ms-3">{{ __('Count') }}</span></p>
                                     <div class="progress-box">
                                         <h4 class="f-w-500 mb-0 f-20"><span class="counter">{{ $total_teams }}</span></h4>
                                         <div
@@ -98,8 +98,8 @@
                         <div class="card-body">
                             <div class="media">
                                 <div class="media-body">
-                                    <p class="f-w-500 font-roboto">Total Members In Teams<span
-                                            class="badge pill-badge-primary ms-3">Count</span></p>
+                                    <p class="f-w-500 font-roboto">{{ __('Total Members In Teams') }}<span
+                                            class="badge pill-badge-primary ms-3">{{ __('Count') }}</span></p>
                                     <div class="progress-box">
                                         <h4 class="f-w-500 mb-0 f-20"><span
                                                 class="counter">{{ $number_of_members_in_teams }}</span></h4>
@@ -126,9 +126,9 @@
                             <div class="media">
                                 <div class="media-body">
                                     <div class="greeting-user">
-                                        <h4 class="f-w-600 font-primary" id="greeting">Good Morning</h4>
-                                        <p>Here whats happing in your account today</p>
-                                        <div class="whatsnew-btn"><a class="btn btn-primary">Whats New !</a>
+                                        <h4 class="f-w-600 font-primary" id="greeting">{{ __('Good Morning') }}</h4>
+                                        <p>{{ __('Here whats happing in your account today') }}</p>
+                                        <div class="whatsnew-btn"><a class="btn btn-primary">{{ __('Whats New !') }}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -137,7 +137,7 @@
                                             id="txt"></span></div>
                                 </div>
                             </div>
-                            <div class="cartoon"><img class="img-fluid" src="../assets/images/dashboard/cartoon.png"
+                            <div class="cartoon"><img class="img-fluid" src="{{asset('assets/images/dashboard/cartoon.png')}}"
                                     alt=""></div>
                         </div>
                     </div>

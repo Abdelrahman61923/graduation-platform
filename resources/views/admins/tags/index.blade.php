@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    Tags
+    {{ __('Tags') }}
 @endsection
 @section('content')
     <div class="page-body">
@@ -8,13 +8,13 @@
             <div class="page-title">
                 <div class="row">
                     <div class="col-6">
-                        <h3>Tags</h3>
+                        <h3>{{ __('Tags') }}</h3>
                     </div>
                     <div class="col-6">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('admins.dashboard') }}"> <i
                                         data-feather="home"></i></a></li>
-                            <li class="breadcrumb-item active"> Tags</li>
+                            <li class="breadcrumb-item active"> {{ __('Tags') }}</li>
                         </ol>
                     </div>
                 </div>
@@ -102,11 +102,11 @@
             <div class="card">
                 <div class="card-header" style="padding: 30px !important;">
                     <div class="d-flex justify-content-start">
-                        <h4 class="card-title mb-0">All Tags</h4>
+                        <h4 class="card-title mb-0">{{ __('All Tags') }}</h4>
                     </div>
                     <div class="d-flex justify-content-end" style="margin-top: -30px;">
                         <a href="{{ route('tags.create') }}" class="btn btn-primary">
-                            Add
+                            {{ __('Add') }}
                         </a>
                     </div>
                 </div>
@@ -116,10 +116,10 @@
                             <thead>
                                 <tr>
                                     <th style="width: 0px!important;"></th>
-                                    <th>Name</th>
-                                    <th>Status</th>
-                                    <th>Uses</th>
-                                    <th style="width: 100px !important">Action</th>
+                                    <th>{{ __('Name') }}</th>
+                                    <th>{{ __('Status') }}</th>
+                                    <th>{{ __('Teams Uses') }}</th>
+                                    <th style="width: 100px !important">{{ __('Actions') }}</th>
                                 </tr>
                             </thead>
                         </table>
@@ -205,7 +205,7 @@
                 {
                     // Actions
                     targets: 4,
-                    title: "Actions",
+                    title: "{{ __('Actions') }}",
                     orderable: false,
                     render: function(data, type, full, meta) {
                         var pk = full['id'];
@@ -217,7 +217,7 @@
                             '<a class="btn btn-danger delete-confirm" table="TagTable" row="' + meta
                             .row + '" data-url="' + url2 + '" >' +
 
-                            "Delete" +
+                            "{{ __('Delete') }}" +
                             '</a>' +
                             '</div>'
                         );

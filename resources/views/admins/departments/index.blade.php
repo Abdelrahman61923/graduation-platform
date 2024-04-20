@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    Departments
+    {{ __('Departments') }}
 @endsection
 @section('content')
     <div class="page-body">
@@ -8,13 +8,13 @@
             <div class="page-title">
                 <div class="row">
                     <div class="col-6">
-                        <h3>Departments</h3>
+                        <h3>{{ __('Departments') }}</h3>
                     </div>
                     <div class="col-6">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('admins.dashboard') }}"> <i
                                         data-feather="home"></i></a></li>
-                            <li class="breadcrumb-item active"> Departments</li>
+                            <li class="breadcrumb-item active">{{ __('Departments') }}</li>
                         </ol>
                     </div>
                 </div>
@@ -22,12 +22,12 @@
         </div>
         {{-- <div class="container-fluid">
             <div class="row second-chart-list third-news-update">
-                <div class="col-sm-6 col-xl-3 col-lg-6">
+                <div class="col-sm-6 col-xl-4 col-lg-6">
                     <div class="card o-hidden static-top-widget-card">
                         <div class="card-body">
                             <div class="media static-top-widget">
                                 <div class="media-body">
-                                    <h6 class="font-roboto">Active Departments</h6>
+                                    <h6 class="font-roboto">{{ __('Active Departments') }}</h6>
                                     <h4 class="mb-0 counter">{{ $active }}</h4>
                                 </div>
                                 <svg class="fill-success" width="45" height="39" viewBox="0 0 45 39" fill="none"
@@ -59,12 +59,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-xl-3 col-lg-6">
+                <div class="col-sm-6 col-xl-4 col-lg-6">
                     <div class="card o-hidden static-top-widget-card">
                         <div class="card-body">
                             <div class="media static-top-widget">
                                 <div class="media-body">
-                                    <h6 class="font-roboto">Inactive Departments</h6>
+                                    <h6 class="font-roboto">{{ __('Inactive Departments') }}</h6>
                                     <h4 class="mb-0 counter">{{ $Inactive }}</h4>
                                 </div>
                                 <svg class="fill-success" width="45" height="39" viewBox="0 0 45 39" fill="none"
@@ -102,11 +102,11 @@
             <div class="card">
                 <div class="card-header" style="padding: 30px !important;">
                     <div class="d-flex justify-content-start">
-                        <h4 class="card-title mb-0">All Departments</h4>
+                        <h4 class="card-title mb-0">{{ __('All Departments') }}</h4>
                     </div>
                     <div class="d-flex justify-content-end" style="margin-top: -30px;">
                         <a href="{{ route('departments.create') }}" class="btn btn-primary">
-                            Add
+                            {{ __('Add') }}
                         </a>
                     </div>
                 </div>
@@ -116,9 +116,9 @@
                             <thead>
                                 <tr>
                                     <th style="width: 0px!important;"></th>
-                                    <th>Name</th>
-                                    <th>Status</th>
-                                    <th style="width: 100px !important">Actions</th>
+                                    <th>ْ{{ __('Name') }}</th>
+                                    <th>{{ __('Status') }}</th>
+                                    <th style="width: 100px !important">{{ __('Actions') }}</th>
                                 </tr>
                             </thead>
                         </table>
@@ -200,7 +200,7 @@
                 {
                     // Actions
                     targets: 3,
-                    title: "Actions",
+                    title: "{{ __('Actions') }}",
                     orderable: false,
                     render: function(data, type, full, meta) {
                         var pk = full['id'];
@@ -212,7 +212,7 @@
                             '<a class="btn btn-danger delete-confirm" table="DepartmentTable" row="' +
                             meta.row + '" data-url="' + url2 + '" >' +
 
-                            "Delete" +
+                            "{{ __('Delete') }}" +
                             '</a>' +
                             '</div>'
                         );

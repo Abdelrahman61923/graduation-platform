@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    Users
+    {{ __('Users') }}
 @endsection
 @section('content')
     <div class="page-body">
@@ -8,12 +8,12 @@
             <div class="page-title">
                 <div class="row">
                     <div class="col-6">
-                        <h3>Users</h3>
+                        <h3>{{ __('Users') }}</h3>
                     </div>
                     <div class="col-6">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('admins.dashboard') }}"> <i data-feather="home"></i></a></li>
-                            <li class="breadcrumb-item active"> Users</li>
+                            <li class="breadcrumb-item active"> {{ __('Users') }}</li>
                         </ol>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                         <div class="card-body">
                             <div class="media static-top-widget">
                                 <div class="media-body">
-                                    <h6 class="font-roboto">Totel Admins</h6>
+                                    <h6 class="font-roboto">{{ __('Total Admins') }}</h6>
                                     <h4 class="mb-0 counter">{{ $admins }}</h4>
                                 </div>
                                 <svg class="fill-danger" width="41" height="46" viewBox="0 0 41 46"
@@ -57,7 +57,7 @@
                         <div class="card-body">
                             <div class="media static-top-widget">
                                 <div class="media-body">
-                                    <h6 class="font-roboto">Total Supervisor</h6>
+                                    <h6 class="font-roboto">{{ __('Total Supervisor') }}</h6>
                                     <h4 class="mb-0 counter">{{ $supervisors }}</h4>
                                 </div>
                                 <svg class="fill-danger" width="41" height="46" viewBox="0 0 41 46"
@@ -88,7 +88,7 @@
                         <div class="card-body">
                             <div class="media static-top-widget">
                                 <div class="media-body">
-                                    <h6 class="font-roboto">Total Students</h6>
+                                    <h6 class="font-roboto">{{ __('Total Students') }}</h6>
                                     <h4 class="mb-0 counter">{{ $students }}</h4>
                                 </div>
                                 <svg class="fill-danger" width="41" height="46" viewBox="0 0 41 46"
@@ -120,11 +120,11 @@
             <div class="card">
                 <div class="card-header" style="padding: 30px !important;">
                     <div class="d-flex justify-content-start">
-                        <h4 class="card-title mb-0">All Users</h4>
+                        <h4 class="card-title mb-0">{{ __('All Users') }}</h4>
                     </div>
                     <div class="d-flex justify-content-end" style="margin-top: -30px;">
                         <a href="{{ route('users.create') }}" class="btn btn-primary">
-                            Add
+                            {{ __('Add') }}
                         </a>
                     </div>
                 </div>
@@ -134,15 +134,15 @@
                             <thead>
                                 <tr>
                                     <th style="width: 0px!important;"></th>
-                                    <th>Image</th>
-                                    <th>Full Name</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
-                                    <th>Groups</th>
-                                    <th>Student Id</th>
-                                    <th>Department</th>
-                                    <th>phone</th>
-                                    <th style="width: 100px !important">Action</th>
+                                    <th>{{ __('Image') }}</th>
+                                    <th>{{ __('Full Name') }}</th>
+                                    <th>{{ __('Email') }}</th>
+                                    <th>{{ __('Role') }}</th>
+                                    <th>{{ __('In Group') }}</th>
+                                    <th>{{ __('University ID') }}</th>
+                                    <th>{{ __('Department') }}</th>
+                                    <th>{{ __('Phone') }}</th>
+                                    <th style="width: 100px !important">{{ __('Actions') }}</th>
                                 </tr>
                             </thead>
                         </table>
@@ -229,7 +229,7 @@
                 {
                     // Actions
                     targets: 9,
-                    title: "Actions",
+                    title: "{{ __('Actions') }}",
                     orderable: false,
                     render: function(data, type, full, meta) {
                         var pk = full['id'];
@@ -241,7 +241,7 @@
                             '<a class="btn btn-danger delete-confirm" table="UserTable" row="' + meta
                             .row + '" data-url="' + url2 + '" >' +
 
-                            "Delete" +
+                            "{{ __('Delete') }}" +
                             '</a>' +
                             '</div>'
                         );

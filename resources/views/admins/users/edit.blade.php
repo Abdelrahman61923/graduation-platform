@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    Edit User
+    {{ __('Edit User') }}
 @endsection
 @section('content')
     <div class="page-body">
@@ -8,13 +8,13 @@
             <div class="page-title">
                 <div class="row">
                     <div class="col-6">
-                        <h3>Edit User</h3>
+                        <h3>{{ __('Edit User') }}</h3>
                     </div>
                     <div class="col-6">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('admins.dashboard') }}"> <i
                                         data-feather="home"></i></a></li>
-                            <li class="breadcrumb-item active">Edit User</li>
+                            <li class="breadcrumb-item active">{{ __('Edit User') }}</li>
                         </ol>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                                 {{ method_field('PUT') }}
                                 @include('admins.users.partials.form', ['user' => $user])
                                 <div class="col-12  mt-4">
-                                    <button type="submit" class="btn btn-primary">Update</button>
+                                    <button type="submit" class="btn btn-primary">{{ __('Update')}}</button>
                                 </div>
                             </form>
                         </div>

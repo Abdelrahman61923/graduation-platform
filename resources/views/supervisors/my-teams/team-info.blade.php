@@ -2,7 +2,7 @@
 @section('styles')
 @endsection
 @section('title')
-    Team Info
+    {{ __('Team Information') }}
 @endsection
 @section('content')
     <div class="page-body">
@@ -12,51 +12,52 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Supervisor Data</h5>
+                            <h5 class="modal-title">{{ __('Supervisor Data') }}</h5>
                             <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="">First Name :
+                                        <label for="">{{ __('First Name :') }}
                                             <span>{{ $team->supervisor->first_name }}</span></label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="">Last Name :
+                                        <label for="">{{ __('Last Name :') }}
                                             <span>{{ $team->supervisor->last_name }}</span></label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="">Email : <span>{{ $team->supervisor->email }}</span></label>
+                                        <label for="">{{ __('Email :') }}
+                                            <span>{{ $team->supervisor->email }}</span></label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="">Phone :
+                                        <label for="">{{ __('Phone :') }}
                                             <span>{{ $team->supervisor->phone ?? 'Not Available' }}</span></label>
                                     </div>
                                 </div>
                                 @if ($team->status != \App\Models\Team::STATUS_APPROVED)
                                     <div class="col-md-12">
                                         <div class="mb-3">
-                                            <label for="">Supervisor not approved your team yet, You can remove to
-                                                assign another supervisor</label>
+                                            <label
+                                                for="">{{ __('Supervisor not approved your team yet, You can remove to assign another supervisor') }}</label>
                                         </div>
                                     </div>
                                 @endif
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">ْ{{ __('Close') }}</button>
                             {{-- @if ($team->status != \App\Models\Team::STATUS_APPROVED || auth()->user()->role == \App\Models\User::ROLE_ADMIN) --}}
                             <a href="javascript:void(0)" data-url="{{ route('teams.supervisor.delete', $team->id) }}"
                                 data-title="Are you sure you want to delete supervisor ({{ $team->supervisor->full_name }}) ?"
                                 data-message="You can not undo this step!" name="delete" id="{{ $team->id }}"
-                                class="delete-confirm btn btn-danger">Delete Supervisor</a>
+                                class="delete-confirm btn btn-danger">{{ __('Delete Supervisor') }}</a>
                             {{-- @endif --}}
                         </div>
                     </div>
@@ -70,17 +71,17 @@
                     @csrf
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Send To Supervisor</h5>
+                            <h5 class="modal-title">{{ __('Send To Supervisor') }}</h5>
                             <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="mb-3">
-                                        <label for="">Supervisors</label>
+                                        <label for="">{{ __('Supervisors') }}</label>
                                         <select class="js-example-placeholder-single form-control col-sm-12"
                                             name="supervisor_id" id="supervisor_id">
-                                            <option selected disabled></option>
+                                            <option selected disabled>{{ __('Select Supervisor') }}</option>
                                             @foreach ($supervisors as $supervisor)
                                                 <option value="{{ $supervisor->id }}">
                                                     {{ $supervisor->full_name . ' - ' . $supervisor->email }}</option>
@@ -88,7 +89,7 @@
                                         </select>
                                         <span class="invalid-feedback-custom d-none" role="alert"
                                             id="supervisor_id_error">
-                                            <strong>The supervisors field is required</strong>
+                                            <strong>{{ __('The supervisors field is required') }}</strong>
                                         </span>
                                         @error('supervisor_id')
                                             <span class="invalid-feedback" role="alert">
@@ -100,8 +101,10 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
-                            <button class="btn btn-primary submit-supervisor-form" type="button">Save changes</button>
+                            <button class="btn btn-secondary" type="button"
+                                data-bs-dismiss="modal">{{ __('Close') }}</button>
+                            <button class="btn btn-primary submit-supervisor-form"
+                                type="button">{{ __('Save changes') }}</button>
                         </div>
                     </div>
                 </form>
@@ -114,14 +117,14 @@
                     @csrf
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Add Another Members</h5>
+                            <h5 class="modal-title">{{ __('Add Another Member') }}</h5>
                             <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="mb-3">
-                                        <label for="">Students</label>
+                                        <label for="">{{ __('Students') }}</label>
                                         <select class="js-example-placeholder-multiple form-control col-sm-12"
                                             name="member_ids[]" id="members_ids" multiple>
                                             @foreach ($users as $user)
@@ -131,7 +134,7 @@
                                             @endforeach
                                         </select>
                                         <span class="invalid-feedback-custom d-none" role="alert" id="memberIdsError">
-                                            <strong>The students field is required</strong>
+                                            <strong>{{ __('The students field is required') }}</strong>
                                         </span>
                                         @error('member_ids')
                                             <span class="invalid-feedback" role="alert">
@@ -143,8 +146,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
-                            <button class="btn btn-primary submit-member-form" type="submit">Save changes</button>
+                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">{{ __('Close') }}</button>
+                            <button class="btn btn-primary submit-member-form" type="submit">{{ __('Save changes') }}</button>
                         </div>
                     </div>
                 </form>
@@ -154,7 +157,7 @@
             <div class="page-title">
                 <div class="row">
                     <div class="col-6">
-                        <h3>Team Information</h3>
+                        <h3>{{ __('Team Information') }}</h3>
                     </div>
                     <div class="col-6">
                         <ol class="breadcrumb">
@@ -169,7 +172,7 @@
                                     </a>
                                 @endif
                             </li>
-                            <li class="breadcrumb-item active"> Team Information</li>
+                            <li class="breadcrumb-item active">{{ __('Team Information') }}</li>
                         </ol>
                     </div>
                 </div>
@@ -181,7 +184,7 @@
                     <div class="col-xl-4">
                         <div class="card">
                             <div class="card-header" style="padding: 10px !important;">
-                                <h5 class="card-title mb-0">Leader Information</h5>
+                                <h5 class="card-title mb-0">{{ __('Leader Information') }}</h5>
                             </div>
                             <div class="card-body" style="padding: 20px !important;">
                                 <div class="row mb-2">
@@ -206,13 +209,14 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label">Name: <span
+                                            <label class="form-label">{{ __('Name:') }} <span
                                                     id="edited_project_title">{{ $team->project_title }}</span></label>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label">Status: <span>{{ $team->status }}</span></label>
+                                            <label class="form-label">{{ __('Status:') }}
+                                                <span>{{ $team->status }}</span></label>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
@@ -223,7 +227,7 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="mb-3">
-                                            <label class="form-label">Supervisor:
+                                            <label class="form-label">{{ __('Supervisor:') }}
                                                 @if ($team->supervisor)
                                                     <span>
                                                         @if (auth()->user()->role == \App\Models\User::ROLE_SUPERVISOR)
@@ -235,7 +239,7 @@
                                                         @endif
                                                     </span>
                                                 @else
-                                                    <span>Not assigned yet!</span>
+                                                    <span>{{ __('Not assigned yet!') }}</span>
                                                 @endif
                                             </label>
                                         </div>
@@ -244,7 +248,7 @@
                                         <div class="d-flex justify-content-end">
                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                                 data-bs-target="#SendToSupervisor">
-                                                Send To Supervisor
+                                                {{ __('Send To Supervisor') }}
                                             </button>
                                         </div>
                                     @endif
@@ -254,7 +258,7 @@
                                         <div class="d-flex justify-content-end" style="margin-top: -30px;">
                                             <button type="button" class="btn btn-primary m-b-5" data-bs-toggle="modal"
                                                 data-bs-target="#AddAnotherMembers">
-                                                Add Another Member
+                                                {{ __('Add Another Member') }}
                                             </button>
                                         </div>
                                     @endif
@@ -265,19 +269,19 @@
                                             <a class="btn btn-success btn-sm approve-team"
                                                 data-url="{{ route('supervisors.approve', $team->id) }}"
                                                 href="javascript:void(0)">
-                                                Approve</a>
+                                                {{ __('Approve') }}</a>
                                             &nbsp;
                                             <a class="btn btn-danger btn-sm reject-team"
                                                 data-url="{{ route('supervisors.reject', $team->id) }}"
                                                 href="javascript:void(0)">
-                                                Reject</a>
+                                                {{ __('Reject') }}</a>
                                         </div>
                                     @else
                                         <div class="d-flex justify-content-end">
                                             <a class="btn btn-danger btn-sm reject-team"
                                                 data-url="{{ route('supervisors.reject', $team->id) }}"
                                                 href="javascript:void(0)">
-                                                Remove Me</a>
+                                                {{ __('Remove Me') }}</a>
                                         </div>
                                     @endif
                                 @endif
@@ -297,14 +301,14 @@
                                 <thead>
                                     <tr>
                                         <th></th>
-                                        <th>Photo</th>
-                                        <th>Name</th>
-                                        <th>University ID</th>
-                                        <th>phone</th>
-                                        <th>Department</th>
-                                        <th>Email</th>
+                                        <th>{{ __('Photo') }}</th>
+                                        <th>{{ __('Name') }}</th>
+                                        <th>{{ __('University ID') }}</th>
+                                        <th>{{ __('Phone') }}</th>
+                                        <th>{{ __('Department') }}</th>
+                                        <th>{{ __('Email') }}</th>
                                         @if (auth()->user()->role == \App\Models\User::ROLE_ADMIN)
-                                            <th>Action</th>
+                                            <th>{{ __('Actions') }}</th>
                                         @endif
                                     </tr>
                                 </thead>
@@ -390,7 +394,7 @@
                 @if (auth()->user()->role == \App\Models\User::ROLE_ADMIN)
                     {
                         targets: 7,
-                        title: "Actions",
+                        title: "{{ __('Actions') }}",
                         orderable: false,
                         render: function(data, type, full, meta) {
                             let url = "{{ route('delete.member', 'id') }}";
@@ -399,7 +403,7 @@
                             return (
                                 '<a class="btn btn-danger btn-sm delete-confirm" table="DepartmentTable" row="' +
                                 meta.row + '" data-url="' + url + '" >' +
-                                "Delete" +
+                                "{{ __('Delete') }}" +
                                 '</a>'
                             );
                         }

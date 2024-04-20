@@ -1,7 +1,7 @@
 @extends('layouts.master')
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/select2.css') }}">
 @section('title')
-    My Team
+    {{ __('My Team') }}
 @endsection
 
 @section('content')
@@ -14,20 +14,20 @@
                     @csrf
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Add New Team</h5>
+                            <h5 class="modal-title">{{ __('Add New Team') }}</h5>
                             <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="mb-3">
-                                        <label for="">Project Title</label>
+                                        <label for="">{{ __('Project Title') }}</label>
                                         <input id="project_title" type="text"
                                             class="form-control @error('project_title') is-invalid @enderror"
                                             name="project_title" value="{{ old('project_title') }}" required
                                             autocomplete="project_title" placeholder="Project Title" autofocus>
                                         <span class="invalid-feedback-custom d-none" role="alert" id="projectname">
-                                            <strong>The project title field is required</strong>
+                                            <strong>{{ __('The project title field is required') }}</strong>
                                         </span>
                                         @error('project_title')
                                             <span class="invalid-feedback" role="alert">
@@ -38,12 +38,12 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="mb-3">
-                                        <label for="">Project Description</label>
+                                        <label for="">{{ __('Project Description') }}</label>
                                         <textarea id="project_description" class="form-control @error('project_description') is-invalid @enderror"
                                             name="project_description" value="{{ old('project_description') }}" required autocomplete="project_description"
                                             placeholder="Project Description" autofocus></textarea>
                                         <span class="invalid-feedback-custom d-none" role="alert" id="description">
-                                            <strong>The project description field is required</strong>
+                                            <strong>{{ __('The project description field is required') }}</strong>
                                         </span>
                                         @error('project_description')
                                             <span class="invalid-feedback" role="alert">
@@ -54,9 +54,9 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="mb-3">
-                                        <label for="">Students</label>
+                                        <label for="">{{ __('Students') }}</label>
                                         <select class="js-example-basic-multiple-limit-custom form-control col-sm-12"
-                                            name="member_ids[]" id="member_ids"  multiple>
+                                            name="member_ids[]" id="member_ids" multiple>
                                             @foreach ($users as $user)
                                                 <option value="{{ $user->id }}">
                                                     {{ $user->student_id . ' - ' . $user->full_name . ' - ' . $user->email }}
@@ -64,7 +64,7 @@
                                             @endforeach
                                         </select>
                                         <span class="invalid-feedback-custom d-none" role="alert" id="memberIds">
-                                            <strong>The students field is required</strong>
+                                            <strong>{{ __('The students field is required') }}</strong>
                                         </span>
                                         @error('member_ids')
                                             <span class="invalid-feedback" role="alert">
@@ -75,7 +75,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="mb-3">
-                                        <label for="">Tags</label>
+                                        <label for="">{{ __('Tags') }}</label>
                                         <select class="js-example-placeholder-multiple form-control col-sm-12"
                                             name="tag_ids[]" id="tag_ids" multiple>
                                             @foreach ($tags as $tag)
@@ -83,7 +83,7 @@
                                             @endforeach
                                         </select>
                                         <span class="invalid-feedback-custom d-none" role="alert" id="tagIds">
-                                            <strong>The tag field is required</strong>
+                                            <strong>{{ __('The tag field is required') }}</strong>
                                         </span>
                                         @error('tag_ids')
                                             <span class="invalid-feedback" role="alert">
@@ -95,8 +95,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
-                            <button class="btn btn-primary submit-form" type="button">Save changes</button>
+                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">{{ __('Close') }}</button>
+                            <button class="btn btn-primary submit-form" type="button">{{ __('Save changes') }}</button>
                         </div>
                     </div>
                 </form>
@@ -109,20 +109,20 @@
                     @csrf
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Edit Team</h5>
+                            <h5 class="modal-title">{{ __('Edit Team') }}</h5>
                             <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="mb-3">
-                                        <label for="">Project Title</label>
+                                        <label for="">{{ __('Project Title') }}</label>
                                         <input id="project_name" type="text"
                                             class="form-control @error('name') is-invalid @enderror" name="name"
                                             value="{{ old('name') }}" required autocomplete="name"
                                             placeholder="Project Name" autofocus>
                                         <span class="invalid-feedback-custom d-none" role="alert" id="project_name">
-                                            <strong>The project title field is required</strong>
+                                            <strong>{{ __('The project title field is required') }}</strong>
                                         </span>
                                         @error('name')
                                             <span class="invalid-feedback" role="alert">
@@ -132,13 +132,13 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="mb-3">
-                                            <label for="">Project Description</label>
+                                            <label for="">{{ __('Project Description') }}</label>
                                             <textarea id="project_description_edit" class="form-control @error('project_description') is-invalid @enderror"
                                                 name="project_description" value="{{ old('project_description') }}" required autocomplete="project_description"
                                                 placeholder="Project Description" autofocus></textarea>
                                             <span class="invalid-feedback-custom d-none" role="alert"
                                                 id="description_error">
-                                                <strong>The project description field is required</strong>
+                                                <strong>{{ __('The project description field is required') }}</strong>
                                             </span>
                                             @error('project_description')
                                                 <span class="invalid-feedback" role="alert">
@@ -151,8 +151,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
-                            <button class="btn btn-primary submit-edit-form" type="button">Save changes</button>
+                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">{{ __('Close') }}</button>
+                            <button class="btn btn-primary submit-edit-form" type="button">{{ __('Save changes') }}</button>
                         </div>
                     </div>
                 </form>
@@ -165,7 +165,7 @@
                     @csrf
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Send To Supervisor</h5>
+                            <h5 class="modal-title">{{ __('Send To Supervisor') }}</h5>
                             <button class="btn-close" type="button" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                         </div>
@@ -173,7 +173,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="mb-3">
-                                        <label for="">Supervisors</label>
+                                        <label for="">{{ __('Supervisors') }}</label>
                                         <select class="js-example-placeholder-single form-control col-sm-12"
                                             name="supervisor_id" id="supervisor_id">
                                             <option selected disabled></option>
@@ -184,7 +184,7 @@
                                         </select>
                                         <span class="invalid-feedback-custom d-none" role="alert"
                                             id="supervisor_id_error">
-                                            <strong>The supervisors field is required</strong>
+                                            <strong>{{ __('The supervisors field is required') }}</strong>
                                         </span>
                                         @error('supervisor_id')
                                             <span class="invalid-feedback" role="alert">
@@ -196,8 +196,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
-                            <button class="btn btn-primary submit-supervisor-form" type="button">Save changes</button>
+                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">{{ __('Close') }}</button>
+                            <button class="btn btn-primary submit-supervisor-form" type="button">{{ __('Save changes') }}</button>
                         </div>
                     </div>
                 </form>
@@ -210,7 +210,7 @@
                     @csrf
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Add Another Members</h5>
+                            <h5 class="modal-title">{{ __('Add Another Members') }}</h5>
                             <button class="btn-close" type="button" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                         </div>
@@ -218,7 +218,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="mb-3">
-                                        <label for="">Students</label>
+                                        <label for="">{{ __('Students') }}</label>
                                         <select class="js-example-basic-multiple-limit-members form-control col-sm-12"
                                             name="member_ids[]" id="members_ids" multiple>
                                             @foreach ($users as $user)
@@ -228,7 +228,7 @@
                                             @endforeach
                                         </select>
                                         <span class="invalid-feedback-custom d-none" role="alert" id="memberIdsError">
-                                            <strong>The students field is required</strong>
+                                            <strong>{{ __('The students field is required') }}</strong>
                                         </span>
                                         @error('member_ids')
                                             <span class="invalid-feedback" role="alert">
@@ -240,8 +240,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
-                            <button class="btn btn-primary submit-member-form" type="button">Save changes</button>
+                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">{{ __('Close') }}</button>
+                            <button class="btn btn-primary submit-member-form" type="button">{{ __('Save changes') }}</button>
                         </div>
                     </div>
                 </form>
@@ -253,7 +253,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Supervisor Data</h5>
+                            <h5 class="modal-title">{{ __('Supervisor Data') }}</h5>
                             <button class="btn-close" type="button" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                         </div>
@@ -261,47 +261,45 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="">First Name :
+                                        <label for="">{{ __('First Name :') }}
                                             <span>{{ $authUser->team->supervisor->first_name }}</span></label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="">Last Name :
+                                        <label for="">{{ __('Last Name :') }}
                                             <span>{{ $authUser->team->supervisor->last_name }}</span></label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="">Email :
+                                        <label for="">{{ __('Email :') }}
                                             <span>{{ $authUser->team->supervisor->email }}</span></label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="">Phone :
+                                        <label for="">{{ __('Phone :') }}
                                             <span>{{ $authUser->team->supervisor->phone ?? 'Not Available' }}</span></label>
                                     </div>
                                 </div>
                                 @if ($authUser->team->status != \App\Models\Team::STATUS_APPROVED && $authUser->team->leader_id == $authUser->id)
                                     <div class="col-md-12">
                                         <div class="mb-3">
-                                            <label for="">Supervisor not approved your team yet, You can remove to
-                                                assign another supervisor</label>
+                                            <label for="">{{ __('Supervisor not approved your team yet, You can remove to assign another supervisor') }}</label>
                                         </div>
                                     </div>
                                 @endif
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">{{ __('Close') }}</button>
                             @if ($authUser->team->status != \App\Models\Team::STATUS_APPROVED && $authUser->team->leader_id == $authUser->id)
                                 <a href="javascript:void(0)"
                                     data-url="{{ route('teams.supervisor.delete', $authUser->team->id) }}"
                                     data-title="Are you sure you want to delete supervisor ({{ $authUser->team->supervisor->full_name }}) ?"
                                     data-message="You can not undo this step!" name="delete"
-                                    id="{{ $authUser->team->id }}" class="delete-confirm btn btn-danger">Delete
-                                    Supervisor</a>
+                                    id="{{ $authUser->team->id }}" class="delete-confirm btn btn-danger">{{ __('Delete Supervisor') }}</a>
                             @endif
                         </div>
                     </div>
@@ -312,14 +310,13 @@
             <div class="page-title">
                 <div class="row">
                     <div class="col-6">
-                        <h3>My Team</h3>
+                        <h3>{{ __('My Team') }}</h3>
                     </div>
                     <div class="col-6">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('students.dashboard') }}"> <i
                                         data-feather="home"></i></a></li>
-                                        <li class="breadcrumb-item active">Dashboard</li>
-                            <li class="breadcrumb-item active"> My Team</li>
+                            <li class="breadcrumb-item active"> {{ __('My Team') }}</li>
                         </ol>
                     </div>
                 </div>
@@ -332,7 +329,7 @@
                     <div class="col-xl-4">
                         <div class="card">
                             <div class="card-header" style="padding: 10px !important;">
-                                <h5 class="card-title mb-0">Leader Information</h5>
+                                <h5 class="card-title mb-0">{{ __('Leader Information') }}</h5>
                             </div>
                             <div class="card-body" style="padding: 20px !important;">
                                 <div class="row mb-2">
@@ -351,7 +348,7 @@
                                     @else
                                         <div class="profile-title">
                                             <div class="media" style="text-align: center;">
-                                                No leader Yet!
+                                                {{ __('No leader Yet!') }}
                                             </div>
                                         </div>
                                     @endif
@@ -363,7 +360,7 @@
                         <form class="card">
                             <div class="card-header" style="padding: 10px !important;">
                                 <div class="d-flex justify-content-start">
-                                    <h4 class="card-title mb-0">Team
+                                    <h4 class="card-title mb-0">{{  __('Team')}}
                                         ({{ $authUser?->team?->team_number ?? 'Information' }})
                                     </h4>
                                 </div>
@@ -371,7 +368,7 @@
                                     <div class="d-flex justify-content-end" style="margin-top: -30px;">
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                             data-bs-target="#AddTeamModal">
-                                            Add New Team
+                                            {{ __('Add New Team') }}
                                         </button>
                                     </div>
                                 @elseif($settings && $authUser->team && $authUser->team->leader_id == $authUser->id)
@@ -382,10 +379,10 @@
                                                 data-title="Are you sure you want to delete team number ({{ $authUser->team->id }}) ?"
                                                 data-message="You can not undo this step!" name="delete"
                                                 id="{{ $authUser->team->id }}"
-                                                class="delete-confirm btn btn-danger m-r-10">Delete</a>
+                                                class="delete-confirm btn btn-danger m-r-10">{{ __('Delete') }}</a>
                                         @endif
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#EditTeamModal" id="show-edit-form">
-                                            Edit Team
+                                            {{ __('Edit Team') }}
                                         </button>
                                     </div>
                                 @endif
@@ -396,13 +393,13 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Name: <span
+                                                <label class="form-label">{{ __('Name:') }} <span
                                                         >{{ $authUser->team->project_title }}</span></label>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Status:
+                                                <label class="form-label">{{ __('Status:') }}
                                                     <span>{{ $authUser->team->status }}</span></label>
                                             </div>
                                         </div>
@@ -414,14 +411,14 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="mb-3">
-                                                <label class="form-label">Supervisor:
+                                                <label class="form-label">{{ __('Supervisor:') }}
                                                     @if ($authUser->team->supervisor)
                                                         <span>
                                                             <a href="javascript:void(0)" data-bs-toggle="modal"
                                                                 data-bs-target="#SupervisorData">{{ $authUser->team->supervisor->full_name }}</a>
                                                         </span>
                                                     @else
-                                                        <span>Not assigned yet!</span>
+                                                        <span>{{ __('Not assigned yet!') }}</span>
                                                     @endif
                                                 </label>
                                             </div>
@@ -434,7 +431,7 @@
                                         <div class="d-flex justify-content-end">
                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                                 data-bs-target="#SendToSupervisor">
-                                                Send To Supervisor
+                                                {{ __('Send To Supervisor') }}
                                             </button>
                                         </div>
                                     @endif
@@ -443,7 +440,7 @@
                                         <div class="col-md-12">
                                             <div class="mb-3">
                                                 <div style="text-align: center;">
-                                                    No Team Yet!
+                                                    {{ __('No Team Yet!') }}
                                                 </div>
                                             </div>
                                         </div>
@@ -456,7 +453,7 @@
                         <div class="card">
                             <div class="card-header" style="padding: 10px !important;">
                                 <div class="d-flex justify-content-start">
-                                    <h4 class="card-title mb-0">Members</h4>
+                                    <h4 class="card-title mb-0">{{ __('Members') }}</h4>
                                 </div>
                                 @if (
                                     $authUser->team &&
@@ -467,7 +464,7 @@
                                     <div class="d-flex justify-content-end" style="margin-top: -30px;">
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                             data-bs-target="#AddAnotherMembers">
-                                            Add Another Member
+                                            {{ __('Add Another Member') }}
                                         </button>
                                     </div>
                                 @endif
@@ -477,13 +474,13 @@
                                 <table class="table card-table table-vcenter text-nowrap">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>University Id</th>
-                                            <th>Phone</th>
-                                            <th>Department</th>
-                                            <th>Email</th>
-                                            <th>Status</th>
-                                            <th colspan="2" style="text-align: center;">Actions</th>
+                                            <th>{{ __('Name') }}</th>
+                                            <th>{{ __('University ID') }}</th>
+                                            <th>{{ __('Phone') }}</th>
+                                            <th>{{ __('Department') }}</th>
+                                            <th>{{ __('Email') }}</th>
+                                            <th>{{ __('Status') }}</th>
+                                            <th colspan="2" style="text-align: center;">{{ __('Actions') }}</th>
                                         </tr>
                                     </thead>
                                     @if ($authUser->team)
@@ -506,11 +503,11 @@
                                                                         data-title="Are you sure you want to delete member ({{ $member->user->full_name }}) ?"
                                                                         data-message="You can not undo this step!"
                                                                         name="delete" id="{{ $member->id }}"
-                                                                        class="delete-confirm btn btn-danger">Delete</a>
+                                                                        class="delete-confirm btn btn-danger">{{ __('Delete') }}</a>
                                                                 </td>
                                                             @else
                                                                 <td colspan="2">
-                                                                    <p style="text-align: center;font-weight: bold;">Member
+                                                                    <p style="text-align: center;font-weight: bold;">{{ __('Member') }}
                                                                     </p>
                                                                 </td>
                                                             @endif
@@ -518,26 +515,26 @@
                                                             <td>
                                                                 <a class="btn btn-success btn-sm accept-team"
                                                                     data-url="{{ route('members.accept', $member->id) }}"
-                                                                    href="javascript:void(0)"> Accept</a>
+                                                                    href="javascript:void(0)"> {{ __('Accept') }}</a>
                                                             </td>
                                                             <td>
                                                                 <a class="btn btn-danger btn-sm refus-team"
                                                                     data-url="{{ route('members.delete', $member->id) }}"
                                                                     href="javascript:void(0)"><i class="fa fa-trash"></i>
-                                                                    Refus</a>
+                                                                    {{ __('Refus') }}</a>
                                                             </td>
                                                         @elseif($member->status == \App\Models\Member::STATUS_ACCEPTED && $authUser->id == $member->member_id)
                                                             <td colspan="2">
-                                                                <p style="text-align: center;font-weight: bold;">Member</p>
+                                                                <p style="text-align: center;font-weight: bold;">{{ __('Member') }}</p>
                                                             </td>
                                                         @elseif($authUser->id != $member->member_id)
                                                             <td colspan="2">
-                                                                <p style="text-align: center;font-weight: bold;">Member</p>
+                                                                <p style="text-align: center;font-weight: bold;">{{ __('Member') }}</p>
                                                             </td>
                                                         @endif
                                                     @else
                                                         <td colspan="2">
-                                                            <p style="text-align: center;font-weight: bold;">Leader</p>
+                                                            <p style="text-align: center;font-weight: bold;">{{ __('Leader') }}</p>
                                                         </td>
                                                     @endif
                                                 </tr>
@@ -547,7 +544,7 @@
                                         <tbody>
                                             <tr>
                                                 <td colspan="5" style="text-align: center;">
-                                                    No Members Yet!
+                                                    {{ __('No Members Yet!') }}
                                                 </td>
                                             </tr>
                                         </tbody>

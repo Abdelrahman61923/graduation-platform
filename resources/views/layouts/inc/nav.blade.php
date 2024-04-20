@@ -23,14 +23,25 @@
         </div>
         <div class="nav-right col-8 pull-right right-header p-0">
             <ul class="nav-menus">
-
+                <li class="language-nav">
+                    <div class="translate_wrapper">
+                        <div class="current_lang">
+                            @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                <a rel="alternate" hreflang="{{ $localeCode }}"
+                                    href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                    {{ $properties['native'] }}
+                                </a>
+                            @endforeach
+                        </div>
+                    </div>
+                </li>
                 <li> <span class="header-search"><i data-feather="search"></i></span></li>
                 <li class="onhover-dropdown">
                     <div class="notification-box"><i data-feather="bell"> </i><span
                             class="badge rounded-pill badge-secondary">{{ Auth::User()->unreadNotifications()->count() }}
                         </span></div>
                     <div class="onhover-show-div notification-dropdown">
-                        <h6 class="f-18 mb-0 dropdown-title">Notitications </h6>
+                        <h6 class="f-18 mb-0 dropdown-title">{{ __('Notitications') }} </h6>
                         <ul>
 
                             @foreach (Auth::User()->Notifications as $notification)
@@ -57,7 +68,7 @@
                                 </li>
                             @endforeach
 
-                            <li><a class="f-w-700" href="#">Check all</a></li>
+                            <li><a class="f-w-700" href="#">{{ __('Check all') }}</a></li>
                         </ul>
                     </div>
                 </li>
@@ -67,7 +78,7 @@
                 </li>
                 <li class="onhover-dropdown"><i data-feather="message-square"></i>
                     <div class="chat-dropdown onhover-show-div">
-                        <h6 class="f-18 mb-0 dropdown-title">Messages</h6>
+                        <h6 class="f-18 mb-0 dropdown-title">{{ __('Messages')}}</h6>
                         <ul class="py-0">
                             @foreach (Auth::User()->Notifications as $notification)
                                 <li>
@@ -99,7 +110,7 @@
                                     </div>
                                 </li>
                             @endforeach
-                            <li class="text-center"> <a class="f-w-700" href="#">View All </a></li>
+                            <li class="text-center"> <a class="f-w-700" href="#">{{ __('View All')}} </a></li>
                         </ul>
                     </div>
                 </li>
@@ -120,23 +131,23 @@
                             @if (auth()->user()->role == \App\Models\User::ROLE_SUPERVISOR)
                                 <a href="{{ route('supervisors.profile') }}">
                                     <i data-feather="user"></i>
-                                    <span>Profile</span>
+                                    <span>{{ __('Profile') }}</span>
                                 </a>
                             @elseif(auth()->user()->role == \App\Models\User::ROLE_USER)
                                 <a href="{{ route('students.profile') }}">
                                     <i data-feather="user"></i>
-                                    <span>Profile</span>
+                                    <span>{{ __('Profile') }}</span>
                                 </a>
                             @elseif(auth()->user()->role == \App\Models\User::ROLE_ADMIN)
                                 <a href="{{ route('admins.profile') }}">
                                     <i data-feather="user"></i>
-                                    <span>Profile</span>
+                                    <span>{{ __('Profile') }}</span>
                                 </a>
                             @endif
                         </li>
                         @if (auth()->user()->role == \App\Models\User::ROLE_ADMIN)
                             <li><a href="{{ route('admins.settings') }}"><i
-                                        data-feather="settings"></i><span>Settings</span></a></li>
+                                        data-feather="settings"></i><span>{{ __('Settings') }}</span></a></li>
                         @endif
                         <li>
                             <form method="POST" action="{{ route('logout') }}">
@@ -145,7 +156,7 @@
                                     onclick="event.preventDefault();
                                     this.closest('form').submit();">
                                     <i data-feather="log-in"> </i>
-                                    <span>Log out</span>
+                                    <span>{{ __('Log out') }}</span>
                                 </a>
                             </form>
                         </li>
@@ -163,7 +174,7 @@
             </div>
         </script>
         <script class="empty-template" type="text/x-handlebars-template">
-            <div class="EmptyMessage">Your search turned up 0 results. This most likely means the backend is down, yikes!</div>
+            <div class="EmptyMessage"> {{ __('Your search turned up 0 results. This most likely means the backend is down, yikes!') }}</div>
         </script>
     </div>
 </div>

@@ -21,15 +21,15 @@
 
                         <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
                                 href="{{ route('students.dashboard') }}"><i data-feather="home"></i><span>
-                                    Dashboard</span></a>
+                                    {{ __('Dashboard') }}</span></a>
                         </li>
                         <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
                                 href="{{ route('students.my-team') }}"><i data-feather="users"></i><span>
-                                    My Team</span></a>
+                                    {{ __('My Team') }}</span></a>
                         </li>
                         <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
                                 href="{{ route('students.instructions') }}"><i data-feather="users"></i><span>
-                                    Instructions</span></a>
+                                    {{ __('Instructions') }}</span></a>
                         </li>
                     </ul>
                 </div>
@@ -58,12 +58,12 @@
 
                         <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
                                 href="{{ route('supervisors.dashboard') }}"><i data-feather="home"></i><span>
-                                    Dashboard</span></a>
+                                    {{ __('Dashboard') }}</span></a>
                         </li>
                         <li class="sidebar-list">
                             <a class="sidebar-link sidebar-title link-nav"
                                 href="{{ route('supervisors.my-teams') }}"><i data-feather="users"></i><span>
-                                My Teams</span>
+                                {{ __('My Teams') }}</span>
                             </a>
                         </li>
                     </ul>
@@ -93,31 +93,31 @@
 
                         <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
                                 href="{{ route('admins.dashboard') }}"><i data-feather="home"></i><span>
-                                    Dashboard</span></a>
+                                    {{ __('Dashboard')}}</span></a>
                         </li>
                         <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
                             href="{{ route('users.index') }}"><i data-feather="users"></i><span>
-                                Users</span></a>
+                                {{ __('Users') }} </span></a>
                         </li>
                         <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
                             href="{{ route('departments.index') }}"><i data-feather="check-square"></i><span>
-                                Department</span></a>
+                                {{ __('Departments') }}</span></a>
                         </li>
                         <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
                             href="{{ route('tags.index') }}"><i data-feather="shopping-bag"></i><span>
-                                Tag</span></a>
+                                {{ __('Tags') }}</span></a>
                         </li>
                         <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
                             href="{{ route('admins.teams') }}"><i data-feather="box"></i><span>
-                                Teams</span></a>
+                                {{ __('Teams') }} </span></a>
                         </li>
                         <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
                             href="{{ route('admins.settings') }}"><i data-feather="settings"></i><span>
-                                Settings</span></a>
+                                {{ __('Settings') }}</span></a>
                         </li>
                         <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
                             href="{{ route('admins.instructions') }}"><i data-feather="settings"></i><span>
-                                Instructions</span></a>
+                                {{ __('Instructions') }}</span></a>
                         </li>
 
                     </ul>

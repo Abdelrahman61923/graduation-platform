@@ -1,9 +1,9 @@
 @extends('layouts.master')
 @section('title')
     @if (auth()->user()->role == \App\Models\User::ROLE_SUPERVISOR)
-        My Teams
+        {{ __('My Teams') }}
     @else
-        Teams
+        {{ __('Teams') }}
     @endif
 @endsection
 @section('styles')
@@ -15,9 +15,9 @@
                 <div class="row">
                     <div class="col-6">
                         @if (auth()->user()->role == \App\Models\User::ROLE_SUPERVISOR)
-                            <h3>My Teams</h3>
+                            <h3>{{ __('My Teams') }}</h3>
                         @else
-                            <h3>Teams</h3>
+                            <h3>{{ __('Teams') }}</h3>
                         @endif
                     </div>
                     <div class="col-6">
@@ -34,9 +34,9 @@
                                 @endif
                             </li>
                             @if (auth()->user()->role == \App\Models\User::ROLE_SUPERVISOR)
-                                <li class="breadcrumb-item active"> My Teams</li>
+                                <li class="breadcrumb-item active">{{ __('My Teams') }}</li>
                             @else
-                                <li class="breadcrumb-item active"> Teams</li>
+                                <li class="breadcrumb-item active">{{ __('Teams') }}</li>
                             @endif
                         </ol>
                     </div>
@@ -51,15 +51,15 @@
                             <thead>
                                 <tr>
                                     <th></th>
-                                    <th>Team Number</th>
-                                    <th>Leader</th>
-                                    <th>Project Title</th>
-                                    <th>Project Description</th>
+                                    <th>{{ __('Team Number') }}</th>
+                                    <th>{{ __('Leader') }}</th>
+                                    <th>{{ __('Project Title') }}</th>
+                                    <th>{{ __('Project Description') }}</th>
                                     @if (auth()->user()->role == \App\Models\User::ROLE_ADMIN)
-                                        <th>Supervisor</th>
+                                        <th>{{ __('Supervisor') }}</th>
                                     @endif
-                                    <th>Status</th>
-                                    <th style="width: 100px !important">Action</th>
+                                    <th>{{ __('Status') }}</th>
+                                    <th style="width: 100px !important">{{ __('Actions') }}</th>
                                 </tr>
                             </thead>
                         </table>
@@ -122,7 +122,7 @@
                     @else
                         targets: 7,
                     @endif
-                    title: "Actions",
+                    title: "{{ __('Actions') }}",
                     orderable: false,
                     render: function(data, type, full, meta) {
                         let url = "{{ route('teams.delete', ':id') }}";
@@ -136,14 +136,14 @@
                             deleteBtn = '</a>&nbsp;' +
                                 '<a table="TeamTable" row="' + meta.row + '" data-url="' + Deleteurl +
                                 '" class="btn btn-danger btn-sm delete-confirm">' +
-                                "Delete" +
+                                "{{ __('Delete') }}" +
                                 '</a>';
                         @endif
 
                         Showurl = url2.replace(':id', full.id);
                         return '<a href="' + Showurl +
                             '" class="btn btn-primary btn-sm">' +
-                            "Show </a>" + deleteBtn +
+                            "{{ __('Show') }} </a>" + deleteBtn +
                             '';
                     }
                 }

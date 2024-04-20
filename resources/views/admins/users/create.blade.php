@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    Create User
+    {{ __('Create User') }}
 @endsection
 @section('content')
     <div class="page-body">
@@ -8,13 +8,13 @@
             <div class="page-title">
                 <div class="row">
                     <div class="col-6">
-                        <h3>Create User</h3>
+                        <h3>{{ __('Create User') }}</h3>
                     </div>
                     <div class="col-6">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('admins.dashboard') }}"> <i
                                         data-feather="home"></i></a></li>
-                            <li class="breadcrumb-item active">Create User</li>
+                            <li class="breadcrumb-item active">{{ __('Create User') }}</li>
                         </ol>
                     </div>
                 </div>
@@ -30,7 +30,7 @@
                                 {{ csrf_field() }}
                                 @include('admins.users.partials.form', ['user' => $user])
                                 <div class="col-12  mt-4">
-                                    <button type="submit" class="btn btn-primary">Save</button>
+                                    <button type="submit" class="btn btn-primary">{{ __('Save') }}</button>
                                 </div>
                             </form>
                         </div>

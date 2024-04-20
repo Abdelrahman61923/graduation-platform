@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    Create Department
+    {{ __('Create Department') }}
 @endsection
 @section('content')
     <div class="page-body">
@@ -8,13 +8,13 @@
             <div class="page-title">
                 <div class="row">
                     <div class="col-6">
-                        <h3>Create Department</h3>
+                        <h3>{{ __('Create Department') }}</h3>
                     </div>
                     <div class="col-6">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('admins.dashboard') }}"> <i
                                         data-feather="home"></i></a></li>
-                            <li class="breadcrumb-item active">Create Department</li>
+                            <li class="breadcrumb-item active">{{ __('Create Department') }}</li>
                         </ol>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                                 @include('admins.departments.partials.form', ['department' => $department])
                                 <br>
                                 <div class="col-12  mt-2 pt-50">
-                                    <button type="submit" class="btn btn-primary">Save</button>
+                                    <button type="submit" class="btn btn-primary">{{ __('Save') }}</button>
                                 </div>
                             </form>
                         </div>
