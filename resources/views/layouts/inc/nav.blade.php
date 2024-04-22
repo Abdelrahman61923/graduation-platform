@@ -27,11 +27,14 @@
                     <div class="translate_wrapper">
                         <div class="current_lang">
                             @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                                <a rel="alternate" hreflang="{{ $localeCode }}"
-                                    href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
-                                    {{ $properties['native'] }}
-                                </a>
+                                @if ($localeCode !== LaravelLocalization::getCurrentLocale())
+                                    <a rel="alternate" hreflang="{{ $localeCode }}"
+                                        href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                        {{ $localeCode }}
+                                    </a>
+                                @endif
                             @endforeach
+
                         </div>
                     </div>
                 </li>
@@ -78,7 +81,7 @@
                 </li>
                 <li class="onhover-dropdown"><i data-feather="message-square"></i>
                     <div class="chat-dropdown onhover-show-div">
-                        <h6 class="f-18 mb-0 dropdown-title">{{ __('Messages')}}</h6>
+                        <h6 class="f-18 mb-0 dropdown-title">{{ __('Messages') }}</h6>
                         <ul class="py-0">
                             @foreach (Auth::User()->Notifications as $notification)
                                 <li>
@@ -110,7 +113,7 @@
                                     </div>
                                 </li>
                             @endforeach
-                            <li class="text-center"> <a class="f-w-700" href="#">{{ __('View All')}} </a></li>
+                            <li class="text-center"> <a class="f-w-700" href="#">{{ __('View All') }} </a></li>
                         </ul>
                     </div>
                 </li>
