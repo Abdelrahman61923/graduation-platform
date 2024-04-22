@@ -56,7 +56,7 @@
             <div class="form-group mb-3">
                 <div class="input-group">
                     <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
-                    <input id="password_confirmation" placeholder="Confirm Password" type="password" 
+                    <input id="password_confirmation" placeholder="Confirm Password" type="password"
                         name="password_confirmation" autocomplete="new-password" class="form-control shadow-none" style="width: 65%;">
                 </div>
             </div>

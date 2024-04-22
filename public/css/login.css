@@ -14,7 +14,7 @@ body {
     align-items: center;
     margin-top: 70px;
     padding-top: 128px;
-    position: relative; 
+    position: relative;
     width: 300px; /* Adjust the width as per your preference */
     max-width: 30%; /* Ensure it doesn't overflow on smaller screens */
     height: auto; /* Allow height to adjust based on content */
@@ -33,10 +33,10 @@ body {
     left: 50%;
     transform: translateX(-50%);
     background-color: #ffffff;
-    width: 130px; 
+    width: 130px;
     height: 130px;
     border-radius: 50%;
-    z-index: 100; 
+    z-index: 100;
 }
 
 .circle img {
@@ -46,22 +46,22 @@ body {
     margin-left: 25px;
     margin-top: 10px;
     left: 50%;
-} 
+}
 
 .name  {
     text-align: center;
     position: absolute;
-    top: 50px; 
+    top: 50px;
     color: #fff;
-    font-size: 25px; 
+    font-size: 25px;
     font-weight: bold;
 }
 
 .my-form .validationMessage {
     margin-bottom: 15px;
     color: red;
-    font-size: 16px; 
-    margin-top: 10px; 
+    font-size: 16px;
+    margin-top: 10px;
 }
 
 .error-message {
