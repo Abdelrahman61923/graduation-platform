@@ -40,8 +40,8 @@
         <!-- Page Body Start-->
         <div class="page-body-wrapper">
             <!-- Page Sidebar Start-->
-            {{-- @include('layouts.inc.aside') --}}
-            <x-aside />
+            @include('layouts.inc.aside')
+            {{-- <x-aside /> --}}
 
             <!-- Page Sidebar Ends-->
             @yield('content')
