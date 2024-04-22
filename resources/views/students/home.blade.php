@@ -4,6 +4,7 @@
 @endsection
 @section('content')
 <div class="page-body">
+
     <div class="container-fluid">
         <div class="page-title">
             <div class="row">
@@ -72,5 +73,6 @@
         </div>
     </div>
     <!-- Container-fluid Ends-->
+
 </div>
 @endsection

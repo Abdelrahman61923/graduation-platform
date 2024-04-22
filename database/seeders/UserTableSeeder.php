@@ -143,7 +143,7 @@ class UserTableSeeder extends Seeder
                 'email'     => 'user8@gmail.com',
                 'is_change_password'=> 1,
                 'password'  => Hash::make('12345678'),
-                'student_id'=> '202410',
+                'student_id'=> '20242',
                 'phone'     => '01096653388',
                 'role'      => User::ROLE_USER,
                 'created_at'=> now(),
