@@ -77,6 +77,12 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function() {
                         Route::post('accept/{id}', 'acceptMember')->name('accept');
                     });
                 });
+
+                Route::controller(InstructionController::class)->group(function(){
+                    Route::prefix('students')->name('students.')->group(function () {
+                        Route::get('Upload-Book', 'home')->name('upload-book');
+                    });
+                });
             });
 
             Route::middleware(['not-role:'.User::ROLE_SUPERVISOR])->group(function () {
@@ -85,16 +91,6 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function() {
                         Route::post('supervisor/store/{id}', 'addSupervisorTeam')->name('supervisor.store');
                         Route::post('supervisor/delete/{id}', 'deleteSupervisor')->name('supervisor.delete');
                         Route::post('delete/{id}', 'delete')->name('delete');
-                    });
-                });
-
-                Route::controller(InstructionController::class)->group(function(){
-                    Route::prefix('students')->name('students.')->group(function () {
-                        Route::get('instructions', 'index')->name('instructions');
-                    });
-
-                    Route::prefix('admins')->name('admins.')->group(function () {
-                        Route::get('instructions', 'index')->name('instructions');
                     });
                 });
             });
@@ -170,6 +166,13 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function() {
                         });
                     });
                     Route::resource('users', UserController::class);
+
+                    Route::controller(InstructionController::class)->group(function(){
+                        Route::prefix('instructions')->name('admins.')->group(function () {
+                            Route::get('', 'index')->name('instructions');
+                        });
+                    });
+
                 });
 
             });
@@ -177,3 +180,5 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function() {
 
     });
 });
+
+
