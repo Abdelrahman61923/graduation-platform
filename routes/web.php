@@ -125,7 +125,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function() {
                 });
 
                 Route::controller(TeamController::class)->group(function(){
-                    Route::get('supervisors/teams/show/{id}', 'show')->name('supervisors.teams.show');
+                    Route::get('supervisors/teams/show/{id}', 'show')->name('supervisors.my-teams.show');
                     Route::get('admins/teams/show/{id}', 'show')->name('admins.teams.show');
                 });
             });

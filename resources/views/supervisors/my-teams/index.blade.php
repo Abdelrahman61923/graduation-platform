@@ -130,7 +130,7 @@
                         let deleteBtn = '';
                         let url2 = "";
                         @if (auth()->user()->role == \App\Models\User::ROLE_SUPERVISOR)
-                            url2 = "{{ route('supervisors.teams.show', ':id') }}";
+                            url2 = "{{ route('supervisors.my-teams.show', ':id') }}";
                         @else
                             url2 = "{{ route('admins.teams.show', ':id') }}";
                             deleteBtn = '</a>&nbsp;' +

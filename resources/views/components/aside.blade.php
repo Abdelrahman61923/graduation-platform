@@ -20,7 +20,7 @@
                                     aria-hidden="true"></i></div>
                         </li>
 
-                        @foreach ($items as $item)
+                        @foreach ($items["student"] as $item)
                             <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav {{ Route::is($item['active'])? 'active' : '' }}"
                                     href="{{ route($item['route']) }}"><i data-feather="{{ $item['icon'] }}"></i><span>
                                         {{ __($item['title']) }}
@@ -54,16 +54,15 @@
                                     aria-hidden="true"></i></div>
                         </li>
 
-                        <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
-                                href="{{ route('supervisors.dashboard') }}"><i data-feather="home"></i><span>
-                                    {{ __('Dashboard') }}</span></a>
-                        </li>
-                        <li class="sidebar-list">
-                            <a class="sidebar-link sidebar-title link-nav"
-                                href="{{ route('supervisors.my-teams') }}"><i data-feather="users"></i><span>
-                                    {{ __('My Teams') }}</span>
-                            </a>
-                        </li>
+                        @foreach ($items["supervisor"] as $item)
+                            <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav {{ Route::is($item['active'])? 'active' : '' }}"
+                                    href="{{ route($item['route']) }}"><i data-feather="{{ $item['icon'] }}"></i><span>
+                                        {{ __($item['title']) }}
+                                    </span></a>
+                            </li>
+                        @endforeach
+
+
                     </ul>
                 </div>
                 <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>
@@ -90,34 +89,13 @@
                                     aria-hidden="true"></i></div>
                         </li>
 
-                        <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
-                                href="{{ route('admins.dashboard') }}"><i data-feather="home"></i><span>
-                                    {{ __('Dashboard') }}</span></a>
-                        </li>
-                        <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
-                                href="{{ route('users.index') }}"><i data-feather="users"></i><span>
-                                    {{ __('Users') }} </span></a>
-                        </li>
-                        <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
-                                href="{{ route('departments.index') }}"><i data-feather="check-square"></i><span>
-                                    {{ __('Departments') }}</span></a>
-                        </li>
-                        <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
-                                href="{{ route('tags.index') }}"><i data-feather="shopping-bag"></i><span>
-                                    {{ __('Tags') }}</span></a>
-                        </li>
-                        <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
-                                href="{{ route('admins.teams') }}"><i data-feather="box"></i><span>
-                                    {{ __('Teams') }} </span></a>
-                        </li>
-                        <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
-                                href="{{ route('admins.settings') }}"><i data-feather="settings"></i><span>
-                                    {{ __('Settings') }}</span></a>
-                        </li>
-                        <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
-                                href="{{ route('admins.instructions') }}"><i data-feather="settings"></i><span>
-                                    {{ __('Instructions') }}</span></a>
-                        </li>
+                        @foreach ($items["admin"] as $item)
+                            <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav {{ Route::is($item['active'])? 'active' : '' }}"
+                                    href="{{ route($item['route']) }}"><i data-feather="{{ $item['icon'] }}"></i><span>
+                                        {{ __($item['title']) }}
+                                    </span></a>
+                            </li>
+                        @endforeach
 
                     </ul>
                 </div>
