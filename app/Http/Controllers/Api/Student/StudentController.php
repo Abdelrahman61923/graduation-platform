@@ -28,11 +28,11 @@ class StudentController extends Controller
     {
         $id = Auth::user()->id;
         $authUser = User::find($id);
-        $team = $authUser->team;
-        $members = $authUser->team->members;
 
         if ($authUser->team) {
+            $team = $authUser->team;
             $team = new TeamResource($team);
+            $members = $authUser->team->members;
             $members = MemberResource::collection($members);
             return response()->json([
                 'team' => $team,
