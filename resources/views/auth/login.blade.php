@@ -8,7 +8,7 @@
             <div class="col-lg-4">
                 <div class="text-center position-relative">
                     <h1 class="mt-0 text-light" style="margin-bottom: 90px">Graduation Platform</h1>
-                    <form action="{{ route('login') }}" method="POST" class="circle bg-white"
+                    <form action="{{ route('login') }}" method="POST" class="circle bg-white mb-5"
                         style="border-radius: 20px;padding-bottom: 20px;">
                         @csrf
                         <img src="{{ asset('images/loo.png') }}" alt="grade" class="mb-4">
@@ -57,13 +57,19 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-md-12">
+                                    <div class="input-group mb-3">
+                                        <button type="submit" class="btn btn-primary fw-bold fs-6 w-100" name="submit">{{ __('Login') }}</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <a href="{{ route('auth.socilaite.redirect', 'google') }}" class="btn btn-lg btn-light fs-6 w-100"><i class="fa-brands fa-google me-2" style="color: #7366ff;"></i><small class="text-muted">Or Sign In with Google</small></a>
+                                </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary w-75 fw-bold fs-6"
-                            name="submit">{{ __('Login') }}</button>
                         <div class="mt-3 d-flex justify-content-center">
-                            <p>Don't have an account?</p>
-                            <a href="{{ route('register') }}" class="text-decoration-none">Register</a>
+                            <p class="me-2">Don't have account?</p>
+                            <a href="{{ route('register') }}" class="text-decoration-none">Create Account</a>
                         </div>
                     </form>
                 </div>

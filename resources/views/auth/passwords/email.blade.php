@@ -33,7 +33,7 @@
                     </div>
                     <button type="submit" name="submit" class="btn btn-primary w-75 fw-bold">Send Password Reset Link</button>
                     <div class="mt-3 d-flex justify-content-center">
-                        <p>Remember your account?</p>
+                        <p class="me-2">Remember your account?</p>
                         <a href="{{ route('login') }}" class="text-decoration-none">Login</a>
                     </div>
                 </form>

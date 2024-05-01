@@ -3,7 +3,6 @@
     {{ __('Register') }}
 @endsection
 @section('styles')
-
 @endsection
 @section('content')
     <div class="container-fluid">
@@ -112,15 +111,24 @@
                                         @enderror
                                     </div>
                                 </div>
+                                <div class="col-md-12">
+                                    <div class="input-group mb-3">
+                                        <button type="submit" class="btn btn-primary w-100 fw-bold fs-6">
+                                            {{ __('Register') }}
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <a href="" class="btn btn-lg btn-light fs-6 w-100"><i
+                                                class="fa-brands fa-google me-2" style="color: #7366ff;"></i><small
+                                                class="text-muted">Or Sign In with Google</small></a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
-                        <button type="submit" class="btn btn-primary w-75 fw-bold fs-6">
-                            {{ __('Register') }}
-                        </button>
-
                         <div class="mt-3 d-flex justify-content-center">
-                            <p>have an account?</p>
+                            <p class="me-2">have an account?</p>
                             <a href="{{ route('login') }}" class="text-decoration-none">Login</a>
                         </div>
                     </form>
