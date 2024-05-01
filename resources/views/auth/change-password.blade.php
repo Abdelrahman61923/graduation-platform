@@ -1,51 +1,73 @@
 @extends('auth.layouts.app')
 @section('title')
-    Change Password
+    {{ __('Change Password') }}
+@endsection
+@section('styles')
+
 @endsection
 @section('content')
-    <div class="page">
-        <h1>graduation platform</h1>
-        <form  action="{{ route('passwords.update') }}" method="POST" style="height: auto;">
-            @csrf
-            <img src="{{ asset('images/loo.png') }}" alt="grade">
-            <div>
-                <i class="fa-solid fa-lock icon"></i>
-                <input id="old_password" type="password" class="form-control @error('old_password') is-invalid @enderror"
-                    placeholder="Old Password" name="old_password" required autocomplete="old-password">
-                @error('old_password')
-                    <span class="invalid-feedback text-danger" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-lg-4">
+                <div class="text-center position-relative">
+                    <h1 class="text-light">Graduation Platform</h1>
+                    <form method="POST" action="{{ route('passwords.update') }}" class="circle bg-white"
+                        style="border-radius: 20px;padding-bottom: 20px;">
+                        @csrf
+                        <img src="{{ asset('images/loo.png') }}" alt="grade" class="mb-4">
+                        <div class="container">
+                            <div class="row px-md-40">
+                                <div class="col-md-12">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text"><i class="fa-solid fa-lock icon"></i></span>
+                                        <input id="old_password" type="password"
+                                            class="form-control @error('old_password') is-invalid @enderror"
+                                            placeholder="Old Password" name="old_password" autocomplete="old-password">
+                                        @error('old_password')
+                                            <span class="invalid-feedback text-danger" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text"><i class="fa-solid fa-lock icon"></i></span>
+                                        <input id="password" type="password"
+                                            class="form-control @error('password') is-invalid @enderror"
+                                            placeholder="New Password" name="password" autocomplete="new-password">
+                                        @error('password')
+                                            <span class="invalid-feedback text-danger" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text"><i class="fa-solid fa-lock icon"></i></span>
+                                        <input id="password_confirmation" class="form-control"
+                                            placeholder="Confirm Password" type="password" name="password_confirmation"
+                                            autocomplete="new-password">
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-75 fw-bold fs-6">{{ __('Change') }}</button>
+                        </div>
+                    </form>
+
+                    <div class="mt-3">
+                        <form method="POST" action="{{ route('passwords.skip') }}">
+                            @csrf
+                            <a href="{{ route('passwords.skip') }}"
+                                onclick="event.preventDefault();
+                                this.closest('form').submit();">
+                                <span class="text-light">Skip</span>
+                            </a>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div>
-                <i class="fa-solid fa-lock icon"></i>
-                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
-                    placeholder="New Password" name="password" required autocomplete="new-password">
-                @error('password')
-                    <span class="invalid-feedback text-danger" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-            </div>
-            <div>
-                <i class="fa-solid fa-lock icon"></i>
-                <input id="password_confirmation" placeholder="Confirm Password" type="password"
-                    name="password_confirmation" required autocomplete="new-password">
-            </div>
-            <button type="submit" class="btn btn-primary">
-                {{ __('Change') }}
-            </button>
-        </form>
-        <div>
-            <form method="POST" action="{{ route('passwords.skip') }}">
-                @csrf
-                <a href="{{ route('passwords.skip') }}"
-                    onclick="event.preventDefault();
-                    this.closest('form').submit();">
-                    <span>Skip</span>
-                </a>
-            </form>
         </div>
     </div>
 @endsection
