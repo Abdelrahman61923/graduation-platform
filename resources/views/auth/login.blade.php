@@ -1,6 +1,6 @@
 @extends('auth.layouts.app')
 @section('title')
-    Login
+    {{ __('Login') }}
 @endsection
 @section('content')
     <div class="container-fluid">
@@ -57,10 +57,10 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary w-75 fw-bold fs-6" name="submit">Login</button>
+                        <button type="submit" class="btn btn-primary w-75 fw-bold fs-6"
+                            name="submit">{{ __('Login') }}</button>
                         <div class="mt-3 d-flex justify-content-center">
                             <p>Don't have an account?</p>
                             <a href="{{ route('register') }}" class="text-decoration-none">Register</a>

@@ -1,107 +1,131 @@
 @extends('auth.layouts.app')
 @section('title')
-    Register
+    {{ __('Register') }}
 @endsection
 @section('styles')
-    <style>
-        .select2-container {
-            text-align: initial !important;
-        }
 
-        .select2-container--default .select2-selection--single {
-            border: none;
-            border-bottom: 1px solid #ede8e8 !important;
-            border-radius: 0px !important;
-        }
-    </style>
 @endsection
 @section('content')
-    <div class="page">
-        <h1>graduation platform</h1>
-        <form action="{{ route('register') }}" method="POST" style="height: auto;">
-            @csrf
-            <img src="{{ asset('images/loo.png') }}" alt="grade">
-            <div>
-                <i class="fa-solid fa-user icon"></i>
-                <input id="first_name" type="text" class="form-control @error('first_name') is-invalid @enderror"
-                    placeholder="First Name" name="first_name" value="{{ old('first_name') }}"
-                    autocomplete="First Name" autofocus>
-                @error('first_name')
-                    <span class="invalid-feedback text-danger" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-lg-4">
+                <div class="text-center position-relative">
+                    <h1 class="mt-4 text-light" style="margin-bottom: 90px">Graduation Platform</h1>
+                    <form action="{{ route('register') }}" method="POST" class="circle bg-white mb-5"
+                        style="border-radius: 20px;padding-bottom: 20px;">
+                        @csrf
+                        <img src="{{ asset('images/loo.png') }}" alt="grade" class="mb-4">
+                        <div class="container">
+                            <div class="row px-md-40">
+                                <div class="col-md-12">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+                                        <input id="first_name" type="text"
+                                            class="form-control @error('first_name') is-invalid @enderror"
+                                            placeholder="First Name" name="first_name" value="{{ old('first_name') }}"
+                                            autocomplete="First Name" autofocus>
+                                        @error('first_name')
+                                            <div class="invalid-feedback text-danger" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+                                        <input id="last_name" type="text"
+                                            class="form-control @error('last_name') is-invalid @enderror"
+                                            placeholder="Last Name" name="last_name" value="{{ old('last_name') }}"
+                                            autocomplete="Last Name" autofocus>
+                                        @error('last_name')
+                                            <div class="invalid-feedback text-danger" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
+                                        <input id="email" type="email"
+                                            class="form-control @error('email') is-invalid @enderror" placeholder="Email"
+                                            name="email" value="{{ old('email') }}" autocomplete="email">
+                                        @error('email')
+                                            <div class="invalid-feedback text-danger" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+                                        <input id="password" type="password"
+                                            class="form-control @error('password') is-invalid @enderror"
+                                            placeholder="Password" name="password" autocomplete="new-password">
+                                        @error('password')
+                                            <div class="invalid-feedback text-danger" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+                                        <input id="password_confirmation" class="form-control"
+                                            placeholder="Confirm Password" type="password" name="password_confirmation"
+                                            autocomplete="new-password">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text"><i class="fa-solid fa-phone"></i></span>
+                                        <input id="phone" type="text"
+                                            class="form-control @error('phone') is-invalid @enderror" placeholder="Phone"
+                                            name="phone" value="{{ old('phone') }}" autocomplete="Phone" autofocus>
+                                        @error('phone')
+                                            <div class="invalid-feedback text-danger" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text"><i class="fa-solid fa-building"></i></span>
+                                        <select
+                                            class="js-example-placeholder-single form-select form-control @error('department_id') is-invalid @enderror"
+                                            name="department_id" id="department">
+                                            <option selected disabled>Select Department</option>
+                                            @foreach ($departments as $department)
+                                                <option value="{{ $department->id }}">
+                                                    {{ $department->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('department_id')
+                                            <div class="invalid-feedback text-danger">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-75 fw-bold fs-6">
+                            {{ __('Register') }}
+                        </button>
+
+                        <div class="mt-3 d-flex justify-content-center">
+                            <p>have an account?</p>
+                            <a href="{{ route('login') }}" class="text-decoration-none">Login</a>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div>
-                <i class="fa-solid fa-user icon"></i>
-                <input id="last_name" type="text" class="form-control @error('last_name') is-invalid @enderror"
-                    placeholder="Last Name" name="last_name" value="{{ old('last_name') }}"
-                    autocomplete="Last Name" autofocus>
-                @error('last_name')
-                    <span class="invalid-feedback text-danger" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-            </div>
-            <div>
-                <i class="fa-solid fa-envelope icon"></i>
-                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                    placeholder="Email" name="email" value="{{ old('email') }}" autocomplete="email">
-                @error('email')
-                    <span class="invalid-feedback text-danger" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-            </div>
-            <div>
-                <i class="fa-solid fa-lock icon"></i>
-                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
-                    placeholder="Password" name="password" autocomplete="new-password">
-                @error('password')
-                    <span class="invalid-feedback text-danger" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-            </div>
-            <div>
-                <i class="fa-solid fa-lock icon"></i>
-                <input id="password_confirmation" placeholder="Confirm Password" type="password"
-                    name="password_confirmation" autocomplete="new-password">
-            </div>
-            <div>
-                <i class="fa-solid fa-phone icon"></i>
-                <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror"
-                    placeholder="Phone" name="phone" value="{{ old('phone') }}" autocomplete="Phone" autofocus>
-                @error('phone')
-                    <span class="invalid-feedback text-danger" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-            </div>
-            <div>
-                <select
-                    class="js-example-placeholder-single form-select form-control @error('department_id') is-invalid @enderror"
-                    name="department_id" id="department">
-                    <option selected disabled></option>
-                    @foreach ($departments as $department)
-                        <option value="{{ $department->id }}">
-                            {{ $department->name }}
-                        </option>
-                    @endforeach
-                </select>
-                @error('department_id')
-                    <div class="invalid-feedback text-danger">
-                        {{ $message }}
-                    </div>
-                @enderror
-            </div>
-            <button type="submit" class="btn btn-primary">
-                {{ __('Register') }}
-            </button>
-            <div class="link" style="margin-top: 10px;">
-                <p>have an account?</p>
-                <a style="margin-top: -15px;font-size: 14px;" href="{{ route('login') }}">Login</a>
-            </div>
-        </form>
+        </div>
     </div>
 @endsection
