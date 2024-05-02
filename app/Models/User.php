@@ -3,14 +3,15 @@
 namespace App\Models;
 
 use App\Traits\HasConstants;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
@@ -22,7 +23,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'first_name', 'last_name', 'username', 'student_id', 'department_id', 'email', 'password', 'role', 'phone', 'photo', 'address', 'is_change_password', 'is_blocked'
+        'first_name', 'last_name', 'username', 'student_id', 'department_id', 'email', 'password', 'role', 'phone', 'photo', 'address', 'is_change_password', 'is_blocked', 'provider', 'provider_id', 'provider_token'
     ];
 
     const ROLE_ADMIN = 'admin';
@@ -45,6 +46,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'provider_token',
     ];
 
     /**
@@ -100,5 +102,15 @@ class User extends Authenticatable
     public function supervisorTeams(): HasMany
     {
         return $this->hasMany(Team::class, 'supervisor_id', 'id');
+    }
+
+    public function setProviderTokenAttribute($value)
+    {
+        $this->attributes['provider_token'] = Crypt::encryptString($value);
+    }
+
+    public function getProviderTokenAttribute($value)
+    {
+        return Crypt::decryptString($value);
     }
 }

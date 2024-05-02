@@ -18,7 +18,7 @@
                                     <div class="input-group mb-3">
                                         <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
                                         <input id="email" type="email"
-                                            class="form-control @error('email') is-invalid @enderror" name="email"
+                                            class="form-control shadow-none @error('email') is-invalid @enderror" name="email"
                                             value="{{ old('email') }}" autocomplete="email" placeholder="Email" autofocus>
                                         @error('email')
                                             <div class="invalid-feedback" role="alert">
@@ -31,7 +31,7 @@
                                     <div class="input-group mb-3">
                                         <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
                                         <input id="password" type="password"
-                                            class="form-control @error('password') is-invalid @enderror" name="password"
+                                            class="form-control shadow-none @error('password') is-invalid @enderror" name="password"
                                             autocomplete="current-password" placeholder="Password">
                                         @error('password')
                                             <div class="invalid-feedback" role="alert">

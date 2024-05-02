@@ -20,7 +20,7 @@
                                     <div class="input-group mb-3">
                                         <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
                                         <input id="first_name" type="text"
-                                            class="form-control @error('first_name') is-invalid @enderror"
+                                            class="form-control shadow-none @error('first_name') is-invalid @enderror"
                                             placeholder="First Name" name="first_name" value="{{ old('first_name') }}"
                                             autocomplete="First Name" autofocus>
                                         @error('first_name')
@@ -34,7 +34,7 @@
                                     <div class="input-group mb-3">
                                         <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
                                         <input id="last_name" type="text"
-                                            class="form-control @error('last_name') is-invalid @enderror"
+                                            class="form-control shadow-none @error('last_name') is-invalid @enderror"
                                             placeholder="Last Name" name="last_name" value="{{ old('last_name') }}"
                                             autocomplete="Last Name" autofocus>
                                         @error('last_name')
@@ -48,7 +48,7 @@
                                     <div class="input-group mb-3">
                                         <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
                                         <input id="email" type="email"
-                                            class="form-control @error('email') is-invalid @enderror" placeholder="Email"
+                                            class="form-control shadow-none @error('email') is-invalid @enderror" placeholder="Email"
                                             name="email" value="{{ old('email') }}" autocomplete="email">
                                         @error('email')
                                             <div class="invalid-feedback text-danger" role="alert">
@@ -61,7 +61,7 @@
                                     <div class="input-group mb-3">
                                         <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
                                         <input id="password" type="password"
-                                            class="form-control @error('password') is-invalid @enderror"
+                                            class="form-control shadow-none @error('password') is-invalid @enderror"
                                             placeholder="Password" name="password" autocomplete="new-password">
                                         @error('password')
                                             <div class="invalid-feedback text-danger" role="alert">
@@ -73,7 +73,7 @@
                                 <div class="col-md-12">
                                     <div class="input-group mb-3">
                                         <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
-                                        <input id="password_confirmation" class="form-control"
+                                        <input id="password_confirmation" class="form-control shadow-none"
                                             placeholder="Confirm Password" type="password" name="password_confirmation"
                                             autocomplete="new-password">
                                     </div>
@@ -82,7 +82,7 @@
                                     <div class="input-group mb-3">
                                         <span class="input-group-text"><i class="fa-solid fa-phone"></i></span>
                                         <input id="phone" type="text"
-                                            class="form-control @error('phone') is-invalid @enderror" placeholder="Phone"
+                                            class="form-control shadow-none @error('phone') is-invalid @enderror" placeholder="Phone"
                                             name="phone" value="{{ old('phone') }}" autocomplete="Phone" autofocus>
                                         @error('phone')
                                             <div class="invalid-feedback text-danger" role="alert">
@@ -95,7 +95,7 @@
                                     <div class="input-group mb-3">
                                         <span class="input-group-text"><i class="fa-solid fa-building"></i></span>
                                         <select
-                                            class="js-example-placeholder-single form-select form-control @error('department_id') is-invalid @enderror"
+                                            class="js-example-placeholder-single form-select form-control shadow-none @error('department_id') is-invalid @enderror"
                                             name="department_id" id="department">
                                             <option selected disabled>Select Department</option>
                                             @foreach ($departments as $department)
@@ -122,7 +122,7 @@
                                     <div class="input-group">
                                         <a href="" class="btn btn-lg btn-light fs-6 w-100"><i
                                                 class="fa-brands fa-google me-2" style="color: #7366ff;"></i><small
-                                                class="text-muted">Or Sign In with Google</small></a>
+                                                class="text-muted">Or Sign Up with Google</small></a>
                                     </div>
                                 </div>
                             </div>

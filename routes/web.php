@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\SocialiteController;
+use App\Http\Controllers\SocailController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -182,8 +183,10 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function() {
     });
 });
 
-Route::get('auth/{provider}/redirect', [SocialiteController::class, 'redirect'])
-        ->name('auth.socilaite.redirect');
+Route::controller(SocialiteController::class)->group(function() {
+    Route::get('auth/{provider}/redirect','redirect')->name('auth.socilaite.redirect');
+    Route::get('auth/{provider}/callback', 'callback')->name('auth.socilaite.callback');
+    Route::get('auth/{provider}/user', 'index');
+});
 
-Route::get('auth/{provider}/callback', [SocialiteController::class, 'callback'])
-        ->name('auth.socilaite.callback');
+

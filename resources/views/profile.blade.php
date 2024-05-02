@@ -17,10 +17,10 @@
                             <li class="breadcrumb-item">
                                 @if (auth()->user()->role == \App\Models\User::ROLE_SUPERVISOR)
                                     <a href="{{ route('supervisors.dashboard') }}"> <i data-feather="home"></i>
-                                @elseif(auth()->user()->role == \App\Models\User::ROLE_USER)
-                                    <a href="{{ route('students.dashboard') }}"> <i data-feather="home"></i>
-                                @elseif(auth()->user()->role == \App\Models\User::ROLE_ADMIN)
-                                    <a href="{{ route('admins.dashboard') }}"> <i data-feather="home"></i>
+                                    @elseif(auth()->user()->role == \App\Models\User::ROLE_USER)
+                                        <a href="{{ route('students.dashboard') }}"> <i data-feather="home"></i>
+                                        @elseif(auth()->user()->role == \App\Models\User::ROLE_ADMIN)
+                                            <a href="{{ route('admins.dashboard') }}"> <i data-feather="home"></i>
                                 @endif
                                 </a>
                             </li>
@@ -46,7 +46,7 @@
                                         <div class="profile-title">
                                             <div class="media">
                                                 <img class="img-80 rounded-circle" alt=""
-                                                    src="{{ !empty(auth()->user()->photo) ? url('assets/upload/student_images/' . auth()->user()->photo) : "https://eu.ui-avatars.com/api/?name=".auth()->user()->full_name }}">
+                                                    src="{{ !empty(auth()->user()->photo) ? url('assets/upload/student_images/' . auth()->user()->photo) : 'https://eu.ui-avatars.com/api/?name=' . auth()->user()->full_name }}">
                                                 <div class="media-body">
                                                     <h5 class="mb-1">{{ auth()->user()->full_name }}</h5>
                                                 </div>
@@ -83,7 +83,8 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="mb-3">
-                                        <label for="exampleInputUsername1" class="form-label">{{ __('First Name') }}</label>
+                                        <label for="exampleInputUsername1"
+                                            class="form-label">{{ __('First Name') }}</label>
                                         <input type="text" name="first_name" class="form-control"
                                             id="exampleInputUsername1" autocomplete="off"
                                             value="{{ auth()->user()->first_name }}">
@@ -99,11 +100,26 @@
                                         <input type="email" name="email" class="form-control" id="exampleInputUsername4"
                                             autocomplete="off" value="{{ auth()->user()->email }}">
                                     </div>
+                                    @if (auth()->user()->role == \App\Models\User::ROLE_USER && auth()->user()->department_id === null)
+                                        <div class="mb-3">
+                                            <label for="title">{{ __('Department') }}</label>
+                                            <select class="js-example-placeholder-single form-select form-control "
+                                                name="department_id" id="department">
+                                                <option selected disabled>{{ __('Select Department') }}</option>
+                                                @foreach ($departments as $department)
+                                                    <option value="{{ $department->id }}"
+                                                        {{ old('department_id', auth()->user()->department_id) == $department->id ? 'selected' : '' }}>
+                                                        {{ $department->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    @endif
+
                                     <div class="mb-3">
                                         <label for="exampleInputUsername5" class="form-label">{{ __('Phone') }}</label>
-                                        <input type="text" name="phone" class="form-control"
-                                            id="exampleInputUsername5" autocomplete="off"
-                                            value="{{ auth()->user()->phone }}">
+                                        <input type="text" name="phone" class="form-control" id="exampleInputUsername5"
+                                            autocomplete="off" value="{{ auth()->user()->phone }}">
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleInputUsername6" class="form-label">{{ __('Address') }}</label>

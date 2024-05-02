@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,7 +12,8 @@ class ProfileController extends Controller
 {
     public function showProfile()
     {
-        return view('profile');
+        $departments = Department::active()->get();
+        return view('profile', compact('departments'));
     }
 
     public function updateProfile (Request $request)
@@ -21,6 +23,7 @@ class ProfileController extends Controller
         $data->first_name = $request->first_name;
         $data->last_name = $request->last_name;
         $data->email = $request->email;
+        $data->department_id = $request->department_id;
         $data->phone = $request->phone;
         $data->address = $request->address;
 
