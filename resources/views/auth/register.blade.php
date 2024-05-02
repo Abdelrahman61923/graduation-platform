@@ -120,7 +120,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="input-group">
-                                        <a href="" class="btn btn-lg btn-light fs-6 w-100"><i
+                                        <a href="{{ route('auth.socilaite.redirect', 'google') }}" class="btn btn-lg btn-light fs-6 w-100"><i
                                                 class="fa-brands fa-google me-2" style="color: #7366ff;"></i><small
                                                 class="text-muted">Or Sign Up with Google</small></a>
                                     </div>
