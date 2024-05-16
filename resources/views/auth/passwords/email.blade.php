@@ -21,7 +21,7 @@
                             <div class="col-md-12">
                                 <div class="input-group mb-3">
                                     <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
-                                    <input id="email" type="email" placeholder="Email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                    <input id="email" type="email" placeholder="Email" class="form-control shadow-none @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email" autofocus>
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>

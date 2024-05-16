@@ -10,7 +10,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-4">
                 <div class="text-center position-relative">
-                    <h1 class="text-light">Graduation Platform</h1>
+                    <h1 class="text-light" style="margin-bottom: 90px">Graduation Platform</h1>
                     <form method="POST" action="{{ route('passwords.update') }}" class="circle bg-white"
                         style="border-radius: 20px;padding-bottom: 20px;">
                         @csrf
@@ -21,7 +21,7 @@
                                     <div class="input-group mb-3">
                                         <span class="input-group-text"><i class="fa-solid fa-lock icon"></i></span>
                                         <input id="old_password" type="password"
-                                            class="form-control @error('old_password') is-invalid @enderror"
+                                            class="form-control shadow-none @error('old_password') is-invalid @enderror"
                                             placeholder="Old Password" name="old_password" autocomplete="old-password">
                                         @error('old_password')
                                             <span class="invalid-feedback text-danger" role="alert">
@@ -34,7 +34,7 @@
                                     <div class="input-group mb-3">
                                         <span class="input-group-text"><i class="fa-solid fa-lock icon"></i></span>
                                         <input id="password" type="password"
-                                            class="form-control @error('password') is-invalid @enderror"
+                                            class="form-control shadow-none @error('password') is-invalid @enderror"
                                             placeholder="New Password" name="password" autocomplete="new-password">
                                         @error('password')
                                             <span class="invalid-feedback text-danger" role="alert">
@@ -46,7 +46,7 @@
                                 <div class="col-md-12">
                                     <div class="input-group mb-3">
                                         <span class="input-group-text"><i class="fa-solid fa-lock icon"></i></span>
-                                        <input id="password_confirmation" class="form-control"
+                                        <input id="password_confirmation" class="form-control shadow-none"
                                             placeholder="Confirm Password" type="password" name="password_confirmation"
                                             autocomplete="new-password">
                                     </div>
