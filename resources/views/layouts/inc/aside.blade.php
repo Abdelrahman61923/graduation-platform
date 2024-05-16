@@ -31,6 +31,10 @@
                                 href="{{ route('students.upload-book') }}"><i data-feather="users"></i><span>
                                     {{ __('Upload Book') }}</span></a>
                         </li>
+                        <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
+                                href="{{ route('students.upload-book') }}"><i data-feather="users"></i><span>
+                                    {{ __('Upload Book') }}</span></a>
+                        </li>
                     </ul>
                 </div>
                 <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>
