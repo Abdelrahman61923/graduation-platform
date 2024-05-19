@@ -74,30 +74,28 @@
         </div> --}}
         <div class="container-fluid">
             <div class="row">
-                @if (auth()->user()->team->leader_id == auth()->user()->id)
-                    <div class="col-sm-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <form method="POST" action="{{ route('students.book.store', $team->id) }}"
-                                    enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="mb-3">
-                                        <label for="exampleInputUsername5" class="form-label">Upload Documentation</label>
-                                        <input class="form-control" type="file" name="book" aria-label="file example">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleInputUsername5" class="form-label">Upload Presentation</label>
-                                        <input class="form-control" type="file" name="presentation"
-                                            aria-label="file example">
-                                    </div>
-                                    <div class="text-end">
-                                        <button class="btn btn-primary" type="submit">{{ __('Save Change') }}</button>
-                                    </div>
-                                </form>
-                            </div>
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <form method="POST" action="{{ route('students.book.store', $team->id) }}"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <div class="mb-3">
+                                    <label for="exampleInputUsername5" class="form-label">Upload Documentation</label>
+                                    <input class="form-control" type="file" name="book" aria-label="file example">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputUsername5" class="form-label">Upload Presentation</label>
+                                    <input class="form-control" type="file" name="presentation"
+                                        aria-label="file example">
+                                </div>
+                                <div class="text-end">
+                                    <button class="btn btn-primary" type="submit">{{ __('Save Change') }}</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                @endif
+                </div>
                 <div class="col-xl-6">
                     <div class="card">
                         <div class="card-header" style="padding: 10px !important;">

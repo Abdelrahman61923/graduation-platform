@@ -28,20 +28,14 @@
                                 href="{{ route('students.my-team') }}"><i data-feather="users"></i><span>
                                     {{ __('My Team') }}</span></a>
                         </li>
-                        @if(auth()->user()->team?->supervisor
-                            && auth()->user()->team->is_all_members_accepted
-                            && auth()->user()->team->status == \App\Models\Team::STATUS_APPROVED)
-                            @if (auth()->user()->team?->leader_id == auth()->user()->id)
-                                <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
-                                    href="{{ route('students.upload-book', auth()->user()->team->id) }}"><i data-feather="users"></i><span>
+                        @if (auth()->user()->team?->supervisor &&
+                                auth()->user()->team->is_all_members_accepted &&
+                                auth()->user()->team->status == \App\Models\Team::STATUS_APPROVED)
+                            <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
+                                    href="{{ route('students.upload-book', auth()->user()->team->id) }}"><i
+                                        data-feather="users"></i><span>
                                         {{ __('Upload Book') }}</span></a>
-                                </li>
-                            @else
-                                <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
-                                    href="{{ route('students.upload-book', auth()->user()->team->id) }}"><i data-feather="users"></i><span>
-                                        {{ __('Show Book') }}</span></a>
-                                </li>
-                            @endif
+                            </li>
                         @endif
                     </ul>
                 </div>
@@ -87,9 +81,8 @@
     @elseif(auth()->user()->role == \App\Models\User::ROLE_ADMIN)
         <div>
             <div class="logo-wrapper"><a href="{{ route('admins.dashboard') }}"><img class="img-fluid for-light"
-                        src="{{ asset('assets/images/logo/logo.png') }}" alt=""><img
-                        class="img-fluid for-dark" src="{{ asset('assets/images/logo/logo_dark.png') }}"
-                        alt=""></a>
+                        src="{{ asset('assets/images/logo/logo.png') }}" alt=""><img class="img-fluid for-dark"
+                        src="{{ asset('assets/images/logo/logo_dark.png') }}" alt=""></a>
                 <div class="back-btn"><i class="fa fa-angle-left"></i></div>
                 <div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle" data-feather="grid"> </i>
                 </div>
