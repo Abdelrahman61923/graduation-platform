@@ -1,3 +1,10 @@
+<style>
+    @media (min-width: 768px) {
+    .mobile-only-icon {
+        display: none;
+    }
+}
+</style>
 <div class="page-header">
     <div class="header-wrapper row m-0">
         <form class="form-inline search-full col" action="#" method="get">
@@ -23,6 +30,7 @@
         </div>
         <div class="nav-right col-8 pull-right right-header p-0">
             <ul class="nav-menus">
+
                 <li class="language-nav">
                     <div class="translate_wrapper">
                         <div class="current_lang">
@@ -117,7 +125,6 @@
                         </ul>
                     </div>
                 </li>
-
                 <li class="maximize"><a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()"><i
                             data-feather="maximize"></i></a></li>
                 <li class="profile-nav onhover-dropdown p-0 me-0">
@@ -165,6 +172,19 @@
                         </li>
                     </ul>
                 </li>
+                <li>
+                    <div class="mobile-only-icon">
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <a href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                this.closest('form').submit();">
+                                <i data-feather="log-in"> </i>
+                            </a>
+                        </form>
+                    </div>
+                </li>
+
             </ul>
         </div>
 

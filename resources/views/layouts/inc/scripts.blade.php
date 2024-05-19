@@ -27,6 +27,8 @@
 <script src="{{ asset('assets/js/typeahead/typeahead.custom.js') }}"></script>
 <script src="{{ asset('assets/js/typeahead-search/handlebars.js') }}"></script>
 <script src="{{ asset('assets/js/typeahead-search/typeahead-custom.js') }}"></script>
+<script src="{{ asset('assets/js/dropzone/dropzone.js') }}"></script>
+<script src="{{ asset('assets/js/dropzone/dropzone-script.js') }}"></script>
 <!-- Plugins JS Ends-->
 <!-- Theme js-->
 <script src="{{ asset('assets/js/script.js') }}"></script>

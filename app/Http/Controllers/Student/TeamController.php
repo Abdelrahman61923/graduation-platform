@@ -117,6 +117,35 @@ class TeamController extends Controller
         return back();
     }
 
+    public function edit($id) {
+        $team = Team::where('id', $id)->firstOrFail();
+        return view('students.Upload-Book.index', compact('team'));
+    }
+
+    public function addBookTeam(Request $request, $id) {
+
+        $team = Team::where('id', $id)->firstOrFail();
+
+        if ($request->file('book')) {
+            $file = $request->file('book');
+            @unlink(public_path('assets/upload/docs/'.$team->book));
+            $filename = date('YmdHi').$file->getClientOriginalName();
+            $file->move(public_path('assets/upload/docs'), $filename);
+            $team['book'] = $filename;
+        }
+        if ($request->file('presentation')) {
+            $file = $request->file('presentation');
+            @unlink(public_path('assets/upload/docs/'.$team->presentation));
+            $filename = date('YmdHi').$file->getClientOriginalName();
+            $file->move(public_path('assets/upload/docs'), $filename);
+            $team['presentation'] = $filename;
+        }
+        $team->save();
+
+        Alert::success('successfully', 'Documentation and Presentation upload Successfully');
+        return back();
+    }
+
     public function delete($id)
     {
         $team = Team::where('id', $id)->firstOrFail();

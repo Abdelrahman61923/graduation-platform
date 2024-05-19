@@ -15,7 +15,7 @@ class Team extends Model
     use HasFactory, HasConstants;
 
     protected $fillable = [
-        'supervisor_id', 'team_number', 'project_title', 'project_description', 'status', 'leader_id'
+        'supervisor_id', 'team_number', 'project_title', 'project_description', 'status', 'leader_id', 'book', 'presentation'
     ];
 
     const STATUS_APPROVED = 'approved';

@@ -14,11 +14,14 @@ return new class extends Migration
         Schema::create('teams', function (Blueprint $table) {
             $table->id();
             $table->string('team_number');
-            $table->foreignId('supervisor_id')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('leader_id')->constrained('users')->cascadeOnDelete();
             $table->string('project_title');
             $table->text('project_description');
+            $table->foreignId('supervisor_id')->nullable()->constrained('users')->nullOnDelete();
             $table->enum('status', \App\Models\Team::statuses())->default(\App\Models\Team::STATUS_NOT_APPROVED);
+            $table->string('book')->nullable();
+            $table->string('presentation')->nullable();
+
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });

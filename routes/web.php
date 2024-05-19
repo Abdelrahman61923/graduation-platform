@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Auth\SocialiteController;
-use App\Http\Controllers\SocailController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -71,18 +70,17 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function() {
                         Route::post('member/refus/{id}', 'refusMember')->name('member.refus');
                         Route::post('delete/{id}', 'delete')->name('delete');
                     });
+                    Route::prefix('students')->name('students.')->group(function () {
+                        Route::get('Upload-Book/{id}', 'edit')->name('upload-book');
+                        Route::post('book/store/{id}', 'addBookTeam')->name('book.store');
+                    });
                 });
+
                 Route::controller(MemberController::class)->group(function(){
                     Route::prefix('members')->name('members.')->group(function () {
                         Route::post('store/{id}', 'store')->name('store');
                         Route::post('delete/{id}', 'delete')->name('delete');
                         Route::post('accept/{id}', 'acceptMember')->name('accept');
-                    });
-                });
-
-                Route::controller(InstructionController::class)->group(function(){
-                    Route::prefix('students')->name('students.')->group(function () {
-                        Route::get('Upload-Book', 'home')->name('upload-book');
                     });
                 });
             });
@@ -174,12 +172,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function() {
                             Route::get('', 'index')->name('instructions');
                         });
                     });
-
                 });
-
             });
         });
-
     });
 });
 

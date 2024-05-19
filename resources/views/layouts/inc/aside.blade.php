@@ -1,11 +1,12 @@
 <div class="sidebar-wrapper">
-    @if(auth()->user()->role == \App\Models\User::ROLE_USER)
+    @if (auth()->user()->role == \App\Models\User::ROLE_USER)
         <div>
             <div class="logo-wrapper"><a href="{{ route('students.dashboard') }}"><img class="img-fluid for-light"
-                        src="{{ asset('assets/images/logo/logo.png') }}" alt=""><img class="img-fluid for-dark"
+                        src="{{ asset('assets/images/logo/logo2.png') }}" alt=""><img class="img-fluid for-dark"
                         src="{{ asset('assets/images/logo/logo_dark.png') }}" alt=""></a>
                 <div class="back-btn"><i class="fa fa-angle-left"></i></div>
-                <div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle" data-feather="grid"> </i></div>
+                <div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle" data-feather="grid"> </i>
+                </div>
             </div>
             <div class="logo-icon-wrapper"><a href="{{ route('students.dashboard') }}"><img class="img-fluid"
                         src="{{ asset('assets/images/logo/logo-icon.png') }}" alt=""></a></div>
@@ -27,10 +28,21 @@
                                 href="{{ route('students.my-team') }}"><i data-feather="users"></i><span>
                                     {{ __('My Team') }}</span></a>
                         </li>
-                        <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
-                                href="{{ route('students.upload-book') }}"><i data-feather="users"></i><span>
-                                    {{ __('Upload Book') }}</span></a>
-                        </li>
+                        @if(auth()->user()->team?->supervisor
+                            && auth()->user()->team->is_all_members_accepted
+                            && auth()->user()->team->status == \App\Models\Team::STATUS_APPROVED)
+                            @if (auth()->user()->team?->leader_id == auth()->user()->id)
+                                <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
+                                    href="{{ route('students.upload-book', auth()->user()->team->id) }}"><i data-feather="users"></i><span>
+                                        {{ __('Upload Book') }}</span></a>
+                                </li>
+                            @else
+                                <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
+                                    href="{{ route('students.upload-book', auth()->user()->team->id) }}"><i data-feather="users"></i><span>
+                                        {{ __('Show Book') }}</span></a>
+                                </li>
+                            @endif
+                        @endif
                     </ul>
                 </div>
                 <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>
@@ -42,7 +54,8 @@
                         src="{{ asset('assets/images/logo/logo.png') }}" alt=""><img class="img-fluid for-dark"
                         src="{{ asset('assets/images/logo/logo_dark.png') }}" alt=""></a>
                 <div class="back-btn"><i class="fa fa-angle-left"></i></div>
-                <div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle" data-feather="grid"> </i></div>
+                <div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle" data-feather="grid"> </i>
+                </div>
             </div>
             <div class="logo-icon-wrapper"><a href="{{ route('supervisors.dashboard') }}"><img class="img-fluid"
                         src="{{ asset('assets/images/logo/logo-icon.png') }}" alt=""></a></div>
@@ -63,7 +76,7 @@
                         <li class="sidebar-list">
                             <a class="sidebar-link sidebar-title link-nav"
                                 href="{{ route('supervisors.my-teams') }}"><i data-feather="users"></i><span>
-                                {{ __('My Teams') }}</span>
+                                    {{ __('My Teams') }}</span>
                             </a>
                         </li>
                     </ul>
@@ -74,10 +87,12 @@
     @elseif(auth()->user()->role == \App\Models\User::ROLE_ADMIN)
         <div>
             <div class="logo-wrapper"><a href="{{ route('admins.dashboard') }}"><img class="img-fluid for-light"
-                        src="{{ asset('assets/images/logo/logo.png') }}" alt=""><img class="img-fluid for-dark"
-                        src="{{ asset('assets/images/logo/logo_dark.png') }}" alt=""></a>
+                        src="{{ asset('assets/images/logo/logo.png') }}" alt=""><img
+                        class="img-fluid for-dark" src="{{ asset('assets/images/logo/logo_dark.png') }}"
+                        alt=""></a>
                 <div class="back-btn"><i class="fa fa-angle-left"></i></div>
-                <div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle" data-feather="grid"> </i></div>
+                <div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle" data-feather="grid"> </i>
+                </div>
             </div>
             <div class="logo-icon-wrapper"><a href="{{ route('admins.dashboard') }}"><img class="img-fluid"
                         src="{{ asset('assets/images/logo/logo-icon.png') }}" alt=""></a></div>
@@ -93,31 +108,31 @@
 
                         <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
                                 href="{{ route('admins.dashboard') }}"><i data-feather="home"></i><span>
-                                    {{ __('Dashboard')}}</span></a>
+                                    {{ __('Dashboard') }}</span></a>
                         </li>
                         <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
-                            href="{{ route('users.index') }}"><i data-feather="users"></i><span>
-                                {{ __('Users') }} </span></a>
+                                href="{{ route('users.index') }}"><i data-feather="users"></i><span>
+                                    {{ __('Users') }} </span></a>
                         </li>
                         <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
-                            href="{{ route('departments.index') }}"><i data-feather="check-square"></i><span>
-                                {{ __('Departments') }}</span></a>
+                                href="{{ route('departments.index') }}"><i data-feather="check-square"></i><span>
+                                    {{ __('Departments') }}</span></a>
                         </li>
                         <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
-                            href="{{ route('tags.index') }}"><i data-feather="shopping-bag"></i><span>
-                                {{ __('Tags') }}</span></a>
+                                href="{{ route('tags.index') }}"><i data-feather="shopping-bag"></i><span>
+                                    {{ __('Tags') }}</span></a>
                         </li>
                         <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
-                            href="{{ route('admins.teams') }}"><i data-feather="box"></i><span>
-                                {{ __('Teams') }} </span></a>
+                                href="{{ route('admins.teams') }}"><i data-feather="box"></i><span>
+                                    {{ __('Teams') }} </span></a>
                         </li>
                         <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
-                            href="{{ route('admins.settings') }}"><i data-feather="settings"></i><span>
-                                {{ __('Settings') }}</span></a>
+                                href="{{ route('admins.settings') }}"><i data-feather="settings"></i><span>
+                                    {{ __('Settings') }}</span></a>
                         </li>
                         <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
-                            href="{{ route('admins.instructions') }}"><i data-feather="settings"></i><span>
-                                {{ __('Instructions') }}</span></a>
+                                href="{{ route('admins.instructions') }}"><i data-feather="settings"></i><span>
+                                    {{ __('Instructions') }}</span></a>
                         </li>
 
                     </ul>
