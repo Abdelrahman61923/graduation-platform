@@ -126,6 +126,10 @@ class TeamController extends Controller
 
         $team = Team::where('id', $id)->firstOrFail();
 
+        // $request->validate([
+        //     'book' => ['required', 'file|size:1048576'],
+        // ]);
+
         if ($request->file('book')) {
             $file = $request->file('book');
             @unlink(public_path('assets/upload/docs/'.$team->book));

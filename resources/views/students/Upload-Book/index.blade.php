@@ -1,6 +1,10 @@
 @extends('layouts.master')
 @section('title')
-    {{ __('Upload Book') }}
+    @if (auth()->user()->team->leader_id == auth()->user()->id)
+        {{ __('Upload Book') }}
+    @else
+        {{ __('Show Book') }}
+    @endif
 @endsection
 @section('content')
     <div class="page-body">
@@ -9,14 +13,22 @@
             <div class="page-title">
                 <div class="row">
                     <div class="col-6">
-                        <h3>{{ __('Upload Documentation') }}</h3>
+                        @if (auth()->user()->team->leader_id == auth()->user()->id)
+                            <h3>{{ __('Upload Documentation') }}</h3>
+                        @else
+                            <h3>{{ __('Show Documentation') }}</h3>
+                        @endif
                     </div>
                     <div class="col-6">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('students.dashboard') }}"> <i
                                         data-feather="home"></i></a>
                             </li>
-                            <li class="breadcrumb-item">{{ __('Upload Book') }}</li>
+                            @if (auth()->user()->team->leader_id == auth()->user()->id)
+                                <li class="breadcrumb-item">{{ __('Upload Book') }}</li>
+                            @else
+                                <li class="breadcrumb-item">{{ __('Show Book') }}</li>
+                            @endif
                         </ol>
                     </div>
                 </div>
@@ -74,28 +86,55 @@
         </div> --}}
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <form method="POST" action="{{ route('students.book.store', $team->id) }}"
-                                enctype="multipart/form-data">
-                                @csrf
-                                <div class="mb-3">
-                                    <label for="exampleInputUsername5" class="form-label">Upload Documentation</label>
-                                    <input class="form-control" type="file" name="book" aria-label="file example">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleInputUsername5" class="form-label">Upload Presentation</label>
-                                    <input class="form-control" type="file" name="presentation"
-                                        aria-label="file example">
-                                </div>
-                                <div class="text-end">
-                                    <button class="btn btn-primary" type="submit">{{ __('Save Change') }}</button>
-                                </div>
-                            </form>
+                @if (auth()->user()->team->leader_id == auth()->user()->id)
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <form method="POST" action="{{ route('students.book.store', $team->id) }}"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="mb-3">
+                                        <label for="exampleInputUsername5" class="form-label">Upload Documentation</label>
+                                        <input class="form-control @error('book') is-invalid @enderror" type="file"
+                                            name="book" aria-label="file example">
+                                        @error('book')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleInputUsername5" class="form-label">Upload Presentation</label>
+                                        <input class="form-control" type="file" name="presentation"
+                                            aria-label="file example">
+                                    </div>
+                                    <div class="text-end">
+                                        <button class="btn btn-primary" type="submit">{{ __('Save Change') }}</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @else
+                    <div class="col-xl-12">
+                        <div class="card">
+                            {{-- <div class="card-header" style="padding: 10px !important;">
+                                <h5 class="card-title mb-0"></h5>
+                            </div> --}}
+                            <div class="card-body" style="padding: 20px !important;">
+                                <div class="row mb-2">
+                                    <div class="profile-title">
+                                        <div class="media" style="text-align: center;">
+                                            <h4>
+                                                {{ __(' يتم رفع الكتاب والتعديل عليه من خلال القائد فقط هنا انقر على تنزيل لكى يتم تحميل الكتاب الخاص بمشروعك') }}
+                                            </h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
                 <div class="col-xl-6">
                     <div class="card">
                         <div class="card-header" style="padding: 10px !important;">
