@@ -1,9 +1,9 @@
 <style>
     @media (min-width: 768px) {
-    .mobile-only-icon {
-        display: none;
+        .mobile-only-icon {
+            display: none;
+        }
     }
-}
 </style>
 <div class="page-header">
     <div class="header-wrapper row m-0">
@@ -30,7 +30,6 @@
         </div>
         <div class="nav-right col-8 pull-right right-header p-0">
             <ul class="nav-menus">
-
                 <li class="language-nav">
                     <div class="translate_wrapper">
                         <div class="current_lang">
@@ -42,7 +41,6 @@
                                     </a>
                                 @endif
                             @endforeach
-
                         </div>
                     </div>
                 </li>
@@ -121,7 +119,8 @@
                                     </div>
                                 </li>
                             @endforeach
-                            <li class="text-center"> <a class="f-w-700" href="#">{{ __('View All') }} </a></li>
+                            <li class="text-center"> <a class="f-w-700" href="#">{{ __('View All') }} </a>
+                            </li>
                         </ul>
                     </div>
                 </li>
