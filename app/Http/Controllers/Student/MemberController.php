@@ -71,7 +71,7 @@ class MemberController extends Controller
     {
         $member = Member::where('id', $id)->firstOrFail();
         $member->update(['status' => Member::STATUS_ACCEPTED]);
-        Alert::success('successfully', 'Member Accepted Successfuly');
+        Alert::success('successfully', 'Accepted Successfuly But wait until the leader completes the team formation');
         return back();
     }
 }

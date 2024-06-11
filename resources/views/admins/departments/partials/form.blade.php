@@ -6,7 +6,7 @@
 <div class="row">
     <div class="col-md-6">
         <label for="title">{{ __('Name') }}<span class="redstar">*</span></label>
-        <input value="{{ old('name', $department->name) }}" class="form-control @error('name') is-invalid @enderror"
+        <input value="{{ old('name', $department->name) }}" class="form-control shadow-none @error('name') is-invalid @enderror"
             type="text" name="name" placeholder="{{ __('Please Enter Name') }}">
         @error('name')
             <span class="invalid-feedback" role="alert">
@@ -17,7 +17,7 @@
     <div class="col-md-6">
         <label class="form-label" for="customSwitch3">{{ __('Status') }}</label>
         <div class="form-check form-check-primary form-switch">
-            <input type="checkbox" class="form-check-input" id="customSwitch3" name="status"
+            <input type="checkbox" class="form-check-input shadow-none" id="customSwitch3" name="status"
                 {{ old('status', $department->status) == \App\Models\Department::STATUS_ACTIVE ? 'checked' : '' }} />
         </div>
         @error('status')

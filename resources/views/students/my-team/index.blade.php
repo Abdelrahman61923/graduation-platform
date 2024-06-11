@@ -23,7 +23,7 @@
                                     <div class="mb-3">
                                         <label for="">{{ __('Project Title') }}</label>
                                         <input id="project_title" type="text"
-                                            class="form-control @error('project_title') is-invalid @enderror"
+                                            class="form-control shadow-none @error('project_title') is-invalid @enderror"
                                             name="project_title" value="{{ old('project_title') }}" required
                                             autocomplete="project_title" placeholder="Project Title" autofocus>
                                         <span class="invalid-feedback-custom d-none" role="alert" id="projectname">
@@ -39,7 +39,7 @@
                                 <div class="col-md-12">
                                     <div class="mb-3">
                                         <label for="">{{ __('Project Description') }}</label>
-                                        <textarea id="project_description" class="form-control @error('project_description') is-invalid @enderror"
+                                        <textarea id="project_description" class="form-control shadow-none @error('project_description') is-invalid @enderror"
                                             name="project_description" value="{{ old('project_description') }}" required autocomplete="project_description"
                                             placeholder="Project Description" autofocus></textarea>
                                         <span class="invalid-feedback-custom d-none" role="alert" id="description">
@@ -118,7 +118,7 @@
                                     <div class="mb-3">
                                         <label for="">{{ __('Project Title') }}</label>
                                         <input id="project_name" type="text"
-                                            class="form-control @error('name') is-invalid @enderror" name="name"
+                                            class="form-control shadow-none @error('name') is-invalid @enderror" name="name"
                                             value="{{ old('name') }}" required autocomplete="name"
                                             placeholder="Project Name" autofocus>
                                         <span class="invalid-feedback-custom d-none" role="alert" id="project_name">
@@ -133,7 +133,7 @@
                                     <div class="col-md-12">
                                         <div class="mb-3">
                                             <label for="">{{ __('Project Description') }}</label>
-                                            <textarea id="project_description_edit" class="form-control @error('project_description') is-invalid @enderror"
+                                            <textarea id="project_description_edit" class="form-control shadow-none @error('project_description') is-invalid @enderror"
                                                 name="project_description" value="{{ old('project_description') }}" required autocomplete="project_description"
                                                 placeholder="Project Description" autofocus></textarea>
                                             <span class="invalid-feedback-custom d-none" role="alert"

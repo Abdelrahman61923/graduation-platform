@@ -1,9 +1,11 @@
 @extends('layouts.master')
 @section('styles')
+
 @endsection
 @section('title')
     {{ __('Team Information') }}
 @endsection
+
 @section('content')
     <div class="page-body">
         @if ($team->supervisor)
@@ -52,7 +54,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">ْ{{ __('Close') }}</button>
+                            <button class="btn btn-secondary" type="button"
+                                data-bs-dismiss="modal">ْ{{ __('Close') }}</button>
                             {{-- @if ($team->status != \App\Models\Team::STATUS_APPROVED || auth()->user()->role == \App\Models\User::ROLE_ADMIN) --}}
                             <a href="javascript:void(0)" data-url="{{ route('teams.supervisor.delete', $team->id) }}"
                                 data-title="Are you sure you want to delete supervisor ({{ $team->supervisor->full_name }}) ?"
@@ -146,8 +149,10 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">{{ __('Close') }}</button>
-                            <button class="btn btn-primary submit-member-form" type="submit">{{ __('Save changes') }}</button>
+                            <button class="btn btn-secondary" type="button"
+                                data-bs-dismiss="modal">{{ __('Close') }}</button>
+                            <button class="btn btn-primary submit-member-form"
+                                type="submit">{{ __('Save changes') }}</button>
                         </div>
                     </div>
                 </form>
@@ -244,24 +249,26 @@
                                             </label>
                                         </div>
                                     </div>
-                                    @if (auth()->user()->role == \App\Models\User::ROLE_ADMIN && !$team->supervisor)
-                                        <div class="d-flex justify-content-end">
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#SendToSupervisor">
-                                                {{ __('Send To Supervisor') }}
-                                            </button>
-                                        </div>
-                                    @endif
-                                    @if (auth()->user()->role == \App\Models\User::ROLE_ADMIN &&
-                                            $settings &&
-                                            $team->members()->count() < $settings->max_team_member)
-                                        <div class="d-flex justify-content-end" style="margin-top: -30px;">
-                                            <button type="button" class="btn btn-primary m-b-5" data-bs-toggle="modal"
-                                                data-bs-target="#AddAnotherMembers">
-                                                {{ __('Add Another Member') }}
-                                            </button>
-                                        </div>
-                                    @endif
+                                    <div class="col-md-12" style="display: flex; flex-direction: column;">
+                                        @if (auth()->user()->role == \App\Models\User::ROLE_ADMIN && !$team->supervisor)
+                                            <div class="d-flex justify-content-end" style="margin-bottom: 10px">
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                    data-bs-target="#SendToSupervisor">
+                                                    {{ __('Send To Supervisor') }}
+                                                </button>
+                                            </div>
+                                        @endif
+                                        @if (auth()->user()->role == \App\Models\User::ROLE_ADMIN &&
+                                                $settings &&
+                                                $team->members()->count() < $settings->max_team_member)
+                                            <div class="d-flex justify-content-end">
+                                                <button type="button" class="btn btn-primary m-b-5" data-bs-toggle="modal"
+                                                    data-bs-target="#AddAnotherMembers">
+                                                    {{ __('Add Another Member') }}
+                                                </button>
+                                            </div>
+                                        @endif
+                                    </div>
                                 </div>
                                 @if (auth()->user()->role == \App\Models\User::ROLE_SUPERVISOR)
                                     @if ($team->status != \App\Models\Team::STATUS_APPROVED)
@@ -291,7 +298,6 @@
                 </div>
             </div>
         </div>
-
         <div class="container-fluid">
             <div class="col-sm-12">
                 <div class="card">
@@ -317,6 +323,66 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-6">
+                    <div class="card">
+                        <div class="card-header" style="padding: 10px !important;">
+                            <h5 class="card-title mb-0">{{ __('Documentation') }}</h5>
+                        </div>
+                        <div class="card-body" style="padding: 20px !important;">
+                            <div class="row mb-2">
+                                @if ($team->book)
+                                    <div class="profile-title">
+                                        <div class="media">
+                                            <div class="media-body">
+                                                <a href="{{ !empty($team) ? url('assets/upload/docs/' . $team->book) : 'null' }}"
+                                                    class="btn btn-primary"
+                                                    download>{{ __('Download Documentation') }}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @else
+                                    <div class="profile-title">
+                                        <div class="media" style="text-align: center;">
+                                            {{ __('No Documentation Uploaded Yet!') }}
+                                        </div>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <div class="card">
+                        <div class="card-header" style="padding: 10px !important;">
+                            <h5 class="card-title mb-0">{{ __('Presentation') }}</h5>
+                        </div>
+                        <div class="card-body" style="padding: 20px !important;">
+                            <div class="row mb-2">
+                                @if ($team->presentation)
+                                    <div class="profile-title">
+                                        <div class="media">
+                                            <div class="media-body">
+                                                <a href="{{ !empty($team) ? url('assets/upload/docs/' . $team->presentation) : 'null' }}"
+                                                    class="btn btn-primary" download>{{ __('Download Presentation') }}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @else
+                                    <div class="profile-title">
+                                        <div class="media" style="text-align: center;">
+                                            {{ __('No Presentation Uploaded Yet!') }}
+                                        </div>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 @endsection

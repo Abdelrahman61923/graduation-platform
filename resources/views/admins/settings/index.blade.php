@@ -34,7 +34,7 @@
                                     <div class="col-md-12">
                                         <label for="title">{{ __('Min Team Member') }}<span class="redstar">*</span></label>
                                         <input value="{{ old('min_team_member', $setting->min_team_member) }}"
-                                            class="form-control" type="number" name="min_team_member"
+                                            class="form-control shadow-none" type="number" name="min_team_member"
                                             placeholder="{{ __('Please Enter Value') }}">
                                         @error('min_team_member')
                                             <span class="invalid-feedback" role="alert">
@@ -45,7 +45,7 @@
                                     <div class="col-md-12">
                                         <label for="title">{{ __('Max Team Member') }}<span class="redstar">*</span></label>
                                         <input value="{{ old('max_team_member', $setting->max_team_member) }}"
-                                            class="form-control" type="number" name="max_team_member"
+                                            class="form-control shadow-none" type="number" name="max_team_member"
                                             placeholder="{{ __('Please Enter Value') }}">
                                         @error('max_team_member')
                                             <span class="invalid-feedback" role="alert">
@@ -56,7 +56,7 @@
                                     <div class="col-md-12">
                                         <label for="title">{{ __('Max Group Teacher') }}<span class="redstar">*</span></label>
                                         <input value="{{ old('max_group_teacher', $setting->max_group_teacher) }}"
-                                            class="form-control" type="number" name="max_group_teacher"
+                                            class="form-control shadow-none" type="number" name="max_group_teacher"
                                             placeholder="{{ __('Please Enter Value') }}">
                                         @error('max_team_member')
                                             <span class="invalid-feedback" role="alert">

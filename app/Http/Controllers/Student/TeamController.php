@@ -75,7 +75,7 @@ class TeamController extends Controller
             // }
         });
 
-        Alert::success('successfully', 'Team Created Successfuly');
+        Alert::success('successfully', 'Team Created Successfuly. please wait until the members accepted the request');
         return back();
     }
 

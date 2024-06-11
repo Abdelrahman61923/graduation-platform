@@ -8,12 +8,14 @@ use App\Models\Member;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 
 class AdminController extends Controller
 {
     public function home()
     {
         $user = auth('sanctum')->user();
+        $user = new UserResource($user);
         $total_users = User::count();
         $total_supervisor = User::supervisors()->count();
         $total_students = User::users()->count();

@@ -24,9 +24,23 @@
                                 href="{{ route('students.dashboard') }}"><i data-feather="home"></i><span>
                                     {{ __('Dashboard') }}</span></a>
                         </li>
-                        <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
-                                href="{{ route('students.my-team') }}"><i data-feather="users"></i><span>
-                                    {{ __('My Team') }}</span></a>
+                        <li class="sidebar-list">
+                            @if (auth()->user()->team?->supervisor &&
+                                    auth()->user()->team->is_all_members_accepted &&
+                                    auth()->user()->team->status == \App\Models\Team::STATUS_APPROVED)
+                                <label id="new-badge" class="badge badge-light-secondary">New</label>
+                            @endif
+                            <a id="instructions-link1" class="sidebar-link sidebar-title link-nav"
+                                href="{{ route('students.instruction') }}">
+                                <i data-feather="list"></i><span>{{ __('Instructions') }}</span></a>
+                        </li>
+
+                        <li class="sidebar-list">
+                            <a id="my-team-link" class="sidebar-link sidebar-title link-nav"
+                                href="{{ route('students.my-team') }}">
+                                <i data-feather="users"></i>
+                                <span>{{ __('My Team') }}</span>
+                            </a>
                         </li>
                         @if (auth()->user()->team?->supervisor &&
                                 auth()->user()->team->is_all_members_accepted &&
@@ -34,17 +48,25 @@
                             @if (auth()->user()->team->leader_id == auth()->user()->id)
                                 <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
                                         href="{{ route('students.upload-book', auth()->user()->team->id) }}"><i
-                                            data-feather="users"></i><span>
+                                            data-feather="map"></i><span>
                                             {{ __('Upload Book') }}</span></a>
                                 </li>
                             @else
                                 <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
                                         href="{{ route('students.upload-book', auth()->user()->team->id) }}"><i
-                                            data-feather="users"></i><span>
+                                            data-feather="map"></i><span>
                                             {{ __('Show Book') }}</span></a>
                                 </li>
                             @endif
                         @endif
+
+                        <li class="sidebar-list">
+                            <a id="my-team-link" class="sidebar-link sidebar-title link-nav"
+                                href="{{ route('students.project') }}">
+                                <i data-feather="box"></i>
+                                <span>{{ __('Projects') }}</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>
@@ -133,8 +155,12 @@
                                     {{ __('Settings') }}</span></a>
                         </li>
                         <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
-                                href="{{ route('admins.instructions') }}"><i data-feather="settings"></i><span>
+                                href="{{ route('instructions.index') }}"><i data-feather="list"> </i><span>
                                     {{ __('Instructions') }}</span></a>
+                        </li>
+                        <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{{ route('projects.index') }}"><i
+                                    data-feather="box"></i><span>
+                                    {{ __('Projects') }}</span></a>
                         </li>
 
                     </ul>
@@ -144,3 +170,27 @@
         </div>
     @endif
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var instructionsLink = document.getElementById('instructions-link');
+        var newBadge = document.getElementById('new-badge');
+
+        if (!instructionsLink || !newBadge) {
+            console.error('Elements not found:', {
+                instructionsLink,
+                newBadge
+            });
+            return;
+        }
+
+        if (localStorage.getItem('instructionsLinkClicked')) {
+            newBadge.style.display = 'none';
+        }
+
+        instructionsLink.addEventListener('click', function() {
+            newBadge.style.display = 'none';
+            localStorage.setItem('instructionsLinkClicked', 'true');
+        });
+    });
+</script>

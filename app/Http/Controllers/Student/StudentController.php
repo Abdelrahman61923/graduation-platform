@@ -6,7 +6,9 @@ use App\Models\Tag;
 use App\Models\Team;
 use App\Models\User;
 use App\Models\Member;
+use App\Models\Project;
 use App\Models\Setting;
+use App\Models\Instruction;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -34,5 +36,20 @@ class StudentController extends Controller
         }, '<', $settings?->max_group_teacher)->supervisors()->get();
 
         return view('students.my-team.index', compact('settings', 'users', 'tags', 'authUser', 'supervisors'));
+    }
+
+    public function getInstructions ()
+    {
+        $user = Auth::user();
+        $create_teams = Instruction::team()->get();
+        $projects1 = Instruction::project1()->get();
+        $projects2 = Instruction::project2()->get();
+        return view('students.instruction.index', compact('user' ,'create_teams', 'projects1', 'projects2'));
+    }
+
+    public function getProjects ()
+    {
+        $projects = Project::all();
+        return view('students.project.index', compact('projects'));
     }
 }

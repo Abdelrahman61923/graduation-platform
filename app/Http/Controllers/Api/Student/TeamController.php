@@ -9,9 +9,12 @@ use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\TeamResource;
+use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Auth;
-use App\Notifications\InvitationTeamNotification;
+use App\Http\Resources\MemberResource;
 use Illuminate\Support\Facades\Notification;
+use App\Notifications\InvitationTeamNotification;
 
 class TeamController extends Controller
 {
@@ -114,7 +117,42 @@ class TeamController extends Controller
             'team' => $team,
         ], 200);
     }
+    public function edit($id) {
+        $team = Team::where('id', $id)->firstOrFail();
+        $team = new TeamResource($team);
+        return response()->json([
+            'team' => $team,
+        ]);
+    }
 
+    public function addBookTeam(Request $request, $id) {
+
+        $team = Team::where('id', $id)->firstOrFail();
+
+        // $request->validate([
+        //     'book' => ['required', 'file|size:1048576'],
+        // ]);
+
+        if ($request->file('book')) {
+            $file = $request->file('book');
+            @unlink(public_path('assets/upload/docs/'.$team->book));
+            $filename = date('YmdHi').$file->getClientOriginalName();
+            $file->move(public_path('assets/upload/docs'), $filename);
+            $team['book'] = $filename;
+        }
+        if ($request->file('presentation')) {
+            $file = $request->file('presentation');
+            @unlink(public_path('assets/upload/docs/'.$team->presentation));
+            $filename = date('YmdHi').$file->getClientOriginalName();
+            $file->move(public_path('assets/upload/docs'), $filename);
+            $team['presentation'] = $filename;
+        }
+        $team->save();
+        return response()->json([
+            'Message' => 'Book Added Successfuly',
+            'team' => $team,
+        ]);
+    }
     public function delete($id)
     {
         $team = Team::where('id', $id)->firstOrFail();
@@ -136,27 +174,40 @@ class TeamController extends Controller
 
     public function show($id)
     {
+        $user = Auth::user();
         $team = Team::where('id', $id)->firstOrFail();
-        if (auth()->user()->role != User::ROLE_USER) {
-            if ($team->supervisor_id != auth()->id() && auth()->user()->role == User::ROLE_SUPERVISOR) {
+        if ($user->role != User::ROLE_USER) {
+            if ($team->supervisor_id != auth()->id() && $user->role == User::ROLE_SUPERVISOR) {
                 return abort(404);
             }
         }
+        $team = new TeamResource($team);
+
+        $members = $team->members()->get();
+        $members = MemberResource::collection($members);
+
         $settings = Setting::first();
-        $users = User::users()->doesntHave('member')->get();
-        $members = Member::get();
+        $students = User::users()->doesntHave('member')->get();
+        $students = UserResource::collection($students);
 
         $supervisors = User::supervisors()->doesntHave('supervisorTeams')->orwhereHas('supervisorTeams', function($q){
             $q->where('status', Team::STATUS_APPROVED);
             $q->orWhere('status', Team::STATUS_NOT_APPROVED);
         }, '<', $settings?->max_group_teacher)->supervisors()->get();
 
-        return response()->json([
-            'team' => $team,
-            'supervisors' => $supervisors,
-            'settings' => $settings,
-            'users' => $users,
-            'members' => $members,
-        ]);
+        if ($user->role == User::ROLE_ADMIN) {
+            return response()->json([
+                'team' => $team,
+                'members' => $members,
+                'supervisors' => $supervisors,
+                'settings' => $settings,
+                'students' => $students,
+            ]);
+        } else {
+            return response()->json([
+                'team' => $team,
+                'members' => $members,
+            ]);
+        }
     }
 }

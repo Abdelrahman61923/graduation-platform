@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -57,6 +58,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function() {
                     Route::prefix('students')->name('students.')->group(function () {
                         Route::get('dashboard', 'home')->name('dashboard');
                         Route::get('my-team', 'getMyTeam')->name('my-team');
+                        Route::get('instruction', 'getInstructions')->name('instruction');
+                        Route::get('project', 'getProjects')->name('project');
                     });
                 });
 
@@ -168,10 +171,18 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function() {
                     Route::resource('users', UserController::class);
 
                     Route::controller(InstructionController::class)->group(function(){
-                        Route::prefix('instructions')->name('admins.')->group(function () {
-                            Route::get('', 'index')->name('instructions');
+                        Route::prefix('instructions')->name('instructions.')->group(function () {
+                            Route::post('delete/{id}', 'destroy')->name('delete');
                         });
                     });
+                    Route::resource('instructions', InstructionController::class);
+
+                    Route::controller(ProjectController::class)->group(function(){
+                        Route::prefix('projects')->name('projects.')->group(function () {
+                            Route::post('delete/{id}', 'destroy')->name('delete');
+                        });
+                    });
+                    Route::resource('projects', ProjectController::class);
                 });
             });
         });

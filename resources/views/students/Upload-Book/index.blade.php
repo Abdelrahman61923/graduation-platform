@@ -6,6 +6,13 @@
         {{ __('Show Book') }}
     @endif
 @endsection
+@section('styles')
+    <style>
+        .media .para {
+            font-size: 16px;
+        }
+    </style>
+@endsection
 @section('content')
     <div class="page-body">
 
@@ -124,10 +131,10 @@
                             <div class="card-body" style="padding: 20px !important;">
                                 <div class="row mb-2">
                                     <div class="profile-title">
-                                        <div class="media" style="text-align: center;">
-                                            <h4>
-                                                {{ __(' يتم رفع الكتاب والتعديل عليه من خلال القائد فقط هنا انقر على تنزيل لكى يتم تحميل الكتاب الخاص بمشروعك') }}
-                                            </h4>
+                                        <div class="media">
+                                            <p class="para">
+                                                {{ __('The documentation and presentation can be uploaded and modified through the leader only. Here, click on download button to download the documentation for your project.') }}
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -138,7 +145,7 @@
                 <div class="col-xl-6">
                     <div class="card">
                         <div class="card-header" style="padding: 10px !important;">
-                            <h5 class="card-title mb-0">Documentation</h5>
+                            <h5 class="card-title mb-0">{{ __('Documentation') }}</h5>
                         </div>
                         <div class="card-body" style="padding: 20px !important;">
                             <div class="row mb-2">
@@ -147,7 +154,7 @@
                                         <div class="media">
                                             <div class="media-body">
                                                 <a href="{{ !empty(auth()->user()->team) ? url('assets/upload/docs/' . auth()->user()->team->book) : 'null' }}"
-                                                    class="btn btn-primary" download>Download Documentation</a>
+                                                    class="btn btn-primary" download>{{ __('Download Documentation') }}</a>
                                             </div>
                                         </div>
                                     </div>
@@ -165,16 +172,16 @@
                 <div class="col-xl-6">
                     <div class="card">
                         <div class="card-header" style="padding: 10px !important;">
-                            <h5 class="card-title mb-0">Presentation</h5>
+                            <h5 class="card-title mb-0">{{ __('Presentation') }}</h5>
                         </div>
                         <div class="card-body" style="padding: 20px !important;">
                             <div class="row mb-2">
-                                @if (auth()->user()->team->book)
+                                @if (auth()->user()->team->presentation)
                                     <div class="profile-title">
                                         <div class="media">
                                             <div class="media-body">
                                                 <a href="{{ !empty(auth()->user()->team) ? url('assets/upload/docs/' . auth()->user()->team->presentation) : 'null' }}"
-                                                    class="btn btn-primary" download>Download Presentation</a>
+                                                    class="btn btn-primary" download>{{ __('Download Presentation') }}</a>
                                             </div>
                                         </div>
                                     </div>
@@ -190,7 +197,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
 
     </div>

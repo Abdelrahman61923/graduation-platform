@@ -35,6 +35,8 @@ class TeamResource extends JsonResource
             'project_title' => $this->project_title,
             'project_description' => $this->project_description,
             'status' => $this->status,
+            'book' => $this->book,
+            'presentation' => $this->presentation,
         ];
     }
 }

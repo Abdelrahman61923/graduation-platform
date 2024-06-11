@@ -57,6 +57,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::controller(StudentController::class)->group(function(){
                 Route::prefix('students')->group(function () {
                     Route::get('my-team', 'getMyTeam');
+                    Route::get('show-users', 'showUsers');
+                    Route::get('instruction', 'getInstructions');
+                    Route::get('project', 'getProjects');
                 });
             });
 
@@ -64,6 +67,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
                 Route::prefix('teams')->group(function () {
                     Route::post('store', 'store');
                     Route::put('update/{id}', 'update');
+                });
+                Route::prefix('students')->group(function () {
+                    Route::get('upload-book/{id}', 'edit');
+                    Route::post('book/store/{id}', 'addBookTeam');
                 });
             });
 
@@ -99,7 +106,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::controller(SupervisorController::class)->group(function(){
                 Route::prefix('supervisors')->group(function () {
                     Route::get('teams', 'getTeams');
-                    Route::get('team-members/{team_id}', 'getTeamMembers');
                 });
             });
 

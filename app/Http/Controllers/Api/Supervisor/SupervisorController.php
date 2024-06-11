@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\TeamResource;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -16,14 +17,14 @@ class SupervisorController extends Controller
     {
         $authUser = User::find(Auth::user()->id);
         if ($authUser->role == User::ROLE_SUPERVISOR) {
-            $teams = $authUser->supervisorTeams()->select('*');
+            $teams = $authUser->supervisorTeams()->get();
         } else {
-            $teams = Team::select('*');
+            $teams = Team::get();
         }
 
         if ($request->has('leader')) {
-            $leader = $request->input('leader');
-            $teams->whereHas('leader', function ($query) use ($leader) {
+        $leader = $request->input('leader');
+        $teams->whereHas('leader', function ($query) use ($leader) {
                 $query->whereRaw("concat(users.first_name, ' ', users.last_name) like ?", ["%{$leader}%"]);
             });
         }
@@ -46,74 +47,16 @@ class SupervisorController extends Controller
             $teams->where('status', 'like', '%' . $status . '%');
         }
 
-        $builder = DataTables::of($teams)
-            ->addColumn('team_number', function ($data) {
-                return $data->team_number;
-            })->addColumn('project_title', function ($data) {
-                return $data->project_title;
-            })->addColumn('project_description', function ($data) {
-                return ($this->str_limit(strip_tags($data->project_description), $limit = 30, $end = '...'));
-            })->addColumn('supervisor', function ($data) {
-                return $data->supervisor->full_name??'--';
-            })->addColumn('status', function ($data) {
-                return $data->status;
-            })->addColumn('leader', function ($data) {
-                return $data->leader->full_name??'--';
-            })->make(true);
+        $teams = TeamResource::collection($teams);
 
-        return $builder;
+        return response()->json([
+            'teams' => $teams,
+        ]);
     }
 
     function str_limit($value, $limit = 100, $end = '...')
     {
         return Str::limit($value, $limit, $end);
-    }
-
-    public function getTeamMembers(Request $request, $team_id)
-    {
-        $team = Team::where('id', $team_id)->firstOrFail();
-        $members = $team->members()->select('*');
-
-        if ($request->has('full_name')) {
-            $full_name = $request->input('full_name');
-            $members->whereHas('user', function ($query) use ($full_name) {
-                $query->whereRaw("concat(users.first_name, ' ', users.last_name) like ?", ["%{$full_name}%"]);
-            });
-        }
-        if ($request->has('student_id')) {
-            $student_id = $request->input('student_id');
-            $members->whereHas('user', function ($query) use ($student_id) {
-                $query->where('student_id', 'like', "%{$student_id}%");
-            });
-        }
-        if ($request->has('email')) {
-            $email = $request->input('email');
-            $members->whereHas('user', function ($query) use ($email) {
-                $query->where('email', 'like', "%{$email}%");
-            });
-        }
-        if ($request->has('department')) {
-            $department = $request->input('department');
-            $members->whereHas('user.department', function ($query) use ($department) {
-                $query->where('name', 'like', "%{$department}%");
-            });
-        }
-
-        $builder = DataTables::of($members)
-            ->addColumn('full_name', function ($data) {
-                return $data->user->full_name??'--';
-            })->addColumn('phone', function ($data) {
-                return $data->user->phone??'--';
-            })->addColumn('student_id', function ($data) {
-                return $data->user->student_id??'--';
-            })->addColumn('email', function ($data) {
-                return $data->user->email??'--';
-            })->addColumn('photo', function ($data) {
-                return $data->user->photo??'--';
-            })->addColumn('department', function ($data) {
-                return $data->user->department->name??'--';
-            })->make(true);
-        return $builder;
     }
 
     public function approveTeam($id)
