@@ -162,10 +162,6 @@
                                     data-feather="box"></i><span>
                                     {{ __('Projects') }}</span></a>
                         </li>
-                        <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{{ route('projects.index') }}"><i
-                                    data-feather="box"></i><span>
-                                    {{ __('Projects') }}</span></a>
-                        </li>
 
                     </ul>
                 </div>
