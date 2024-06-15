@@ -29,7 +29,7 @@
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-header">
-                                <h5>Create New Team</h5>
+                                <h5>How To Create New Team?</h5>
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-bordernone table-xl">

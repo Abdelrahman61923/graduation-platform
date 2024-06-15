@@ -2,60 +2,63 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Models\Member;
-use App\Models\Setting;
 use App\Models\Team;
 use App\Models\User;
+use App\Models\Member;
+use App\Models\Setting;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Services\Admin\AdminService;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminController extends Controller
 {
-    public function home()
+    protected $adminService;
+
+    public function __construct(AdminService $adminService)
     {
-        $total_users = User::count();
-        $total_supervisor = User::supervisors()->count();
-        $total_students = User::users()->count();
-        $total_supervisor_precantage = 0;
-        $total_student_precantage = 0;
-        if ($total_supervisor > 0) {
-            $total_supervisor_precantage = ($total_supervisor * $total_users) / 100;
-        }
-        if ($total_students > 0) {
-            $total_student_precantage = ($total_students * $total_users) / 100;
-        }
-        $total_teams = Team::count();
-        $number_of_members_in_teams = Member::where('status', Member::STATUS_ACCEPTED)->count();
-        $number_of_members_in_teams_precantage = 0;
-        if ($number_of_members_in_teams > 0) {
-            $number_of_members_in_teams_precantage = ($number_of_members_in_teams * $total_students) / 100;
-        }
-        return view('admins.home', compact('total_supervisor', 'total_students',
-                                            'total_supervisor_precantage', 'total_student_precantage',
-                                            'total_teams', 'number_of_members_in_teams', 'number_of_members_in_teams_precantage'));
+        $this->adminService = $adminService;
     }
 
-    public function settings()
+    public function home(Request $request)
     {
-        $setting = Setting::first();
-        if (!$setting) {
-            $setting = new Setting();
+        $requestType = $this->adminService->checkRequestType($request);
+        $homeData = $this->adminService->home();
+
+        if ($requestType == 'api') {
+            return response()->json(
+                $homeData,
+            );
+        } else {
+            return view('admins.home', $homeData);
         }
-        return view('admins.settings.index', compact('setting'));
+    }
+    public function settings(Request $request)
+    {
+        $requestType = $this->adminService->checkRequestType($request);
+        $settings = $this->adminService->settings();
+
+        if ($requestType == 'api') {
+            return response()->json(
+                $settings,
+            );
+        } else {
+            return view('admins.settings.index', $settings);
+        }
     }
 
     public function storeSettings(Request $request)
     {
-        $this->validate($request, [
-            'min_team_member' => 'required|numeric',
-            'max_team_member' => 'required|numeric',
-            'max_group_teacher' => 'required|numeric',
-        ]);
+        $requestType = $this->adminService->checkRequestType($request);
+        $setting = $this->adminService->storeSettings($request);
 
-        Setting::updateOrCreate(['id' => $request->id], $request->all());
-
-        Alert::success('Successfully', 'Settings Updated Successfully');
-        return redirect()->route('admins.settings');
+        if ($requestType == 'api') {
+            return response()->json([
+                'message' => 'Settings Updated Successfully',
+                'setting' => $setting,
+            ], 200);
+        } else {
+            return redirect()->route('admins.settings');
+        }
     }
 }

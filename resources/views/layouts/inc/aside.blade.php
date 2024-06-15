@@ -111,7 +111,7 @@
     @elseif(auth()->user()->role == \App\Models\User::ROLE_ADMIN)
         <div>
             <div class="logo-wrapper"><a href="{{ route('admins.dashboard') }}"><img class="img-fluid for-light"
-                        src="{{ asset('assets/images/logo/logo.png') }}" alt=""><img
+                        src="{{ asset('assets/images/logo/logo2.png') }}" alt=""><img
                         class="img-fluid for-dark" src="{{ asset('assets/images/logo/logo_dark.png') }}"
                         alt=""></a>
                 <div class="back-btn"><i class="fa fa-angle-left"></i></div>

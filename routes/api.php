@@ -7,7 +7,7 @@ use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\Admin\TagController;
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\Admin\UserController;
-use App\Http\Controllers\Api\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Api\Student\TeamController;
 use App\Http\Controllers\Api\Student\MemberController;
 use App\Http\Controllers\Api\Student\StudentController;
