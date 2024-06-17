@@ -129,9 +129,9 @@ class TeamController extends Controller
 
         $team = Team::where('id', $id)->firstOrFail();
 
-        // $request->validate([
-        //     'book' => ['required', 'file|size:1048576'],
-        // ]);
+        $request->validate([
+            'book' => ['required'],
+        ]);
 
         if ($request->file('book')) {
             $file = $request->file('book');

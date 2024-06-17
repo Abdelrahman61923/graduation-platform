@@ -2,14 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Team;
-use App\Models\User;
-use App\Models\Member;
-use App\Models\Setting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\Admin\AdminService;
-use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminController extends Controller
 {

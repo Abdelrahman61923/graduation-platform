@@ -123,8 +123,11 @@
                         <h4 class="card-title mb-0">{{ __('All Users') }}</h4>
                     </div>
                     <div class="d-flex justify-content-end" style="margin-top: -30px;">
-                        <a href="{{ route('users.create') }}" class="btn btn-primary">
+                        <a href="{{ route('users.create') }}" class="btn btn-primary" style="margin-right: 10px;">
                             {{ __('Add') }}
+                        </a>
+                        <a href="{{ route('users.export') }}" class="btn btn-primary">
+                            {{ __('Export PDF') }}
                         </a>
                     </div>
                 </div>

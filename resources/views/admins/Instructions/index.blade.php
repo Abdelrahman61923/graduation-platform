@@ -39,7 +39,7 @@
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5>How To Create New Team?</h5>
+                            <h5>{{ __('How To Create New Team?') }}</h5>
                         </div>
                         <div class="table-responsive">
                             <table class="table table-bordernone table-xl">
@@ -77,7 +77,7 @@
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5>Project1</h5>
+                            <h5>{{ __('Project1') }}</h5>
                         </div>
                         <div class="table-responsive">
                             <table class="table table-bordernone table-xl">
@@ -115,7 +115,7 @@
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5>Project2</h5>
+                            <h5>{{ __('Project2') }}</h5>
                         </div>
                         <div class="table-responsive">
                             <table class="table table-bordernone table-xl">

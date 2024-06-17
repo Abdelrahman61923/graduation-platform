@@ -13,6 +13,8 @@ use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\WelcomeOnBoardNotification;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class UserController extends Controller
 {
@@ -206,5 +208,14 @@ class UserController extends Controller
         }
 
         return $randomString;
+    }
+
+    public function exportUsers()
+    {
+        $users = User::users()->get();
+        $pdf = Pdf::loadView('admins.users.pdf.index', [
+            'users' => $users,
+        ]);
+        return $pdf->download('users.pdf');
     }
 }

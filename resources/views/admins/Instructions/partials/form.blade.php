@@ -9,7 +9,7 @@
             <label for="">{{ __('Instruction') }}<span class="redstar">*</span></label>
             <textarea id="instruction" class="form-control shadow-none @error('instruction') is-invalid @enderror"
                 name="instruction" value="{{ old('instruction') }}" autocomplete="instruction"
-                placeholder="instruction" autofocus>{{ old('instruction', $instruction->instruction) }}</textarea>
+                placeholder="{{ __('Instruction') }}" autofocus>{{ old('instruction', $instruction->instruction) }}</textarea>
             @error('instruction')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -21,7 +21,7 @@
         <div class="mb-3">
             <label for="">{{ __('Type') }}<span class="redstar">*</span></label>
             <select class="form-select shadow-none @error('type') is-invalid @enderror" name="type" id="type">
-                <option selected>Select Type</option>
+                <option selected>{{ __('Select Type') }}</option>
                 @foreach ($types as $type)
                     <option value="{{ $type['id'] }}"
                         {{ old('type', $instruction->type) == $type['id'] ? 'selected' : '' }}>

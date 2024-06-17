@@ -166,6 +166,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function() {
                         Route::prefix('users')->name('users.')->group(function () {
                             Route::get('get', 'getUsers')->name('get');
                             Route::post('delete/{id}', 'destroy')->name('delete');
+                            Route::get('export', 'exportUsers')->name('export');
                         });
                     });
                     Route::resource('users', UserController::class);
