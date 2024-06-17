@@ -20,6 +20,7 @@ class MemberResource extends JsonResource
                 'id' => $this->user->id,
                 'full_name' => $this->user->full_name,
                 'student_id' => $this->user->student_id,
+                'email' => $this->user->email,
                 'phone' => $this->user->phone,
                 'department' => $this->user->department ? $this->user->department->name : null,
             ],
