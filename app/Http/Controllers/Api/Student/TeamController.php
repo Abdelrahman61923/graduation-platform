@@ -195,19 +195,9 @@ class TeamController extends Controller
             $q->orWhere('status', Team::STATUS_NOT_APPROVED);
         }, '<', $settings?->max_group_teacher)->supervisors()->get();
 
-        if ($user->role == User::ROLE_ADMIN) {
-            return response()->json([
-                'team' => $team,
-                'members' => $members,
-                'supervisors' => $supervisors,
-                'settings' => $settings,
-                'students' => $students,
-            ]);
-        } else {
-            return response()->json([
-                'team' => $team,
-                'members' => $members,
-            ]);
-        }
+        return response()->json([
+            'team' => $team,
+            'members' => $members,
+        ]);
     }
 }
