@@ -126,11 +126,15 @@ class AuthController extends Controller
 
         if (null === $token) {
             $user->currentAccessToken()->delete();
-        }
+        } else {
+            $personalAccessToken = PersonalAccessToken::findToken($token);
 
-        $personalAccessToken = PersonalAccessToken::findToken($token);
-        if ($user->id == $personalAccessToken->tokenable_id && get_class($user) == $personalAccessToken->tokenable_type){
-            $personalAccessToken->delete();
+            if ($personalAccessToken && $user->id == $personalAccessToken->tokenable_id && get_class($user) == $personalAccessToken->tokenable_type) {
+                $personalAccessToken->delete();
+            }
         }
+        return response()->json([
+            'message' => 'User logged out successfully'
+        ], 200);
     }
 }
