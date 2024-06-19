@@ -18,8 +18,9 @@
                                     <div class="input-group mb-3">
                                         <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
                                         <input id="email" type="email"
-                                            class="form-control shadow-none @error('email') is-invalid @enderror" name="email"
-                                            value="{{ old('email') }}" autocomplete="email" placeholder="Email" autofocus>
+                                            class="form-control shadow-none @error('email') is-invalid @enderror"
+                                            name="email" value="{{ old('email') }}" autocomplete="email"
+                                            placeholder="Email" autofocus>
                                         @error('email')
                                             <div class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -28,11 +29,16 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <div class="input-group mb-3">
+                                    <div class="input-group mb-3 position-relative">
                                         <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
                                         <input id="password" type="password"
-                                            class="form-control shadow-none @error('password') is-invalid @enderror" name="password"
-                                            autocomplete="current-password" placeholder="Password">
+                                            class="form-control shadow-none @error('password') is-invalid @enderror"
+                                            name="password" autocomplete="current-password" placeholder="Password">
+                                        <span class="position-absolute end-0 top-50 translate-middle-y me-3"
+                                            onclick="password_show_hide('password', 'show_eye_password', 'hide_eye_password');">
+                                            <i class="fas fa-eye" id="show_eye_password"></i>
+                                            <i class="fas fa-eye-slash d-none" id="hide_eye_password"></i>
+                                        </span>
                                         @error('password')
                                             <div class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -59,11 +65,15 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="input-group mb-3">
-                                        <button type="submit" class="btn btn-primary fw-bold fs-6 w-100" name="submit">{{ __('Login') }}</button>
+                                        <button type="submit" class="btn btn-primary fw-bold fs-6 w-100"
+                                            name="submit">{{ __('Login') }}</button>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <a href="{{ route('auth.socilaite.redirect', 'google') }}" class="btn btn-lg btn-light fs-6 w-100"><i class="fa-brands fa-google me-2" style="color: #7366ff;"></i><small class="text-muted">Or Sign In with Google</small></a>
+                                    <a href="{{ route('auth.socilaite.redirect', 'google') }}"
+                                        class="btn btn-lg btn-light fs-6 w-100"><i class="fa-brands fa-google me-2"
+                                            style="color: #7366ff;"></i><small class="text-muted">Or Sign In with
+                                            Google</small></a>
                                 </div>
                             </div>
                         </div>

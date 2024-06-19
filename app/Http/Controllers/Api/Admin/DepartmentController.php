@@ -74,7 +74,9 @@ class DepartmentController extends Controller
     public function show(string $id)
     {
         $department = Department::where('id', $id)->firstOrFail();
-        return response()->json(['department' => $department], 200);
+        return response()->json([
+            'department' => $department
+        ], 200);
     }
 
     /**
