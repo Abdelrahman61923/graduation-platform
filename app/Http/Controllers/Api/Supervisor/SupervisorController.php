@@ -65,7 +65,7 @@ class SupervisorController extends Controller
         $team->update(['status' => Team::STATUS_APPROVED]);
         return response()->json([
             'message' => 'Team Approved Successfuly',
-            'team' => $team,
+            'team' => new TeamResource($team),
         ], 200);
     }
 

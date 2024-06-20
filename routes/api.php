@@ -3,12 +3,13 @@
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\Admin\TagController;
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\Admin\UserController;
-use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Api\Student\TeamController;
+use App\Http\Controllers\Admin\InstructionController;
 use App\Http\Controllers\Api\Student\MemberController;
 use App\Http\Controllers\Api\Student\StudentController;
 use App\Http\Controllers\Api\Admin\DepartmentController;
@@ -159,6 +160,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
                     });
                 });
                 Route::resource('users', UserController::class);
+
+                Route::controller(InstructionController::class)->group(function(){
+                    Route::prefix('instructions')->name('instructions.')->group(function () {
+                        Route::post('delete/{id}', 'destroy')->name('delete');
+                    });
+                });
+                Route::resource('instructions', InstructionController::class);
             });
         });
     });

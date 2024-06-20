@@ -8,32 +8,49 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Services\Admin\InstructionService;
 
 class InstructionController extends Controller
 {
+
+    protected $instructionService;
+
+    public function __construct(InstructionService $instructionService)
+    {
+        $this->instructionService = $instructionService;
+    }
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $create_teams = Instruction::team()->get();
-        $projects1 = Instruction::project1()->get();
-        $projects2 = Instruction::project2()->get();
-        return view('admins.Instructions.index', compact('create_teams', 'projects1', 'projects2'));
+        $requestType = $this->instructionService->checkRequestType($request);
+        $Instructions = $this->instructionService->index();
+
+        if ($requestType == 'api') {
+            return response()->json([
+                'Instructions' => $Instructions,
+            ], 200);
+        } else {
+            return view('admins.Instructions.index', $Instructions);
+        }
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        $instruction = new Instruction();
-        $types = [
-            ['id' => Instruction::TYPE_CREATE_NEW_TEAM, 'name' => Str::title(str_replace('-', ' ', str_replace('_', ' ', Instruction::TYPE_CREATE_NEW_TEAM)))],
-            ['id' => Instruction::TYPE_PROJECT1, 'name' => Str::title(str_replace('-', ' ', str_replace('_', ' ', Instruction::TYPE_PROJECT1)))],
-            ['id' => Instruction::TYPE_PROJECT2, 'name' => Str::title(str_replace('-', ' ', str_replace('_', ' ', Instruction::TYPE_PROJECT2)))],
-        ];
-        return view('admins.Instructions.create', compact('instruction', 'types'));
+        $requestType = $this->instructionService->checkRequestType($request);
+        $Instructions = $this->instructionService->create();
+
+        if ($requestType == 'api') {
+            return response()->json([
+                'types' => $Instructions['types'],
+            ], 200);
+        } else {
+            return view('admins.Instructions.create', $Instructions);
+        }
     }
 
     /**
@@ -41,17 +58,18 @@ class InstructionController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'instruction' => ['required', 'string'],
-            'type' => ['required', 'string', Rule::in(Instruction::types())],
-        ]);
+        $requestType = $this->instructionService->checkRequestType($request);
+        $storeinstruction = $this->instructionService->store($request);
 
-        $input = $request->all();
+        if ($requestType == 'api') {
+            return response()->json([
+                'message' => 'Instructions Created Successfully',
+                'instruction' => $storeinstruction,
+            ], 200);
+        } else {
+            return redirect()->route('instructions.index');
+        }
 
-        Instruction::create($input);
-
-        Alert::success('Successfully', 'Instructions Created Successfully');
-        return redirect()->route('instructions.index');
     }
 
     /**
@@ -66,15 +84,19 @@ class InstructionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Request $request, string $id)
     {
-        $instruction = Instruction::where('id', $id)->firstOrFail();
-        $types = [
-            ['id' => Instruction::TYPE_CREATE_NEW_TEAM, 'name' => Str::title(str_replace('-', ' ', str_replace('_', ' ', Instruction::TYPE_CREATE_NEW_TEAM)))],
-            ['id' => Instruction::TYPE_PROJECT1, 'name' => Str::title(str_replace('-', ' ', str_replace('_', ' ', Instruction::TYPE_PROJECT1)))],
-            ['id' => Instruction::TYPE_PROJECT2, 'name' => Str::title(str_replace('-', ' ', str_replace('_', ' ', Instruction::TYPE_PROJECT2)))],
-        ];
-        return view('admins.Instructions.edit', compact('instruction', 'types'));
+        $requestType = $this->instructionService->checkRequestType($request);
+        $Instructions = $this->instructionService->edit($id);
+
+        if ($requestType == 'api') {
+            return response()->json([
+                'instruction' => $Instructions['instruction'],
+                'types' => $Instructions['types'],
+            ], 200);
+        } else {
+            return view('admins.Instructions.edit', $Instructions);
+        }
     }
 
     /**
@@ -82,27 +104,35 @@ class InstructionController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $this->validate($request, [
-            'instruction' => ['required', 'string'],
-            'type' => ['required', 'string', Rule::in(Instruction::types())],
-        ]);
+        $requestType = $this->instructionService->checkRequestType($request);
+        $updateinstruction = $this->instructionService->update($request, $id);
 
-        $instruction = Instruction::where('id', $id)->firstOrFail();
-
-        $input = $request->all();
-
-        $instruction->update($input);
-
-        Alert::success('Successfully', 'Instruction Updated Successfully');
-        return redirect()->route('instructions.index');
+        if ($requestType == 'api') {
+            return response()->json([
+                'message' => 'Instruction Updated Successfully',
+                'instruction' => $updateinstruction,
+            ], 200);
+        } else {
+            return redirect()->route('instructions.index');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, string $id)
     {
+        $requestType = $this->instructionService->checkRequestType($request);
+
         $instruction = Instruction::find($id);
-        $instruction->delete();
+
+        if ($requestType == 'api') {
+            $instruction->delete();
+            return response()->json([
+                'message' => 'Instruction Delete Successfully',
+            ], 200);
+        } else {
+            $instruction->delete();
+        }
     }
 }
