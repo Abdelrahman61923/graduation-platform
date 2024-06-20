@@ -8,10 +8,13 @@
     "Teams": "الفرق",
     "Settings": "الاعدادات",
     "Instructions": "التعليمات",
+    "New": "جديد",
     "Projects": "المشاريع",
     "My Team": "فريقى",
     "My Teams": "فرقى",
-    "Upload Book": "رفع الكتاب",
+    "Upload Documentation": "رفع المستند",
+    "Upload Presentation": "رفع العرض التقديمى",
+    "Upload Book": "رفع الكتاب  ",
     "Show Book": "عرض الكتاب",
     "Show Documentation": "عرض المستند",
     "Documentation": "المستند",
@@ -28,6 +31,7 @@
     "Check all": "فحص الكل",
     "View All": "مشاهده الكل",
     "Profile": "الملف الشخصى",
+    "Password": "كلمه المرور",
     "Log out": "تسجيل خروج",
     "Your search turned up 0 results. This most likely means the backend is down, yikes!": "لقد أظهر بحثك 0 نتيجة. هذا على الأرجح يعني أن الواجهة الخلفية معطلة، يا للعجب!",
 
@@ -62,6 +66,7 @@
     "This is a comment7": "Users folder in admin",
     "All Users": "كل المستخدمين",
     "Add": "اضافه",
+    "Export PDF": "تصدير ك pdf",
     "Image": "الصوره",
     "Department": "القسم",
     "Role": "الدور",
@@ -166,6 +171,12 @@
     "Type": "النوع",
     "Select Type": "اختر النوع",
     "All Projects": "كل المشاريع",
+    "Previous projects": "المشاريع السابقه",
+    "These are previous projects that you can view to learn about previous ideas or use these projects to develop them.": "هذه هي المشاريع السابقة التي يمكنك الاطلاع عليها للتعرف على الأفكار السابقة أو استخدام هذه المشاريع لتطويرها.",
 
-    "Remember Me": "ذكرنى"
+    "Change Password": "تغير كلمه المرور",
+    "Old Password": "كلمه المرور القديمه",
+    "New Password": "كلمه المرور الجديده",
+    "Confirm New Password": "تأكيد كلمه المرور"
+
 }

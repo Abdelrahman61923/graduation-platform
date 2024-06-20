@@ -45,6 +45,9 @@ class MemberController extends Controller
                 $member = new Member();
                 $member->team_id = $team->id;
                 $member->member_id = $id;
+                if ($user-> role == User::ROLE_ADMIN) {
+                    $member->status = Member::STATUS_ACCEPTED;
+                }
 
                 $membersData [] = $member;
             }

@@ -1,9 +1,9 @@
 @extends('layouts.master')
 @section('title')
     @if (auth()->user()->team->leader_id == auth()->user()->id)
-        {{ __('Upload Book') }}
+        {{ __('Upload Documentation') }}
     @else
-        {{ __('Show Book') }}
+        {{ __('Show Documentation') }}
     @endif
 @endsection
 @section('styles')
@@ -32,65 +32,15 @@
                                         data-feather="home"></i></a>
                             </li>
                             @if (auth()->user()->team->leader_id == auth()->user()->id)
-                                <li class="breadcrumb-item">{{ __('Upload Book') }}</li>
+                                <li class="breadcrumb-item">{{ __('Upload Documentation') }}</li>
                             @else
-                                <li class="breadcrumb-item">{{ __('Show Book') }}</li>
+                                <li class="breadcrumb-item">{{ __('Show Documentation') }}</li>
                             @endif
                         </ol>
                     </div>
                 </div>
             </div>
         </div>
-        {{-- <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="form theme-form">
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="mb-3">
-                                            <label>Upload Documentation</label>
-                                            <form class="dropzone" id="singleFileUpload" method="post"
-                                                enctype="multipart/form-data" action="">
-                                                {{ csrf_field() }}
-                                                <div class="dz-message needsclick"><i class="icon-cloud-up"></i>
-                                                    <h6>Drop files here or click to upload.</h6><span
-                                                        class="note needsclick">(This is just a demo dropzone. Selected
-                                                        files are <strong>not</strong> actually uploaded.)</span>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="mb-3">
-                                            <label>Upload Presentation</label>
-                                            <form class="dropzone" id="singleFileUpload" action="/upload.php">
-                                                <div class="dz-message needsclick"><i class="icon-cloud-up"></i>
-                                                    <h6>Drop files here or click to upload.</h6><span
-                                                        class="note needsclick">(This is just a demo dropzone. Selected
-                                                        files are <strong>not</strong> actually uploaded.)</span>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="text-end">
-                                            <button type="submit" class="btn btn-primary">{{ __('Save') }}</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
         <div class="container-fluid">
             <div class="row">
                 @if (auth()->user()->team->leader_id == auth()->user()->id)
@@ -101,7 +51,7 @@
                                     enctype="multipart/form-data">
                                     @csrf
                                     <div class="mb-3">
-                                        <label for="exampleInputUsername5" class="form-label">Upload Documentation</label>
+                                        <label for="exampleInputUsername5" class="form-label">{{ __('Upload Documentation') }}</label>
                                         <input class="form-control @error('book') is-invalid @enderror" type="file"
                                             name="book" aria-label="file example">
                                         @error('book')
@@ -111,7 +61,7 @@
                                         @enderror
                                     </div>
                                     <div class="mb-3">
-                                        <label for="exampleInputUsername5" class="form-label">Upload Presentation</label>
+                                        <label for="exampleInputUsername5" class="form-label">{{ __('Upload Presentation') }}</label>
                                         <input class="form-control" type="file" name="presentation"
                                             aria-label="file example">
                                     </div>

@@ -29,7 +29,7 @@
                 <div class="col-xl-12">
                     <div class="card">
                         <div class="card-header" style="padding: 10px !important;">
-                            <h5 class="card-title mb-0">Previous projects</h5>
+                            <h5 class="card-title mb-0">{{ __('Previous projects') }}</h5>
                         </div>
                         <div class="card-body" style="padding: 20px !important;">
                             <div class="row mb-2">

@@ -29,6 +29,10 @@ class PasswordController extends Controller
     {
         return view('auth.change-password');
     }
+    public function changePasswordDash()
+    {
+        return view('change-password');
+    }
 
     public function updatePassword(Request $request)
     {
@@ -60,6 +64,7 @@ class PasswordController extends Controller
             return back();
         }
     }
+
     public function skip(Request $request)
     {
         $user = User::find(Auth::id());

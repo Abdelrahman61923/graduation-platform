@@ -1,6 +1,5 @@
 @extends('layouts.master')
 @section('styles')
-
 @endsection
 @section('title')
     {{ __('Team Information') }}
@@ -210,6 +209,19 @@
                     </div>
                     <div class="col-sm-8">
                         <div class="card">
+                            <div class="card-header" style="padding: 10px !important;">
+                                <div class="d-flex justify-content-start">
+                                    <h4 class="card-title mb-0">{{ __('Team') }}
+                                        ({{ $team->team_number ?? 'Information' }})
+                                    </h4>
+                                </div>
+                                {{-- <div class="d-flex justify-content-end" style="margin-top: -30px;">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#EditTeamModal" id="show-edit-form">
+                                        {{ __('Edit Team') }}
+                                    </button>
+                                </div> --}}
+                            </div>
                             <div class="card-body" style="padding: 20px !important;">
                                 <div class="row">
                                     <div class="col-md-6">
@@ -237,10 +249,10 @@
                                                     <span>
                                                         @if (auth()->user()->role == \App\Models\User::ROLE_SUPERVISOR)
                                                             <a
-                                                                href="javascript:void(0)">{{ $team->supervisor->full_name }}</a>
+                                                                href="javascript:void(0)">{{"Dr/" . $team->supervisor->full_name }}</a>
                                                         @else
                                                             <a href="javascript:void(0)" data-bs-toggle="modal"
-                                                                data-bs-target="#SupervisorData">{{ $team->supervisor->full_name }}</a>
+                                                                data-bs-target="#SupervisorData">{{ "Dr/" . $team->supervisor->full_name }}</a>
                                                         @endif
                                                     </span>
                                                 @else
@@ -262,8 +274,8 @@
                                                 $settings &&
                                                 $team->members()->count() < $settings->max_team_member)
                                             <div class="d-flex justify-content-end">
-                                                <button type="button" class="btn btn-primary m-b-5" data-bs-toggle="modal"
-                                                    data-bs-target="#AddAnotherMembers">
+                                                <button type="button" class="btn btn-primary m-b-5"
+                                                    data-bs-toggle="modal" data-bs-target="#AddAnotherMembers">
                                                     {{ __('Add Another Member') }}
                                                 </button>
                                             </div>

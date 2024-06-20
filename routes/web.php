@@ -38,6 +38,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function() {
         Route::controller(PasswordController::class)->group(function(){
             Route::prefix('passwords')->name('passwords.')->group(function () {
                 Route::get('change-password', 'changePassword')->name('change-password');
+                Route::get('changePassword', 'changePasswordDash')->name('change-passwordDash');
                 Route::post('password/update', 'updatePassword')->name('update');
                 Route::post('password/skip', 'skip')->name('skip');
             });

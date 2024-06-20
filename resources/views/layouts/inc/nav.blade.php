@@ -136,6 +136,7 @@
                         </div>
                     </div>
                     <ul class="profile-dropdown onhover-show-div">
+
                         <li>
                             @if (auth()->user()->role == \App\Models\User::ROLE_SUPERVISOR)
                                 <a href="{{ route('supervisors.profile') }}">
@@ -153,6 +154,11 @@
                                     <span>{{ __('Profile') }}</span>
                                 </a>
                             @endif
+                        </li>
+                        <li>
+                            <a href="{{ route('passwords.change-passwordDash') }}">
+                                <i class="me-2 icon-md" data-feather="edit"></i><span>{{ __('Password') }}</span>
+                            </a>
                         </li>
                         @if (auth()->user()->role == \App\Models\User::ROLE_ADMIN)
                             <li><a href="{{ route('admins.settings') }}"><i

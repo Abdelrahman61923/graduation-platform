@@ -5,16 +5,11 @@ namespace App\Http\Controllers\Student;
 use App\Models\Tag;
 use App\Models\Team;
 use App\Models\User;
-use App\Models\Member;
 use App\Models\Project;
 use App\Models\Setting;
 use App\Models\Instruction;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use RealRashid\SweetAlert\Facades\Alert;
-use Illuminate\Support\Facades\Notification;
 
 class StudentController extends Controller
 {

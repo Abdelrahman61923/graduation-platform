@@ -135,7 +135,7 @@
                             url2 = "{{ route('admins.teams.show', ':id') }}";
                             deleteBtn = '</a>&nbsp;' +
                                 '<a table="TeamTable" row="' + meta.row + '" data-url="' + Deleteurl +
-                                '" class="btn btn-danger btn-sm delete-confirm">' +
+                                '" class="btn btn-danger btn-sm delete-confirm" style="margin-top: 10px;">' +
                                 "{{ __('Delete') }}" +
                                 '</a>';
                         @endif

@@ -28,7 +28,7 @@
                             @if (auth()->user()->team?->supervisor &&
                                     auth()->user()->team->is_all_members_accepted &&
                                     auth()->user()->team->status == \App\Models\Team::STATUS_APPROVED)
-                                <label id="new-badge" class="badge badge-light-secondary">New</label>
+                                <label id="new-badge" class="badge badge-light-secondary">{{ __('New') }}</label>
                             @endif
                             <a id="instructions-link1" class="sidebar-link sidebar-title link-nav"
                                 href="{{ route('students.instruction') }}">

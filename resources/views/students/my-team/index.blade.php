@@ -415,7 +415,7 @@
                                                     @if ($authUser->team->supervisor)
                                                         <span>
                                                             <a href="javascript:void(0)" data-bs-toggle="modal"
-                                                                data-bs-target="#SupervisorData">{{ $authUser->team->supervisor->full_name }}</a>
+                                                                data-bs-target="#SupervisorData">{{ "Dr/" . $authUser->team->supervisor->full_name }}</a>
                                                         </span>
                                                     @else
                                                         <span>{{ __('Not assigned yet!') }}</span>
