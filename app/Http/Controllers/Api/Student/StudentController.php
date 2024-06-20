@@ -65,13 +65,21 @@ class StudentController extends Controller
             }, '<', $settings?->max_group_teacher)->supervisors()->get();
         $supervisors = UserResource::collection($supervisors);
 
-        return response()->json([
-            'settings' => $settings,
-            'students' => $students,
-            'tags' => $tags,
-            'authUser' => $authUser,
-            'supervisors' => $supervisors
-        ], 200);
+        if ($authUser->role == User::ROLE_ADMIN) {
+            return response()->json([
+                'settings' => $settings,
+                'students' => $students,
+                'supervisors' => $supervisors
+            ], 200);
+        } else {
+            return response()->json([
+                'settings' => $settings,
+                'students' => $students,
+                'tags' => $tags,
+                'authUser' => $authUser,
+                'supervisors' => $supervisors
+            ], 200);
+        }
     }
 
     public function getInstructions ()

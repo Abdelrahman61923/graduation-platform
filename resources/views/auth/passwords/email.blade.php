@@ -10,7 +10,7 @@
                 <h1 class="text-light" style="margin-bottom: 90px">Graduation Platform</h1>
                 <form method="POST" action="{{ route('password.email') }}" class="circle bg-white" style="border-radius: 20px;padding-bottom: 20px;">
                     @csrf
-                    <img src="{{ asset('images/loo.png') }}" alt="grade" class="mb-4">
+                    <img src="{{ asset('assets/images/logo/loo.png') }}" alt="grade" class="mb-4">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}

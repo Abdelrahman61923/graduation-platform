@@ -13,7 +13,7 @@
                     <form action="{{ route('register') }}" method="POST" class="circle bg-white mb-5"
                         style="border-radius: 20px;padding-bottom: 20px;">
                         @csrf
-                        <img src="{{ asset('images/loo.png') }}" alt="grade" class="mb-4">
+                        <img src="{{ asset('assets/images/logo/loo.png') }}" alt="grade" class="mb-4">
                         <div class="container">
                             <div class="row px-md-40">
                                 <div class="col-md-12">

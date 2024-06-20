@@ -57,7 +57,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::controller(StudentController::class)->group(function(){
                 Route::prefix('students')->group(function () {
                     Route::get('my-team', 'getMyTeam');
-                    Route::get('show-users', 'showUsers');
                     Route::get('instruction', 'getInstructions');
                     Route::get('project', 'getProjects');
                 });
@@ -89,6 +88,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
                     Route::post('supervisor/store/{id}', 'addSupervisorTeam');
                     Route::delete('supervisor/delete/{id}', 'deleteSupervisor');
                     Route::delete('delete/{id}', 'delete');
+                });
+            });
+            Route::controller(StudentController::class)->group(function(){
+                Route::prefix('students')->group(function () {
+                    Route::get('show-users', 'showUsers');
                 });
             });
         });
