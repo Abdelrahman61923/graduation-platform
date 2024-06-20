@@ -45,7 +45,7 @@
         </div>
         <div class="col-sm-12">
             <div class="card">
-                <div class="card-header" style="padding: 10px !important;">
+                <div class="card-header" style="padding: 30px !important;">
                     <div class="d-flex justify-content-start">
                         <h4 class="card-title mb-0">{{ __('All Teams') }}</h4>
                     </div>
