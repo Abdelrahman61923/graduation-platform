@@ -45,6 +45,16 @@
         </div>
         <div class="col-sm-12">
             <div class="card">
+                <div class="card-header" style="padding: 10px !important;">
+                    <div class="d-flex justify-content-start">
+                        <h4 class="card-title mb-0">{{ __('All Teams') }}</h4>
+                    </div>
+                    <div class="d-flex justify-content-end" style="margin-top: -30px;">
+                        <a href="{{ route('admins.export') }}" class="btn btn-primary">
+                            {{ __('Export PDF') }}
+                        </a>
+                    </div>
+                </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="display dataTable" id="TeamsTable">

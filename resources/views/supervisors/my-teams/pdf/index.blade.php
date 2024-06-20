@@ -85,30 +85,34 @@
             </div>
         </header>
         <section>
-            <h4>All Students In System:</h4>
+            <h4>All Teams In System:</h4>
             <table>
                 <thead>
                     <tr>
                         <th>.NO</th>
-                        <th>Full Name</th>
-                        <th>Email</th>
-                        <th>Department</th>
-                        <th>Phone</th>
-                        <th>University ID</th>
-                        <th>In Group</th>
+                        <th>Team Number</th>
+                        <th>Leader</th>
+                        <th>Project Title</th>
+                        <th>project Description</th>
+                        @if (auth()->user()->role == \App\Models\User::ROLE_ADMIN)
+                            <th>Supervisor</th>
+                        @endif
+                        <th>status</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @if (count($users))
-                        @foreach ($users as $key => $user)
+                    @if (count($teams))
+                        @foreach ($teams as $key => $team)
                             <tr>
                                 <td>{{ $key + 1 }}</td>
-                                <td>{{ $user->full_name }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td>{{ $user->department?->name }}</td>
-                                <td>{{ $user->phone }}</td>
-                                <td>{{ $user->student_id }}</td>
-                                <td>{{ $user->member ? 'Yes' : 'No' }}</td>
+                                <td>{{ $team->team_number }}</td>
+                                <td>{{ $team->leader->full_name }}</td>
+                                <td>{{ $team->project_title }}</td>
+                                <td>{{ $team->project_description }}</td>
+                                @if (auth()->user()->role == \App\Models\User::ROLE_ADMIN)
+                                    <td>{{ $team->supervisor->full_name }}</td>
+                                @endif
+                                <td>{{ $team->status }}</td>
                             </tr>
                         @endforeach
                     @else

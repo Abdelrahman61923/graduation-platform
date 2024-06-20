@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Member;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -131,6 +132,20 @@ class SupervisorController extends Controller
         $team->update(['status' => Team::STATUS_NOT_APPROVED, 'supervisor_id' => null]);
         Alert::success('successfully', 'Team Rejected Successfuly');
         return redirect()->route('supervisors.teams');
+    }
+
+    public function exportTeams()
+    {
+        $authUser = User::find(Auth::user()->id);
+        if ($authUser->role == User::ROLE_SUPERVISOR) {
+            $teams = $authUser->supervisorTeams()->get();
+        } else {
+            $teams = Team::get();
+        }
+        $pdf = Pdf::loadView('supervisors.my-teams.pdf.index', [
+            'teams' => $teams,
+        ]);
+        return $pdf->download('teams.pdf');
     }
 
 }

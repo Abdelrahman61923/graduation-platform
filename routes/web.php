@@ -120,6 +120,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function() {
 
                     Route::prefix('admins')->name('admins.')->group(function () {
                         Route::get('teams', 'getMyTeams')->name('teams');
+                        Route::get('export', 'exportTeams')->name('export');
                     });
                 });
 
