@@ -5,15 +5,17 @@ namespace App\Http\Controllers\Admin;
 use App\Models\User;
 use App\Models\Department;
 use Illuminate\Support\Str;
+use App\Imports\UsersImport;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\WelcomeOnBoardNotification;
-use Barryvdh\DomPDF\Facade\Pdf;
 
 
 class UserController extends Controller
@@ -217,5 +219,17 @@ class UserController extends Controller
             'users' => $users,
         ]);
         return $pdf->download('users.pdf');
+    }
+    public function import()
+    {
+        return view('admins.users.import.index');
+    }
+
+    public function importUsers(Request $request)
+    {
+        Excel::import(new UsersImport, $request->file('import_file'));
+
+        Alert::success('Successfully', 'Users Import Successfully');
+        return redirect()->route('users.index');
     }
 }

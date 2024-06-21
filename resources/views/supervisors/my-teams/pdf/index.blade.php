@@ -85,7 +85,11 @@
             </div>
         </header>
         <section>
-            <h4>All Teams In System:</h4>
+            @if (auth()->user()->role == \App\Models\User::ROLE_ADMIN)
+                <h4>All Teams In System:</h4>
+            @else
+                <h4>My Teams:</h4>
+            @endif
             <table>
                 <thead>
                     <tr>

@@ -130,6 +130,10 @@
                         <a href="{{ route('users.export') }}" class="btn btn-primary">
                             {{ __('Export PDF') }}
                         </a>
+                        &nbsp;
+                        <a href="{{ route('users.import') }}" class="btn btn-primary">
+                            {{ __('Import') }}
+                        </a>
                     </div>
                 </div>
                 <div class="card-body">
