@@ -114,7 +114,7 @@
                                 <td>{{ $team->project_title }}</td>
                                 <td>{{ $team->project_description }}</td>
                                 @if (auth()->user()->role == \App\Models\User::ROLE_ADMIN)
-                                    <td>{{ $team->supervisor->full_name }}</td>
+                                    <td>{{ $team->supervisor->full_name ?? "--" }}</td>
                                 @endif
                                 <td>{{ $team->status }}</td>
                             </tr>

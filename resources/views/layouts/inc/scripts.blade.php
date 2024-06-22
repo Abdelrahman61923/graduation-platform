@@ -19,8 +19,6 @@
 {{-- <script src="{{ asset('assets/js/datatable/datatables/datatable.custom.js') }}"></script> --}}
 <script src="{{ asset('assets/js/select2/select2.full.min.js') }}"></script>
 <script src="{{ asset('assets/js/select2/select2-custom.js') }}"></script>
-{{-- <script src="{{ asset('../assets/js/notify/bootstrap-notify.min.js') }}"></script> --}}
-{{-- <script src="{{ asset('assets/js/notify/index.js') }}"></script> --}}
 
 <script src="{{ asset('assets/js/typeahead/handlebars.js') }}"></script>
 <script src="{{ asset('assets/js/typeahead/typeahead.bundle.js') }}"></script>
