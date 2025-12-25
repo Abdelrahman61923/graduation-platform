@@ -1,6 +1,6 @@
 # 🎓 Graduation Platform
 
-A **Graduation Projects Platform** — a full‑stack web application designed to manage, track, and present students’ final graduation projects with roles for students, supervisors, and admins.
+A **Graduation Projects Platform** — The Graduation Projects Management System is a web-based platform designed to streamline and organize the management and tracking of graduation projects in universities and educational institutions. It provides tools for students, supervisors, and academic administrators to enhance project workflow, improve collaboration, and ensure higher quality outcomes.
 
 ## 🚀 Project Overview
 
@@ -47,7 +47,6 @@ This platform helps **students upload and manage their graduation projects**, wh
 | Frontend | Blade + HTML + CSS + JavaScript |
 | Database | MySQL |
 | Version Control | Git & GitHub |
-| Deployment | *(Add your host like Heroku / Vercel / Shared Hosting)* |
 
 ---
 
