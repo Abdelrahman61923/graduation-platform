@@ -42,7 +42,7 @@ This platform improves **collaboration, efficiency, and transparency** in the gr
 |-------|------------|
 | Backend | Laravel (PHP) |
 | Frontend | Blade + HTML + CSS + JavaScript |
-| Mobile App | Flutter / React Native *(update according to your app)* |
+| Mobile App | Flutter |
 | Database | MySQL |
 | Version Control | Git & GitHub |
 
