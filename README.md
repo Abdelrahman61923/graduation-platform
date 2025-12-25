@@ -1,41 +1,38 @@
-# 🎓 Graduation Platform
+# 🎓 Graduation Projects Management System
 
-A **Graduation Projects Platform** — The Graduation Projects Management System is a web-based platform designed to streamline and organize the management and tracking of graduation projects in universities and educational institutions. It provides tools for students, supervisors, and academic administrators to enhance project workflow, improve collaboration, and ensure higher quality outcomes.
+A **web and mobile platform** designed to streamline and organize the management of graduation projects in universities and educational institutions. The system helps **graduate students select group members and supervisors easily**, while providing tools for **faculty supervisors and academic administrators** to manage projects efficiently and ensure higher quality outcomes.
+
+---
 
 ## 🚀 Project Overview
 
-This platform helps **students upload and manage their graduation projects**, while **supervisors and admins** can review, approve, give feedback, and track project progress.
+The Graduation Projects Management System facilitates the entire graduation project workflow:
 
-📌 **Main Goals:**
-- Centralize graduation submission and review.
-- Provide role‑based access.
-- Display approved projects publicly.
-- Improve collaboration between students and staff.
+- **Students:** Submit projects, select groups, and track progress.  
+- **Supervisors:** Review, approve, and provide feedback on projects.  
+- **Admins:** Manage users, oversee project submissions, and maintain overall system organization.
+
+This platform improves **collaboration, efficiency, and transparency** in the graduation project process.
 
 ---
 
 ## 🧩 Features
 
-### 🔹 Common (All Users)
-- User Authentication (Login & Register)
-- Responsive UI (Desktop + Mobile)
-- Clear navigation between sections
+### 🔹 Student
+- Create and manage project groups
+- Select supervisors
+- Submit and update graduation projects
+- Track project status (Pending / Approved / Rejected)
 
-### 👨‍🎓 Student
-- Submit graduation project with title, description, and files
-- Update or resubmit project
-- View project status (Pending / Approved / Rejected)
-- Profile management
+### 🔹 Supervisor
+- Dashboard to monitor submitted projects
+- Approve, reject, and provide feedback
+- Track student performance and project progress
 
-### 👩‍🏫 Supervisor / Reviewer
-- Dashboard for all submitted projects
-- Review & comment on projects
-- Approve / Reject with feedback
-
-### 🛠 Admin
-- Manage users and roles
+### 🔹 Admin
+- User and role management
+- Oversee all projects and activities
 - Manage project categories
-- Oversee platform activity
 
 ---
 
@@ -45,8 +42,10 @@ This platform helps **students upload and manage their graduation projects**, wh
 |-------|------------|
 | Backend | Laravel (PHP) |
 | Frontend | Blade + HTML + CSS + JavaScript |
+| Mobile App | Flutter / React Native *(update according to your app)* |
 | Database | MySQL |
 | Version Control | Git & GitHub |
+
 
 ---
 
